@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lic. Alberti Bigliante Salvador | Psicología</title>
   
-  <!-- Favicon con símbolo Ψ -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23d4cfc7'>Ψ</text></svg>" />
-  <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23d4cfc7'>Ψ</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' fill='%23d4cfc7'%3EΨ%3C/text%3E%3C/svg%3E" />
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <script>
@@ -52,31 +50,30 @@
       letter-spacing: 0.03em;
     }
     
-    /* Efectos de elegancia */
     .glass-dark {
-      background: rgba(36, 36, 36, 0.8);
+      background: rgba(36, 36, 36, 0.85);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(212, 207, 199, 0.1);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212, 207, 199, 0.1);
     }
     
     .shadow-elegant { 
-      box-shadow: 0 20px 60px -20px rgba(0,0,0,0.5); 
+      box-shadow: 0 20px 60px -20px rgba(0,0,0,0.6); 
     }
     
     .shadow-gold {
       box-shadow: 0 4px 20px -5px rgba(201, 184, 160, 0.3);
     }
 
-    /* Gradiente sutil de fondo */
     .bg-gradient-dark {
       background: linear-gradient(135deg, #1c1c1c 0%, #242424 50%, #1a1a1a 100%);
     }
 
-    /* Botón principal estilo folleto */
     .btn-primary {
       background-color: #d4cfc7;
       color: #1c1c1c;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      font-weight: 500;
     }
     .btn-primary:hover {
       background-color: #c9b8a0;
@@ -84,7 +81,6 @@
       box-shadow: 0 10px 30px -10px rgba(201, 184, 160, 0.4);
     }
 
-    /* Inputs elegantes oscuros */
     .input-elegant {
       background-color: #2a2a2a;
       border: 1px solid #3a3a3a;
@@ -101,26 +97,33 @@
       color: #737373;
     }
 
-    /* Calendario oscuro */
     .calendar-day { 
       transition: all 0.3s ease; 
       background-color: #2a2a2a;
       border: 1px solid transparent;
+      min-height: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
     .calendar-day:hover:not(.disabled):not(.empty) { 
       background-color: #3a3a3a; 
       transform: scale(1.05);
       border-color: #c9b8a0;
+      z-index: 10;
     }
     .calendar-day.selected { 
       background-color: #d4cfc7; 
       color: #1c1c1c;
       font-weight: 500;
+      border-color: #d4cfc7;
     }
     .calendar-day.disabled { 
       color: #525252; 
       cursor: not-allowed;
       background-color: transparent;
+      opacity: 0.5;
     }
     .calendar-day.booked { 
       background-color: #3f1f1f; 
@@ -134,19 +137,15 @@
       color: #86efac; 
       font-weight: 500;
       border: 1px solid rgba(134, 239, 172, 0.2);
-    }
-    .calendar-day.mixed { 
-      background: linear-gradient(135deg, #1f2f3f 50%, #1f3f2f 50%); 
-      color: #93c5fd; 
-      font-weight: 500;
+      cursor: pointer;
     }
 
-    /* Time slots */
     .time-slot { 
       transition: all 0.3s ease;
       background-color: #2a2a2a;
       border: 1px solid #3a3a3a;
       color: #e5e5e5;
+      cursor: pointer;
     }
     .time-slot:hover:not(.disabled):not(.booked) { 
       transform: translateY(-2px); 
@@ -173,11 +172,11 @@
       opacity: 0.6;
     }
 
-    /* Modalidad buttons */
     .modalidad-btn { 
       transition: all 0.4s ease;
       background-color: #2a2a2a;
       border: 1px solid #3a3a3a;
+      cursor: pointer;
     }
     .modalidad-btn:hover {
       border-color: #c9b8a0;
@@ -210,11 +209,11 @@
       animation: fadeIn 1s ease-out forwards; 
     }
 
-    /* Step indicators */
     .step-indicator { 
       transition: all 0.3s ease;
       border-color: #3a3a3a;
       color: #737373;
+      background-color: transparent;
     }
     .step-indicator.active { 
       background-color: #d4cfc7; 
@@ -227,7 +226,6 @@
       border-color: #3a3a3a;
     }
 
-    /* Admin panel oscuro */
     .admin-panel {
       background: #242424;
       border-radius: 1rem;
@@ -245,19 +243,17 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
     
-    /* Badges */
     .badge-virtual {
-      background-color: #1e293b;
+      background-color: rgba(30, 41, 59, 0.5);
       color: #93c5fd;
       border: 1px solid #334155;
     }
     .badge-presencial {
-      background-color: #1f2937;
+      background-color: rgba(20, 30, 20, 0.5);
       color: #86efac;
       border: 1px solid #374151;
     }
 
-    /* Modal overlay */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -273,6 +269,7 @@
       visibility: hidden;
       transition: all 0.3s ease;
       backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
     }
     .modal-overlay.active {
       opacity: 1;
@@ -294,7 +291,6 @@
       transform: scale(1);
     }
     
-    /* Admin calendar */
     .admin-calendar-day {
       min-height: 80px;
       border: 1px solid #2a2a2a;
@@ -309,19 +305,19 @@
       border-color: #3a3a3a;
     }
     .admin-calendar-day.selected {
-      background-color: #1f3f2f;
+      background-color: rgba(31, 63, 47, 0.5);
       border-color: #22c55e;
     }
     .admin-calendar-day.has-virtual {
-      background-color: #1e293b;
+      background-color: rgba(30, 41, 59, 0.5);
       border-color: #3b82f6;
     }
     .admin-calendar-day.has-presencial {
-      background-color: #1f3f2f;
+      background-color: rgba(31, 63, 47, 0.5);
       border-color: #22c55e;
     }
     .admin-calendar-day.has-both {
-      background: linear-gradient(135deg, #1e293b 50%, #1f3f2f 50%);
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 50%, rgba(31, 63, 47, 0.5) 50%);
       border-color: #8b5cf6;
     }
 
@@ -340,7 +336,6 @@
       font-weight: 500;
     }
 
-    /* Scrollbar elegante */
     ::-webkit-scrollbar {
       width: 8px;
     }
@@ -355,7 +350,6 @@
       background: #4a4a4a;
     }
 
-    /* Línea decorativa */
     .decorative-line {
       height: 1px;
       background: linear-gradient(90deg, transparent, #c9b8a0, transparent);
@@ -365,8 +359,7 @@
 </head>
 <body class="antialiased bg-dark-bg">
 
-  <!-- NAV -->
-  <nav class="fixed w-full z-50 glass-dark border-b border-white/10">
+  <nav class="fixed w-full z-50 glass-dark">
     <div class="max-w-6xl mx-auto px-6 py-4">
       <div class="flex justify-between items-center">
         <div class="text-center">
@@ -381,9 +374,7 @@
     </div>
   </nav>
 
-  <!-- HERO -->
   <section id="inicio" class="pt-40 pb-24 px-6 bg-gradient-dark relative overflow-hidden">
-    <!-- Elemento decorativo sutil -->
     <div class="absolute top-0 right-0 w-96 h-96 bg-elegant-gold/5 rounded-full blur-3xl pointer-events-none"></div>
     <div class="absolute bottom-0 left-0 w-64 h-64 bg-elegant-gold/3 rounded-full blur-3xl pointer-events-none"></div>
     
@@ -406,21 +397,19 @@
       </p>
 
       <div class="flex flex-col md:flex-row justify-center gap-6">
-        <a href="#agenda" class="px-10 py-4 btn-primary rounded-full font-medium tracking-wide shadow-gold">
+        <a href="#agenda" class="px-10 py-4 btn-primary rounded-full font-medium tracking-wide shadow-gold inline-block">
           <i class="far fa-calendar-alt mr-2"></i> Reservar Turno
         </a>
-        <a href="mailto:lic.albertisalvador@gmail.com" class="px-10 py-4 border border-elegant-gold/50 text-elegant-gold-light rounded-full hover:bg-elegant-gold/10 hover:border-elegant-gold smooth-transition">
+        <a href="mailto:lic.albertisalvador@gmail.com" class="px-10 py-4 border border-elegant-gold/50 text-elegant-gold-light rounded-full hover:bg-elegant-gold/10 hover:border-elegant-gold smooth-transition inline-block">
           <i class="far fa-envelope mr-2"></i> Contactar
         </a>
       </div>
     </div>
   </section>
 
-  <!-- MODALIDADES -->
   <section class="py-24 bg-dark-card">
     <div class="max-w-5xl mx-auto px-6">
       <div class="grid md:grid-cols-2 gap-8">
-        <!-- Presencial -->
         <div class="bg-dark-bg p-10 rounded-2xl border border-white/5 text-center hover:border-elegant-gold/30 transition-all duration-500 group">
           <div class="w-16 h-16 mx-auto mb-6 rounded-full border border-elegant-gold/30 flex items-center justify-center text-2xl text-elegant-gold group-hover:bg-elegant-gold/10 transition-all">
             <i class="fas fa-building"></i>
@@ -432,7 +421,6 @@
           </p>
         </div>
 
-        <!-- Virtual -->
         <div class="bg-dark-bg p-10 rounded-2xl border border-white/5 text-center hover:border-elegant-gold/30 transition-all duration-500 group relative overflow-hidden">
           <div class="absolute inset-0 bg-gradient-to-br from-elegant-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
           <div class="relative z-10">
@@ -450,7 +438,6 @@
     </div>
   </section>
 
-  <!-- BOOKING SECTION -->
   <section id="agenda" class="py-24 bg-dark-bg relative">
     <div class="max-w-4xl mx-auto px-6 relative z-10">
       <div class="text-center mb-16">
@@ -459,7 +446,6 @@
         <p class="text-text-secondary font-light">Seleccioná la modalidad y el horario que prefieras</p>
       </div>
 
-      <!-- PROGRESS -->
       <div class="flex justify-center items-center mb-16 max-w-md mx-auto">
         <div class="flex items-center w-full">
           <div class="step-indicator active w-10 h-10 rounded-full border-2 flex items-center justify-center text-sm font-medium" id="step1-ind">1</div>
@@ -470,7 +456,6 @@
         </div>
       </div>
 
-      <!-- STEP 1: MODALIDAD -->
       <div id="step1" class="bg-dark-card rounded-3xl shadow-elegant p-8 md:p-12 border border-white/5">
         <h4 class="serif text-3xl text-text-primary mb-10 text-center">¿Cómo querés atenderte?</h4>
 
@@ -502,7 +487,6 @@
         </div>
       </div>
 
-      <!-- STEP 2: FECHA Y HORA -->
       <div id="step2" class="bg-dark-card rounded-3xl shadow-elegant p-8 md:p-12 hidden border border-white/5">
         <h4 class="serif text-3xl text-text-primary mb-2 text-center">Seleccioná fecha y hora</h4>
         <p class="text-center text-elegant-gold mb-10 text-sm uppercase tracking-wider" id="modality-display"></p>
@@ -548,7 +532,6 @@
         </div>
       </div>
 
-      <!-- STEP 3: DATOS -->
       <div id="step3" class="bg-dark-card rounded-3xl shadow-elegant p-8 md:p-12 hidden border border-white/5">
         <h4 class="serif text-3xl text-text-primary mb-10 text-center">Confirmá tu solicitud</h4>
 
@@ -580,7 +563,7 @@
           </div>
         </div>
 
-        <form id="bookingForm" class="space-y-6">
+        <form id="bookingForm" class="space-y-6" onsubmit="event.preventDefault();">
           <div class="grid md:grid-cols-2 gap-6">
             <div>
               <label class="block text-xs uppercase tracking-wider text-text-secondary mb-2">Nombre completo</label>
@@ -620,7 +603,6 @@
         </div>
       </div>
 
-      <!-- SUCCESS -->
       <div id="success" class="hidden bg-dark-card rounded-3xl shadow-elegant p-12 text-center border border-white/5">
         <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-elegant-gold/10 flex items-center justify-center text-3xl text-elegant-gold">
           <i class="fas fa-check"></i>
@@ -636,7 +618,6 @@
     </div>
   </section>
 
-  <!-- ADMIN PANEL -->
   <section id="admin-section" class="py-24 bg-dark-bg hidden border-t border-white/5">
     <div class="max-w-6xl mx-auto px-6">
       <div class="admin-panel p-8">
@@ -650,7 +631,6 @@
           </button>
         </div>
 
-        <!-- Login Form -->
         <div id="admin-login" class="max-w-md mx-auto text-center py-12">
           <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-dark-bg border border-elegant-gold/30 flex items-center justify-center text-2xl text-elegant-gold">
             <i class="fas fa-lock"></i>
@@ -665,10 +645,8 @@
           <p id="login-error" class="text-red-400 text-sm mt-3 hidden">Contraseña incorrecta</p>
         </div>
 
-        <!-- Admin Dashboard -->
         <div id="admin-dashboard" class="hidden">
           
-          <!-- Tabs -->
           <div class="flex gap-6 mb-8 border-b border-white/10">
             <button onclick="showAdminTab('turnos')" id="tab-turnos" class="px-4 py-3 border-b-2 border-elegant-gold text-elegant-gold font-medium">
               Turnos Reservados
@@ -678,7 +656,6 @@
             </button>
           </div>
 
-          <!-- Tab: Turnos -->
           <div id="admin-tab-turnos">
             <div class="flex justify-between items-center mb-6">
               <h4 class="text-lg font-medium text-text-primary">Turnos Reservados</h4>
@@ -692,7 +669,6 @@
             </div>
           </div>
 
-          <!-- Tab: Configurar Disponibilidad -->
           <div id="admin-tab-config" class="hidden">
             <div class="mb-6">
               <h4 class="text-lg font-medium text-text-primary mb-2">Configurar Disponibilidad</h4>
@@ -715,7 +691,6 @@
               </div>
               <div class="grid grid-cols-7 gap-1" id="adminCalendar"></div>
               
-              <!-- Leyenda -->
               <div class="flex gap-6 mt-4 text-xs justify-center text-text-muted">
                 <div class="flex items-center gap-2">
                   <div class="w-3 h-3 bg-blue-900/50 border border-blue-500 rounded"></div>
@@ -732,7 +707,6 @@
               </div>
             </div>
 
-            <!-- Configuración del día seleccionado -->
             <div id="day-config-panel" class="hidden bg-dark-bg rounded-2xl p-6 border border-white/5">
               <div class="flex justify-between items-start mb-6">
                 <h5 class="font-medium text-text-primary text-lg" id="selected-day-title"></h5>
@@ -741,13 +715,12 @@
                 </button>
               </div>
               
-              <!-- SECCIÓN VIRTUAL -->
               <div class="modality-section">
                 <div class="modality-header">
                   <i class="fas fa-video text-blue-400"></i>
                   <span class="badge-virtual px-3 py-1 rounded-full text-xs">Virtual</span>
-                  <label class="flex items-center gap-2 ml-auto">
-                    <input type="checkbox" id="virtual-available" onchange="toggleModalitySection('virtual')" class="rounded bg-dark-bg border-white/20 text-elegant-gold focus:ring-elegant-gold/20">
+                  <label class="flex items-center gap-2 ml-auto cursor-pointer">
+                    <input type="checkbox" id="virtual-available" onchange="toggleModalitySection('virtual')" class="rounded bg-dark-bg border-white/20 text-elegant-gold focus:ring-elegant-gold/20 w-4 h-4">
                     <span class="text-sm text-text-secondary font-normal">Activar</span>
                   </label>
                 </div>
@@ -755,20 +728,18 @@
                 <div id="virtual-config-content" class="hidden">
                   <div class="mb-3">
                     <label class="block text-xs uppercase tracking-wider text-text-muted mb-3">Horarios Disponibles</label>
-                    <div id="virtual-time-slots" class="grid grid-cols-4 gap-2 max-h-48 overflow-y-auto">
-                      <!-- Se generan dinámicamente -->
+                    <div id="virtual-time-slots" class="grid grid-cols-4 gap-2 max-h-48 overflow-y-auto p-2 bg-dark-bg/50 rounded-lg">
                     </div>
                   </div>
                 </div>
               </div>
 
-              <!-- SECCIÓN PRESENCIAL -->
               <div class="modality-section">
                 <div class="modality-header">
                   <i class="fas fa-building text-green-400"></i>
                   <span class="badge-presencial px-3 py-1 rounded-full text-xs">Presencial</span>
-                  <label class="flex items-center gap-2 ml-auto">
-                    <input type="checkbox" id="presencial-available" onchange="toggleModalitySection('presencial')" class="rounded bg-dark-bg border-white/20 text-elegant-gold focus:ring-elegant-gold/20">
+                  <label class="flex items-center gap-2 ml-auto cursor-pointer">
+                    <input type="checkbox" id="presencial-available" onchange="toggleModalitySection('presencial')" class="rounded bg-dark-bg border-white/20 text-elegant-gold focus:ring-elegant-gold/20 w-4 h-4">
                     <span class="text-sm text-text-secondary font-normal">Activar</span>
                   </label>
                 </div>
@@ -781,21 +752,18 @@
                   
                   <div class="mb-3">
                     <label class="block text-xs uppercase tracking-wider text-text-muted mb-3">Horarios Disponibles</label>
-                    <div id="presencial-time-slots" class="grid grid-cols-4 gap-2 max-h-48 overflow-y-auto">
-                      <!-- Se generan dinámicamente -->
+                    <div id="presencial-time-slots" class="grid grid-cols-4 gap-2 max-h-48 overflow-y-auto p-2 bg-dark-bg/50 rounded-lg">
                     </div>
                   </div>
                 </div>
               </div>
 
-              <!-- BOTONES DE ACCIÓN -->
               <div class="flex gap-3 mt-6">
                 <button onclick="saveDayConfig()" class="flex-1 px-6 py-3 btn-primary rounded-full font-medium">
                   <i class="fas fa-save mr-2"></i> Guardar Configuración
                 </button>
               </div>
 
-              <!-- BOTÓN PARA ELIMINAR CONFIGURACIÓN DEL DÍA -->
               <div class="mt-4 pt-4 border-t border-white/10">
                 <button onclick="deleteDayConfig()" class="w-full px-6 py-3 bg-red-900/30 text-red-300 border border-red-900/50 rounded-full font-medium hover:bg-red-900/50 transition-colors flex items-center justify-center gap-2">
                   <i class="fas fa-trash-alt"></i> Eliminar Configuración de este Día
@@ -809,7 +777,6 @@
     </div>
   </section>
 
-  <!-- EDIT MODAL -->
   <div id="edit-modal" class="modal-overlay">
     <div class="modal-content">
       <div class="flex justify-between items-center mb-6">
@@ -857,7 +824,6 @@
     </div>
   </div>
 
-  <!-- CONTACTO -->
   <section class="py-24 bg-dark-card border-t border-white/5">
     <div class="max-w-4xl mx-auto px-6 text-center">
       <p class="text-elegant-gold uppercase tracking-[0.3em] text-sm mb-4">Contacto</p>
@@ -881,7 +847,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="bg-dark-bg border-t border-white/5 py-16">
     <div class="max-w-6xl mx-auto px-6 text-center">
       <h4 class="handwritten text-4xl text-elegant-gold-light mb-4">Alberti Bigliante Salvador</h4>
@@ -895,7 +860,7 @@
   </footer>
 
   <script>
-    // CONFIGURACIÓN (mantener tus credenciales de Supabase)
+    // CONFIGURACIÓN
     const SUPABASE_URL = "https://yodefzidtoluudozgces.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvZGVmemlkdG9sdXVkb3pnY2VzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MDEwOTUsImV4cCI6MjA4ODM3NzA5NX0.ZiHokkUpT7s1CebAl9roYGj39mN5r8lu17dz2gmrFCU";
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/xykdleee";
@@ -1068,7 +1033,6 @@
         const date = new Date(year, month, day);
         const dateStr = date.toISOString().split('T')[0];
         const isPast = date < today;
-        const isToday = date.getTime() === today.getTime();
         const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
         
         const dayConfig = getDayConfig(date);
@@ -1090,7 +1054,7 @@
           });
         }
 
-        let classes = 'calendar-day p-3 rounded-lg text-center cursor-pointer text-sm ';
+        let classes = 'calendar-day p-3 rounded-lg text-center text-sm ';
         
         if (isSelected) {
           classes += 'selected ';
@@ -1114,8 +1078,11 @@
         }
 
         const canSelect = !isPast && availableSlots > 0;
+        
+        // CORRECCIÓN: Solo agregar onclick si se puede seleccionar
+        const clickHandler = canSelect ? `onclick="selectDate(${year}, ${month}, ${day})"` : '';
 
-        html += `<div class="${classes}" onclick="${canSelect ? `selectDate(${year}, ${month}, ${day})` : ''}">
+        html += `<div class="${classes}" ${clickHandler}>
           <div class="font-medium">${day}</div>
           ${indicator}
         </div>`;
@@ -1164,16 +1131,12 @@
         const isSelected = selectedTime === time;
         const isBooked = isSlotBooked(dateStr, time);
         
-        let classes = 'time-slot p-3 rounded-xl border text-center text-sm font-medium ';
         if (isBooked) {
-          classes += 'booked';
-          html += `<div class="${classes}" title="Turno reservado">${time}</div>`;
+          html += `<div class="time-slot booked p-3 rounded-xl border text-center text-sm font-medium" title="Turno reservado">${time}</div>`;
         } else if (isSelected) {
-          classes += 'selected border-elegant-gold cursor-pointer';
-          html += `<button type="button" class="${classes}" onclick="selectTime('${time}')">${time}</button>`;
+          html += `<button type="button" class="time-slot selected p-3 rounded-xl border text-center text-sm font-medium" onclick="selectTime('${time}')">${time}</button>`;
         } else {
-          classes += 'border-white/10 hover:border-elegant-gold/50 text-text-primary cursor-pointer';
-          html += `<button type="button" class="${classes}" onclick="selectTime('${time}')">${time}</button>`;
+          html += `<button type="button" class="time-slot p-3 rounded-xl border text-center text-sm font-medium" onclick="selectTime('${time}')">${time}</button>`;
         }
       });
       html += '</div>';
@@ -1546,8 +1509,8 @@
         div.className = 'flex items-center gap-2';
         div.innerHTML = `
           <input type="checkbox" id="${modality}-time-${time}" value="${time}" ${isSelected ? 'checked' : ''} 
-            class="w-4 h-4 rounded bg-dark-bg border-white/20 text-elegant-gold focus:ring-elegant-gold/20">
-          <label for="${modality}-time-${time}" class="text-sm text-text-secondary">${time}</label>
+            class="w-4 h-4 rounded bg-dark-bg border-white/20 text-elegant-gold focus:ring-elegant-gold/20 cursor-pointer">
+          <label for="${modality}-time-${time}" class="text-sm text-text-secondary cursor-pointer select-none">${time}</label>
         `;
         container.appendChild(div);
       });
