@@ -319,6 +319,15 @@
       background: linear-gradient(135deg, #334155 0%, #975A16 100%);
     }
 
+    /* Día seleccionado en el calendario admin - MARCO DORADO */
+    .admin-day-selected {
+      border: 2px solid #D69E2E !important;
+      box-shadow: 0 0 15px rgba(214, 158, 46, 0.4), inset 0 0 10px rgba(214, 158, 46, 0.1);
+      transform: scale(1.05);
+      z-index: 10;
+      position: relative;
+    }
+
     /* Estados seleccionados en configuración de horarios */
     .slot-virtual-selected {
       background-color: #475569 !important;
@@ -854,6 +863,7 @@
     let editingAppointment = null;
     let selectedConfigDate = null;
     let dayAvailability = {};
+    let selectedAdminDayElement = null; // Para guardar la referencia al día seleccionado
 
     const defaultTimeSlots = [
       "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
@@ -1300,6 +1310,7 @@
       const daysInMonth = new Date(year, month + 1, 0).getDate();
       let html = '';
       for (let i = 0; i < firstDay; i++) html += '<div class="aspect-square"></div>';
+      
       for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(year, month, day);
         const dateStr = date.toISOString().split('T')[0];
@@ -1307,38 +1318,63 @@
         const hasVirtual = dayConfig.virtual.available && dayConfig.virtual.times.length > 0;
         const hasPresencial = dayConfig.presencial.available && dayConfig.presencial.times.length > 0;
         
+        // Verificar si este día es el seleccionado actualmente
+        const isSelected = selectedConfigDate && 
+                          selectedConfigDate.getDate() === day && 
+                          selectedConfigDate.getMonth() === month && 
+                          selectedConfigDate.getFullYear() === year;
+        
         let classes = 'aspect-square rounded-lg p-2 cursor-pointer transition-all flex flex-col items-center justify-center text-xs border ';
         let content = `<span class="font-semibold mb-0.5">${day}</span>`;
         
+        // Agregar clase de selección dorada si está seleccionado
+        if (isSelected) {
+          classes += 'admin-day-selected ';
+        }
+        
         if (hasVirtual && hasPresencial) {
           // Mixta - Gradiente dorado y gris
-          classes += 'admin-mixta ';
+          if (!isSelected) classes += 'admin-mixta ';
           content += `<span class="text-[9px] font-bold">Mix</span>`;
         } else if (hasPresencial) {
           // Solo presencial - Dorado oscuro/bronce
-          classes += 'admin-presencial ';
+          if (!isSelected) classes += 'admin-presencial ';
           content += `<span class="text-[9px] opacity-80">${dayConfig.presencial.times.length}h</span>`;
         } else if (hasVirtual) {
           // Solo virtual - Gris azulado
-          classes += 'admin-virtual ';
+          if (!isSelected) classes += 'admin-virtual ';
           content += `<span class="text-[9px] opacity-80">${dayConfig.virtual.times.length}h</span>`;
         } else {
           // Sin configurar
-          classes += 'bg-dark-bg border-dark-border text-dark-muted hover:border-dark-muted ';
+          if (!isSelected) classes += 'bg-dark-bg border-dark-border text-dark-muted hover:border-dark-muted ';
           content += `<span class="text-[9px]">-</span>`;
         }
-        html += `<div class="${classes}" onclick="selectAdminDay(${year}, ${month}, ${day})">${content}</div>`;
+        
+        // Agregar data attribute para identificar el día
+        html += `<div class="${classes}" data-day="${day}" onclick="selectAdminDay(${year}, ${month}, ${day}, this)">${content}</div>`;
       }
       document.getElementById('adminCalendar').innerHTML = html;
     }
 
     function changeAdminMonth(delta) {
       adminCurrentDate.setMonth(adminCurrentDate.getMonth() + delta);
+      // Mantener el día seleccionado si es visible en el nuevo mes, si no limpiar
       renderAdminCalendar();
-      document.getElementById('day-config-panel').classList.add('hidden');
+      // Si cambiamos de mes, no limpiamos el panel ni la selección para permitir edición continua
     }
 
-    function selectAdminDay(year, month, day) {
+    function selectAdminDay(year, month, day, element) {
+      // Remover clase seleccionada del día anterior
+      if (selectedAdminDayElement) {
+        selectedAdminDayElement.classList.remove('admin-day-selected');
+      }
+      
+      // Agregar clase al nuevo día seleccionado
+      if (element) {
+        element.classList.add('admin-day-selected');
+        selectedAdminDayElement = element;
+      }
+      
       selectedConfigDate = new Date(year, month, day);
       const dateStr = selectedConfigDate.toISOString().split('T')[0];
       const dayConfig = getDayConfig(selectedConfigDate);
@@ -1363,6 +1399,11 @@
 
     function closeDayConfig() {
       document.getElementById('day-config-panel').classList.add('hidden');
+      // Remover selección visual
+      if (selectedAdminDayElement) {
+        selectedAdminDayElement.classList.remove('admin-day-selected');
+        selectedAdminDayElement = null;
+      }
       selectedConfigDate = null;
     }
 
@@ -1448,8 +1489,21 @@
           virtual: { available: virtualAvailable, times: virtualTimes }, 
           presencial: { available: presencialAvailable, times: presencialTimes, address: presencialAddress }
         };
-        alert('Guardado correctamente');
+        
+        // Actualizar el calendario para reflejar cambios de color (virtual/presencial/mixta) pero mantener selección
         renderAdminCalendar();
+        
+        // Re-aplicar selección al día guardado si sigue visible
+        if (selectedConfigDate) {
+          const day = selectedConfigDate.getDate();
+          const dayElement = document.querySelector(`#adminCalendar div[data-day="${day}"]`);
+          if (dayElement) {
+            dayElement.classList.add('admin-day-selected');
+            selectedAdminDayElement = dayElement;
+          }
+        }
+        
+        alert('Guardado correctamente');
       } catch (err) { alert('Error de conexión'); }
     }
 
@@ -1459,8 +1513,17 @@
       try {
         await supabaseClient.from(AVAILABILITY_TABLE).delete().eq('date', dateStr);
         delete dayAvailability[dateStr];
-        closeDayConfig();
+        
+        // Actualizar calendario y mantener selección visual
         renderAdminCalendar();
+        if (selectedConfigDate) {
+          const day = selectedConfigDate.getDate();
+          const dayElement = document.querySelector(`#adminCalendar div[data-day="${day}"]`);
+          if (dayElement) {
+            dayElement.classList.add('admin-day-selected');
+            selectedAdminDayElement = dayElement;
+          }
+        }
       } catch (err) { alert('Error al eliminar'); }
     }
 
