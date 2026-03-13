@@ -713,9 +713,9 @@
     const SUPABASE_KEY = "sb_publishable_KXCasl9f9i8BUAJpvGVmqA_p0NWexXC";
     const ADMIN_PASSWORD = "38303647Sa";
 
-    // NOMBRES DE TABLAS ACTUALIZADOS CON SUFIJO _alberti
-    const TABLE_NAME = 'appointments_alberti';
-    const AVAILABILITY_TABLE = 'availability_alberti';
+    // NOMBRES DE TABLAS ESTÁNDAR (sin sufijo)
+    const TABLE_NAME = 'appointments';
+    const AVAILABILITY_TABLE = 'availability';
 
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -1017,7 +1017,7 @@
         const { data, error } = await supabaseClient.from(TABLE_NAME).insert([appointmentData]);
         if (error) {
           if (error.code === '42P01') {
-            alert('Error: Crear tabla "appointments_alberti" en Supabase');
+            alert('Error: Crear tabla "appointments" en Supabase');
             btn.disabled = false;
             btn.innerHTML = original;
             return;
@@ -1271,7 +1271,7 @@
         }, { onConflict: 'date' });
         if (error) { 
           if (error.code === '42P01') {
-            alert('Error: Crear tabla "availability_alberti" en Supabase');
+            alert('Error: Crear tabla "availability" en Supabase');
             return;
           }
           alert('Error al guardar: ' + error.message); 
