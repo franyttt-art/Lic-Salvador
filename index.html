@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lic. Alberti Bigliante Salvador | Psicología</title>
   
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%239a8b7a'>Ψ</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23000000'>Ψ</text></svg>" />
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -17,16 +17,14 @@
       theme: {
         extend: {
           colors: {
-            'claro-bg': '#f5f2ed',
+            'claro-bg': '#ffffff',
             'claro-card': '#ffffff',
-            'claro-elevated': '#faf8f5',
-            'claro-border': '#e5e1d8',
-            'claro-text': '#2c2c2c',
-            'claro-muted': '#6b6560',
-            'claro-gold': '#9a8b7a',
-            'claro-gold-light': '#b5a89a',
-            'accent-green': '#5a7a5a',
-            'accent-red': '#8b4545'
+            'claro-elevated': '#fafafa',
+            'claro-border': '#e5e5e5',
+            'claro-text': '#1a1a1a',
+            'claro-muted': '#666666',
+            'claro-accent': '#000000',
+            'claro-accent-light': '#333333'
           }
         }
       }
@@ -36,8 +34,8 @@
   <style>
     body {
       font-family: 'Montserrat', sans-serif;
-      background-color: #f5f2ed;
-      color: #2c2c2c;
+      background-color: #ffffff;
+      color: #1a1a1a;
       font-weight: 300;
     }
     .serif { 
@@ -53,173 +51,178 @@
     }
     
     .glass-claro {
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(154, 139, 122, 0.2);
+      border: 1px solid rgba(0, 0, 0, 0.1);
     }
     
     .shadow-soft { 
-      box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08); 
+      box-shadow: 0 4px 20px -5px rgba(0,0,0,0.05); 
     }
     
-    .shadow-gold {
-      box-shadow: 0 4px 20px -5px rgba(154, 139, 122, 0.25);
-    }
-
-    .bg-gradient-claro {
-      background: linear-gradient(135deg, #f5f2ed 0%, #faf8f5 50%, #f0ebe4 100%);
+    .shadow-elegant {
+      box-shadow: 0 8px 30px -10px rgba(0,0,0,0.12);
     }
 
     .btn-primary {
-      background-color: #9a8b7a;
+      background-color: #000000;
       color: #ffffff;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid #000000;
     }
     .btn-primary:hover {
-      background-color: #8b7d6b;
+      background-color: #ffffff;
+      color: #000000;
       transform: translateY(-2px);
-      box-shadow: 0 10px 30px -10px rgba(154, 139, 122, 0.4);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
     }
 
     .btn-secondary {
-      border: 1px solid #9a8b7a;
-      color: #9a8b7a;
+      border: 1px solid #000000;
+      color: #000000;
+      background-color: transparent;
       transition: all 0.4s ease;
     }
     .btn-secondary:hover {
-      background-color: rgba(154, 139, 122, 0.1);
-      border-color: #8b7d6b;
-      color: #8b7d6b;
+      background-color: #000000;
+      color: #ffffff;
     }
 
     .input-claro {
-      background-color: #faf8f5;
-      border: 1px solid #e5e1d8;
-      color: #2c2c2c;
+      background-color: #fafafa;
+      border: 1px solid #e5e5e5;
+      color: #1a1a1a;
       transition: all 0.3s ease;
     }
     .input-claro:focus {
-      border-color: #9a8b7a;
+      border-color: #000000;
       outline: none;
-      box-shadow: 0 0 0 3px rgba(154, 139, 122, 0.1);
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
       background-color: #ffffff;
     }
     .input-claro::placeholder {
-      color: #a8a29e;
+      color: #999999;
     }
 
+    /* CALENDAR - Minimalist Black & White */
     .calendar-day { 
       transition: all 0.3s ease; 
-      background-color: #faf8f5;
+      background-color: transparent;
       border: 1px solid transparent;
     }
     .calendar-day:hover:not(.disabled):not(.empty) { 
-      background-color: #ffffff; 
+      background-color: #fafafa; 
       transform: scale(1.05);
-      border-color: #9a8b7a;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border-color: #000000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
     .calendar-day.selected { 
-      background-color: #9a8b7a; 
+      background-color: #000000; 
       color: #ffffff;
       font-weight: 500;
+      border-color: #000000;
     }
     .calendar-day.disabled { 
-      color: #d1ccc5; 
+      color: #cccccc; 
       cursor: not-allowed;
       background-color: transparent;
     }
     .calendar-day.booked { 
-      background-color: #fee2e2; 
-      color: #8b4545; 
+      background-color: #f5f5f5; 
+      color: #999999; 
       cursor: not-allowed;
       text-decoration: line-through;
-      opacity: 0.7;
+      opacity: 0.6;
     }
     .calendar-day.available { 
-      background-color: #f0fdf4; 
-      color: #5a7a5a; 
+      background-color: #ffffff; 
+      color: #000000; 
       font-weight: 500;
-      border: 1px solid rgba(90, 122, 90, 0.2);
+      border: 1px solid rgba(0,0,0,0.2);
     }
 
+    /* TIME SLOTS - Outline Style */
     .time-slot { 
       transition: all 0.3s ease;
-      background-color: #faf8f5;
-      border: 1px solid #e5e1d8;
-      color: #2c2c2c;
+      background-color: transparent;
+      border: 1px solid #e5e5e5;
+      color: #1a1a1a;
     }
     .time-slot:hover:not(.disabled):not(.booked) { 
       transform: translateY(-2px); 
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      border-color: #9a8b7a;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border-color: #000000;
     }
     .time-slot.selected { 
-      background-color: #9a8b7a; 
+      background-color: #000000; 
       color: #ffffff;
-      border-color: #9a8b7a;
+      border-color: #000000;
       font-weight: 500;
     }
     .time-slot.booked { 
-      background-color: #fee2e2; 
-      color: #8b4545; 
+      background-color: #f5f5f5; 
+      color: #999999; 
       cursor: not-allowed;
       text-decoration: line-through;
-      border-color: #fecaca;
-      opacity: 0.7;
+      border-color: #eeeeee;
+      opacity: 0.6;
     }
 
+    /* MODALIDAD BUTTONS - Elegant Outline */
     .modalidad-btn { 
       transition: all 0.4s ease;
       background-color: #ffffff;
-      border: 1px solid #e5e1d8;
+      border: 1px solid #e5e5e5;
     }
     .modalidad-btn:hover {
-      border-color: #9a8b7a;
+      border-color: #000000;
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
     }
     .modalidad-btn.selected { 
-      background-color: #9a8b7a; 
+      background-color: #000000; 
       color: #ffffff;
-      border-color: #9a8b7a;
+      border-color: #000000;
     }
     .modalidad-btn.selected .icon-circle {
       background-color: rgba(255,255,255,0.2);
       color: #ffffff;
+      border-color: rgba(255,255,255,0.4);
     }
 
     .icon-circle {
-      background-color: #f5f2ed;
-      color: #9a8b7a;
+      background-color: #fafafa;
+      color: #000000;
+      border: 1px solid #e5e5e5;
       transition: all 0.3s ease;
     }
 
     .step-indicator { 
       transition: all 0.3s ease;
-      border-color: #e5e1d8;
-      color: #a8a29e;
+      border-color: #e5e5e5;
+      color: #999999;
+      background-color: #ffffff;
     }
     .step-indicator.active { 
-      background-color: #9a8b7a; 
+      background-color: #000000; 
       color: #ffffff;
-      border-color: #9a8b7a;
+      border-color: #000000;
     }
     .step-indicator.completed { 
-      background-color: #e5e1d8; 
-      color: #9a8b7a;
-      border-color: #e5e1d8;
+      background-color: #000000; 
+      color: #ffffff;
+      border-color: #000000;
     }
 
     .admin-panel {
       background: #ffffff;
       border-radius: 1rem;
       box-shadow: 0 20px 60px -20px rgba(0,0,0,0.1);
-      border: 1px solid #e5e1d8;
+      border: 1px solid #e5e5e5;
     }
     .appointment-card {
-      background: #faf8f5;
-      border-left: 3px solid #9a8b7a;
+      background: #fafafa;
+      border-left: 3px solid #000000;
       transition: all 0.3s ease;
     }
     .appointment-card:hover {
@@ -229,14 +232,14 @@
     }
     
     .badge-virtual {
-      background-color: #eff6ff;
-      color: #3b82f6;
-      border: 1px solid #dbeafe;
+      background-color: #f5f5f5;
+      color: #000000;
+      border: 1px solid #e5e5e5;
     }
     .badge-presencial {
-      background-color: #f0fdf4;
-      color: #5a7a5a;
-      border: 1px solid #dcfce7;
+      background-color: #000000;
+      color: #ffffff;
+      border: 1px solid #000000;
     }
 
     .modal-overlay {
@@ -245,7 +248,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0,0,0,0.7);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -269,8 +272,8 @@
       overflow-y: auto;
       transform: scale(0.95);
       transition: all 0.3s ease;
-      border: 1px solid #e5e1d8;
-      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+      border: 1px solid #e5e5e5;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.2);
     }
     .modal-overlay.active .modal-content {
       transform: scale(1);
@@ -278,66 +281,71 @@
     
     .admin-calendar-day {
       min-height: 80px;
-      border: 1px solid #e5e1d8;
+      border: 1px solid #e5e5e5;
       background-color: #ffffff;
       padding: 0.5rem;
       cursor: pointer;
       transition: all 0.2s;
-      color: #2c2c2c;
+      color: #1a1a1a;
     }
     .admin-calendar-day:hover {
-      background-color: #faf8f5;
-      border-color: #d1ccc5;
+      background-color: #fafafa;
+      border-color: #000000;
     }
     .admin-calendar-day.selected {
-      background-color: #f0fdf4;
-      border-color: #5a7a5a;
+      background-color: #f5f5f5;
+      border-color: #000000;
     }
     .admin-calendar-day.has-virtual {
-      background-color: #eff6ff;
-      border-color: #3b82f6;
+      background-color: #f5f5f5;
+      border-color: #666666;
     }
     .admin-calendar-day.has-presencial {
-      background-color: #f0fdf4;
-      border-color: #5a7a5a;
+      background-color: #000000;
+      color: #ffffff;
+      border-color: #000000;
     }
     .admin-calendar-day.has-both {
-      background: linear-gradient(135deg, #eff6ff 50%, #f0fdf4 50%);
-      border-color: #8b5cf6;
+      background: linear-gradient(135deg, #f5f5f5 50%, #000000 50%);
+      color: #000000;
+      border-color: #000000;
+    }
+    .admin-calendar-day.has-both div:last-child {
+      color: rgba(255,255,255,0.8);
     }
 
     .modality-section {
-      border: 1px solid #e5e1d8;
+      border: 1px solid #e5e5e5;
       border-radius: 0.75rem;
       padding: 1rem;
       margin-bottom: 1rem;
-      background-color: #faf8f5;
+      background-color: #fafafa;
     }
 
     ::-webkit-scrollbar {
       width: 8px;
     }
     ::-webkit-scrollbar-track {
-      background: #f5f2ed;
+      background: #f5f5f5;
     }
     ::-webkit-scrollbar-thumb {
-      background: #d1ccc5;
+      background: #cccccc;
       border-radius: 4px;
     }
 
     .decorative-line {
       height: 1px;
-      background: linear-gradient(90deg, transparent, #9a8b7a, transparent);
-      opacity: 0.3;
+      background: linear-gradient(90deg, transparent, #000000, transparent);
+      opacity: 0.2;
     }
 
     .nav-link {
       position: relative;
-      color: #6b6560;
+      color: #666666;
       transition: color 0.3s;
     }
     .nav-link:hover {
-      color: #9a8b7a;
+      color: #000000;
     }
     .nav-link::after {
       content: '';
@@ -346,24 +354,29 @@
       height: 1px;
       bottom: -4px;
       left: 50%;
-      background-color: #9a8b7a;
+      background-color: #000000;
       transition: all 0.3s ease;
       transform: translateX(-50%);
     }
     .nav-link:hover::after {
       width: 100%;
     }
+    
+    /* Custom checkbox styling */
+    input[type="checkbox"] {
+      accent-color: #000000;
+    }
   </style>
 </head>
-<body class="antialiased bg-claro-bg">
+<body class="antialiased bg-white">
 
   <!-- NAV -->
-  <nav class="fixed w-full z-50 glass-claro border-b border-claro-border">
+  <nav class="fixed w-full z-50 glass-claro border-b border-gray-200">
     <div class="max-w-6xl mx-auto px-6 py-4">
       <div class="flex justify-between items-center">
         <div class="text-center">
-          <h1 class="handwritten text-3xl text-claro-gold">Alberti Bigliante Salvador</h1>
-          <p class="text-xs uppercase tracking-[0.3em] text-claro-muted mt-1">Lic. en Psicología</p>
+          <h1 class="handwritten text-3xl text-black">Alberti Bigliante Salvador</h1>
+          <p class="text-xs uppercase tracking-[0.3em] text-gray-500 mt-1">Lic. en Psicología</p>
         </div>
         
         <button onclick="toggleAdmin()" class="nav-link flex items-center gap-2 text-sm uppercase tracking-wider px-3 py-1">
@@ -374,36 +387,36 @@
   </nav>
 
   <!-- HERO -->
-  <section id="inicio" class="pt-40 pb-24 px-6 bg-gradient-claro relative overflow-hidden">
-    <div class="absolute top-0 right-0 w-96 h-96 bg-claro-gold/10 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-0 left-0 w-64 h-64 bg-claro-gold/5 rounded-full blur-3xl pointer-events-none"></div>
+  <section id="inicio" class="pt-40 pb-24 px-6 bg-white relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-gray-100 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-gray-50 rounded-full blur-3xl pointer-events-none"></div>
     
     <div class="max-w-4xl mx-auto text-center relative z-10">
-      <p class="text-claro-gold text-sm uppercase tracking-[0.4em] mb-6">Licenciado en Psicología</p>
-      <h2 class="serif text-6xl md:text-7xl text-claro-text mb-6 leading-tight">Alberti Bigliante<br>Salvador</h2>
+      <p class="text-gray-500 text-sm uppercase tracking-[0.4em] mb-6">Licenciado en Psicología</p>
+      <h2 class="serif text-6xl md:text-7xl text-black mb-6 leading-tight">Alberti Bigliante<br>Salvador</h2>
       
-      <p class="serif text-3xl md:text-4xl text-claro-gold mb-2 italic font-light">La cura por la palabra</p>
-      <p class="handwritten text-xl md:text-2xl text-claro-muted mb-10 italic">"El inconsciente está estructurado como un lenguaje"</p>
+      <p class="serif text-3xl md:text-4xl text-gray-800 mb-2 italic font-light">La cura por la palabra</p>
+      <p class="handwritten text-xl md:text-2xl text-gray-500 mb-10 italic">"El inconsciente está estructurado como un lenguaje"</p>
       
       <div class="decorative-line max-w-xs mx-auto mb-8"></div>
       
-      <p class="text-2xl font-light text-claro-gold mb-2">MN. 87014</p>
-      <p class="text-claro-muted uppercase tracking-widest text-sm mb-12">Adolescentes y Adultos</p>
+      <p class="text-2xl font-light text-black mb-2">MN. 87014</p>
+      <p class="text-gray-500 uppercase tracking-widest text-sm mb-12">Adolescentes y Adultos</p>
 
-      <div class="inline-block px-10 py-4 bg-claro-card border border-claro-gold/30 rounded-full shadow-soft mb-12">
-        <p class="serif text-2xl text-claro-gold tracking-wide">Agendá tu turno</p>
+      <div class="inline-block px-10 py-4 bg-white border border-black/10 rounded-full shadow-soft mb-12">
+        <p class="serif text-2xl text-black tracking-wide">Agendá tu turno</p>
       </div>
 
-      <p class="text-claro-muted max-w-2xl mx-auto leading-relaxed mb-12 text-lg font-light">
+      <p class="text-gray-600 max-w-2xl mx-auto leading-relaxed mb-12 text-lg font-light">
         Espacio terapéutico dedicado al acompañamiento profesional en el proceso de 
         autoconocimiento y bienestar emocional.
       </p>
 
       <div class="flex flex-col md:flex-row justify-center gap-6">
-        <a href="#agenda" class="px-10 py-4 btn-primary rounded-full font-medium tracking-wide shadow-gold flex items-center justify-center gap-2 group">
+        <a href="#agenda" class="px-10 py-4 btn-primary rounded-none font-medium tracking-wide shadow-elegant flex items-center justify-center gap-2 group">
           <i class="far fa-calendar-check mr-2 group-hover:rotate-12 transition-transform"></i> Reservar Turno
         </a>
-        <a href="mailto:lic.albertisalvador@gmail.com" class="px-10 py-4 btn-secondary rounded-full font-medium tracking-wide flex items-center justify-center gap-2">
+        <a href="mailto:lic.albertisalvador@gmail.com" class="px-10 py-4 btn-secondary rounded-none font-medium tracking-wide flex items-center justify-center gap-2">
           <i class="far fa-paper-plane mr-2"></i> Contactar
         </a>
       </div>
@@ -411,30 +424,30 @@
   </section>
 
   <!-- MODALIDADES -->
-  <section class="py-24 bg-claro-card">
+  <section class="py-24 bg-gray-50 border-t border-gray-100">
     <div class="max-w-5xl mx-auto px-6">
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Presencial -->
-        <div class="bg-claro-bg p-10 rounded-2xl border border-claro-border text-center hover:border-claro-gold/40 transition-all duration-500 group shadow-soft hover:shadow-lg">
-          <div class="w-16 h-16 mx-auto mb-6 rounded-full border border-claro-gold/30 flex items-center justify-center text-2xl text-claro-gold group-hover:bg-claro-gold/10 transition-all group-hover:scale-110">
+        <div class="bg-white p-10 border border-gray-200 text-center hover:border-black transition-all duration-500 group shadow-soft hover:shadow-lg">
+          <div class="w-16 h-16 mx-auto mb-6 border border-black/20 flex items-center justify-center text-2xl text-black group-hover:bg-black group-hover:text-white transition-all group-hover:scale-110">
             <i class="fas fa-door-open"></i>
           </div>
-          <h3 class="serif text-2xl text-claro-text mb-2">Atención Presencial</h3>
-          <p class="text-claro-muted text-sm uppercase tracking-wider mb-4">Consultorio</p>
-          <p class="text-claro-text/80 text-sm leading-relaxed" id="display-address">
+          <h3 class="serif text-2xl text-black mb-2">Atención Presencial</h3>
+          <p class="text-gray-500 text-sm uppercase tracking-wider mb-4">Consultorio</p>
+          <p class="text-gray-600 text-sm leading-relaxed" id="display-address">
             La dirección se confirmará según disponibilidad
           </p>
         </div>
 
         <!-- Virtual -->
-        <div class="bg-claro-bg p-10 rounded-2xl border border-claro-border text-center hover:border-claro-gold/40 transition-all duration-500 group relative overflow-hidden shadow-soft hover:shadow-lg">
-          <div class="absolute inset-0 bg-gradient-to-br from-claro-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="bg-white p-10 border border-gray-200 text-center hover:border-black transition-all duration-500 group relative overflow-hidden shadow-soft hover:shadow-lg">
+          <div class="absolute inset-0 bg-gradient-to-br from-gray-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
           <div class="relative z-10">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-claro-gold/10 flex items-center justify-center text-2xl text-claro-gold group-hover:scale-110 transition-transform">
+            <div class="w-16 h-16 mx-auto mb-6 border border-black/20 flex items-center justify-center text-2xl text-black group-hover:bg-black group-hover:text-white transition-all group-hover:scale-110">
               <i class="fas fa-laptop-medical"></i>
             </div>
-            <h3 class="serif text-2xl text-claro-text mb-2">Atención Virtual</h3>
-            <p class="text-claro-text/80 text-sm leading-relaxed">
+            <h3 class="serif text-2xl text-black mb-2">Atención Virtual</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
               Videollamada desde cualquier lugar.<br>
               Sesiones online seguras y privadas.
             </p>
@@ -445,185 +458,185 @@
   </section>
 
   <!-- BOOKING SECTION -->
-  <section id="agenda" class="py-24 bg-claro-bg relative">
+  <section id="agenda" class="py-24 bg-white relative">
     <div class="max-w-4xl mx-auto px-6 relative z-10">
       <div class="text-center mb-16">
-        <p class="text-claro-gold uppercase tracking-[0.3em] text-sm mb-4">Reservas</p>
-        <h3 class="serif text-5xl text-claro-text mb-4">Agendá tu Consulta</h3>
-        <p class="text-claro-muted font-light">Seleccioná la modalidad y el horario que prefieras</p>
+        <p class="text-gray-500 uppercase tracking-[0.3em] text-sm mb-4">Reservas</p>
+        <h3 class="serif text-5xl text-black mb-4">Agendá tu Consulta</h3>
+        <p class="text-gray-500 font-light">Seleccioná la modalidad y el horario que prefieras</p>
       </div>
 
       <!-- PROGRESS -->
       <div class="flex justify-center items-center mb-16 max-w-md mx-auto">
         <div class="flex items-center w-full">
           <div class="step-indicator active w-10 h-10 rounded-full border-2 flex items-center justify-center text-sm font-medium" id="step1-ind">1</div>
-          <div class="flex-1 h-px bg-claro-border mx-2" id="line1"></div>
+          <div class="flex-1 h-px bg-gray-200 mx-2" id="line1"></div>
           <div class="step-indicator w-10 h-10 rounded-full border-2 flex items-center justify-center text-sm font-medium" id="step2-ind">2</div>
-          <div class="flex-1 h-px bg-claro-border mx-2" id="line2"></div>
+          <div class="flex-1 h-px bg-gray-200 mx-2" id="line2"></div>
           <div class="step-indicator w-10 h-10 rounded-full border-2 flex items-center justify-center text-sm font-medium" id="step3-ind">3</div>
         </div>
       </div>
 
       <!-- STEP 1: MODALIDAD -->
-      <div id="step1" class="bg-claro-card rounded-3xl shadow-soft p-8 md:p-12 border border-claro-border">
-        <h4 class="serif text-3xl text-claro-text mb-10 text-center">¿Cómo querés atenderte?</h4>
+      <div id="step1" class="bg-white border border-gray-200 p-8 md:p-12">
+        <h4 class="serif text-3xl text-black mb-10 text-center">¿Cómo querés atenderte?</h4>
 
         <div class="grid md:grid-cols-2 gap-6 mb-10">
           <button onclick="selectModality('virtual')" id="btn-virtual"
-            class="modalidad-btn p-8 rounded-2xl text-center group">
+            class="modalidad-btn p-8 border text-center group">
             <div class="w-20 h-20 mx-auto mb-4 rounded-full icon-circle flex items-center justify-center text-3xl">
               <i class="fas fa-headset"></i>
             </div>
-            <h5 class="serif text-xl mb-2 text-claro-text group-hover:text-claro-gold transition-colors">Virtual</h5>
-            <p class="text-sm text-claro-muted">Videollamada (horarios según disponibilidad)</p>
+            <h5 class="serif text-xl mb-2 text-black group-hover:text-black transition-colors">Virtual</h5>
+            <p class="text-sm text-gray-500">Videollamada (horarios según disponibilidad)</p>
           </button>
 
           <button onclick="selectModality('presencial')" id="btn-presencial"
-            class="modalidad-btn p-8 rounded-2xl text-center group">
+            class="modalidad-btn p-8 border text-center group">
             <div class="w-20 h-20 mx-auto mb-4 rounded-full icon-circle flex items-center justify-center text-3xl">
               <i class="fas fa-couch"></i>
             </div>
-            <h5 class="serif text-xl mb-2 text-claro-text group-hover:text-claro-gold transition-colors">Presencial</h5>
-            <p class="text-sm text-claro-muted">Consultorio presencial</p>
+            <h5 class="serif text-xl mb-2 text-black group-hover:text-black transition-colors">Presencial</h5>
+            <p class="text-sm text-gray-500">Consultorio presencial</p>
           </button>
         </div>
 
         <div class="flex justify-end">
           <button onclick="nextStep(2)" id="btn-next-1"
-            class="px-8 py-3 bg-claro-elevated text-claro-muted rounded-full font-medium cursor-not-allowed border border-claro-border" disabled>
+            class="px-8 py-3 bg-gray-100 text-gray-400 font-medium cursor-not-allowed border border-gray-200" disabled>
             Continuar <i class="fas fa-arrow-right ml-2"></i>
           </button>
         </div>
       </div>
 
       <!-- STEP 2: FECHA Y HORA -->
-      <div id="step2" class="bg-claro-card rounded-3xl shadow-soft p-8 md:p-12 hidden border border-claro-border">
-        <h4 class="serif text-3xl text-claro-text mb-2 text-center">Seleccioná fecha y hora</h4>
-        <p class="text-center text-claro-gold mb-10 text-sm uppercase tracking-wider" id="modality-display"></p>
+      <div id="step2" class="bg-white border border-gray-200 p-8 md:p-12 hidden">
+        <h4 class="serif text-3xl text-black mb-2 text-center">Seleccioná fecha y hora</h4>
+        <p class="text-center text-gray-500 mb-10 text-sm uppercase tracking-wider" id="modality-display"></p>
 
         <div class="grid lg:grid-cols-2 gap-10">
           <div>
             <div class="flex justify-between items-center mb-6">
-              <button onclick="changeMonth(-1)" class="p-2 hover:bg-claro-elevated rounded-full text-claro-muted hover:text-claro-gold transition-colors nav-link">
+              <button onclick="changeMonth(-1)" class="p-2 hover:bg-gray-100 transition-colors nav-link">
                 <i class="fas fa-chevron-left"></i>
               </button>
-              <h5 class="font-medium text-claro-text text-lg" id="currentMonth"></h5>
-              <button onclick="changeMonth(1)" class="p-2 hover:bg-claro-elevated rounded-full text-claro-muted hover:text-claro-gold transition-colors nav-link">
+              <h5 class="font-medium text-black text-lg" id="currentMonth"></h5>
+              <button onclick="changeMonth(1)" class="p-2 hover:bg-gray-100 transition-colors nav-link">
                 <i class="fas fa-chevron-right"></i>
               </button>
             </div>
 
-            <div class="grid grid-cols-7 gap-2 text-center text-xs uppercase tracking-wider text-claro-muted mb-3">
+            <div class="grid grid-cols-7 gap-2 text-center text-xs uppercase tracking-wider text-gray-500 mb-3">
               <div>Dom</div><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div>
             </div>
             <div class="grid grid-cols-7 gap-2" id="calendar"></div>
           </div>
 
           <div>
-            <h5 class="font-medium text-claro-text mb-6 text-lg">Horarios disponibles</h5>
+            <h5 class="font-medium text-black mb-6 text-lg">Horarios disponibles</h5>
             <div id="time-slots-container" class="space-y-4">
-              <p class="text-claro-muted text-sm italic">Seleccioná una fecha primero</p>
+              <p class="text-gray-500 text-sm italic">Seleccioná una fecha primero</p>
             </div>
-            <div id="location-info" class="mt-6 p-4 bg-claro-bg rounded-xl border border-claro-border hidden">
-              <p class="text-sm text-claro-muted mb-1">Dirección del consultorio:</p>
-              <p class="font-medium text-claro-gold" id="selected-location"></p>
+            <div id="location-info" class="mt-6 p-4 bg-gray-50 border border-gray-200 hidden">
+              <p class="text-sm text-gray-500 mb-1">Dirección del consultorio:</p>
+              <p class="font-medium text-black" id="selected-location"></p>
             </div>
           </div>
         </div>
 
         <div class="flex justify-between mt-10">
-          <button onclick="prevStep(1)" class="px-6 py-3 text-claro-muted hover:text-claro-gold font-medium transition-colors nav-link">
+          <button onclick="prevStep(1)" class="px-6 py-3 text-gray-500 hover:text-black font-medium transition-colors nav-link">
             <i class="fas fa-arrow-left mr-2"></i> Volver
           </button>
           <button onclick="nextStep(3)" id="btn-next-2"
-            class="px-8 py-3 bg-claro-elevated text-claro-muted rounded-full font-medium cursor-not-allowed border border-claro-border" disabled>
+            class="px-8 py-3 bg-gray-100 text-gray-400 font-medium cursor-not-allowed border border-gray-200" disabled>
             Continuar <i class="fas fa-arrow-right ml-2"></i>
           </button>
         </div>
       </div>
 
       <!-- STEP 3: DATOS -->
-      <div id="step3" class="bg-claro-card rounded-3xl shadow-soft p-8 md:p-12 hidden border border-claro-border">
-        <h4 class="serif text-3xl text-claro-text mb-10 text-center">Confirmá tu solicitud</h4>
+      <div id="step3" class="bg-white border border-gray-200 p-8 md:p-12 hidden">
+        <h4 class="serif text-3xl text-black mb-10 text-center">Confirmá tu solicitud</h4>
 
-        <div class="bg-claro-bg rounded-2xl p-6 mb-8 border border-claro-border">
-          <div class="flex items-center gap-4 mb-4 pb-4 border-b border-claro-border">
-            <div class="w-12 h-12 rounded-full bg-claro-gold/10 flex items-center justify-center text-claro-gold">
+        <div class="bg-gray-50 border border-gray-200 p-6 mb-8">
+          <div class="flex items-center gap-4 mb-4 pb-4 border-b border-gray-200">
+            <div class="w-12 h-12 border border-black/20 flex items-center justify-center text-black">
               <i class="far fa-calendar-check text-xl"></i>
             </div>
             <div class="flex-1">
-              <p class="text-xs text-claro-muted uppercase tracking-wider">Modalidad</p>
-              <p class="font-medium text-claro-text capitalize" id="confirm-modality"></p>
+              <p class="text-xs text-gray-500 uppercase tracking-wider">Modalidad</p>
+              <p class="font-medium text-black capitalize" id="confirm-modality"></p>
             </div>
           </div>
 
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <p class="text-xs text-claro-muted uppercase tracking-wider">Fecha</p>
-              <p class="font-medium text-claro-text" id="confirm-date"></p>
+              <p class="text-xs text-gray-500 uppercase tracking-wider">Fecha</p>
+              <p class="font-medium text-black" id="confirm-date"></p>
             </div>
             <div>
-              <p class="text-xs text-claro-muted uppercase tracking-wider">Hora</p>
-              <p class="font-medium text-claro-text" id="confirm-time"></p>
+              <p class="text-xs text-gray-500 uppercase tracking-wider">Hora</p>
+              <p class="font-medium text-black" id="confirm-time"></p>
             </div>
           </div>
 
           <div id="confirm-location-wrap" class="mt-4 hidden">
-            <p class="text-xs text-claro-muted uppercase tracking-wider">Dirección</p>
-            <p class="font-medium text-claro-gold" id="confirm-location"></p>
+            <p class="text-xs text-gray-500 uppercase tracking-wider">Dirección</p>
+            <p class="font-medium text-black" id="confirm-location"></p>
           </div>
         </div>
 
         <form id="bookingForm" class="space-y-6">
           <div class="grid md:grid-cols-2 gap-6">
             <div>
-              <label class="block text-xs uppercase tracking-wider text-claro-muted mb-2">Nombre completo</label>
-              <input id="fullName" name="fullName" type="text" required class="input-claro w-full px-4 py-3 rounded-xl" placeholder="Tu nombre">
+              <label class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Nombre completo</label>
+              <input id="fullName" name="fullName" type="text" required class="input-claro w-full px-4 py-3" placeholder="Tu nombre">
             </div>
             <div>
-              <label class="block text-xs uppercase tracking-wider text-claro-muted mb-2">Email</label>
-              <input id="email" name="email" type="email" required class="input-claro w-full px-4 py-3 rounded-xl" placeholder="tu@email.com">
+              <label class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Email</label>
+              <input id="email" name="email" type="email" required class="input-claro w-full px-4 py-3" placeholder="tu@email.com">
             </div>
           </div>
 
           <div>
-            <label class="block text-xs uppercase tracking-wider text-claro-muted mb-2">Teléfono</label>
-            <input id="phone" name="phone" type="tel" required class="input-claro w-full px-4 py-3 rounded-xl" placeholder="2494 596370">
+            <label class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Teléfono</label>
+            <input id="phone" name="phone" type="tel" required class="input-claro w-full px-4 py-3" placeholder="2494 596370">
           </div>
 
           <div>
-            <label class="block text-xs uppercase tracking-wider text-claro-muted mb-2">Motivo de consulta (opcional)</label>
-            <textarea id="reason" name="reason" rows="3" class="input-claro w-full px-4 py-3 rounded-xl resize-none" placeholder="Contame brevemente por qué buscás atención..."></textarea>
+            <label class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Motivo de consulta (opcional)</label>
+            <textarea id="reason" name="reason" rows="3" class="input-claro w-full px-4 py-3 resize-none" placeholder="Contame brevemente por qué buscás atención..."></textarea>
           </div>
 
           <div class="flex items-start gap-3">
-            <input type="checkbox" required id="terms" class="mt-1 w-4 h-4 rounded border-claro-border bg-claro-bg text-claro-gold focus:ring-claro-gold/20">
-            <label for="terms" class="text-sm text-claro-muted leading-relaxed">
+            <input type="checkbox" required id="terms" class="mt-1 w-4 h-4 rounded border-gray-300 bg-white text-black focus:ring-black/20">
+            <label for="terms" class="text-sm text-gray-500 leading-relaxed">
               Confirmo que soy mayor de edad o responsable de un menor, y acepto las políticas de cancelación con 24hs de anticipación.
             </label>
           </div>
         </form>
 
         <div class="flex justify-between mt-10">
-          <button onclick="prevStep(2)" class="px-6 py-3 text-claro-muted hover:text-claro-gold font-medium transition-colors nav-link">
+          <button onclick="prevStep(2)" class="px-6 py-3 text-gray-500 hover:text-black font-medium transition-colors nav-link">
             <i class="fas fa-arrow-left mr-2"></i> Volver
           </button>
-          <button id="btn-submit" onclick="submitBooking()" class="px-8 py-3 btn-primary rounded-full font-medium shadow-gold flex items-center gap-2 group">
+          <button id="btn-submit" onclick="submitBooking()" class="px-8 py-3 btn-primary font-medium shadow-elegant flex items-center gap-2 group">
             Enviar Solicitud <i class="fas fa-paper-plane ml-2 group-hover:translate-x-1 transition-transform"></i>
           </button>
         </div>
       </div>
 
       <!-- SUCCESS -->
-      <div id="success" class="hidden bg-claro-card rounded-3xl shadow-soft p-12 text-center border border-claro-border">
-        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-claro-gold/10 flex items-center justify-center text-3xl text-claro-gold animate-bounce">
+      <div id="success" class="hidden bg-white border border-gray-200 p-12 text-center">
+        <div class="w-20 h-20 mx-auto mb-6 border border-black flex items-center justify-center text-3xl text-black animate-bounce">
           <i class="fas fa-check"></i>
         </div>
-        <h4 class="serif text-4xl text-claro-text mb-4">¡Solicitud enviada!</h4>
-        <p class="text-claro-muted mb-8 max-w-md mx-auto font-light">
+        <h4 class="serif text-4xl text-black mb-4">¡Solicitud enviada!</h4>
+        <p class="text-gray-500 mb-8 max-w-md mx-auto font-light">
           Tu solicitud de turno fue registrada. Me pondré en contacto a la brevedad para confirmar.
         </p>
-        <button onclick="resetBooking()" class="px-8 py-4 btn-secondary rounded-full font-medium">
+        <button onclick="resetBooking()" class="px-8 py-4 btn-secondary font-medium">
           Agendar otro turno
         </button>
       </div>
@@ -631,43 +644,43 @@
   </section>
 
   <!-- ADMIN PANEL -->
-  <section id="admin-section" class="py-24 bg-claro-bg hidden border-t border-claro-border">
+  <section id="admin-section" class="py-24 bg-gray-50 hidden border-t border-gray-200">
     <div class="max-w-6xl mx-auto px-6">
       <div class="admin-panel p-8">
-        <div class="flex justify-between items-center mb-8 border-b border-claro-border pb-4">
+        <div class="flex justify-between items-center mb-8 border-b border-gray-200 pb-4">
           <div>
-            <h3 class="serif text-3xl text-claro-text">Panel de Administración</h3>
-            <p class="text-claro-muted text-sm mt-1">Gestión de turnos y disponibilidad</p>
+            <h3 class="serif text-3xl text-black">Panel de Administración</h3>
+            <p class="text-gray-500 text-sm mt-1">Gestión de turnos y disponibilidad</p>
           </div>
-          <button onclick="toggleAdmin()" class="text-claro-muted hover:text-claro-gold transition-colors nav-link p-2">
+          <button onclick="toggleAdmin()" class="text-gray-500 hover:text-black transition-colors nav-link p-2">
             <i class="fas fa-times text-xl"></i>
           </button>
         </div>
 
         <!-- Login Form -->
         <div id="admin-login" class="max-w-md mx-auto text-center py-12">
-          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-claro-bg border border-claro-gold/30 flex items-center justify-center text-2xl text-claro-gold">
+          <div class="w-16 h-16 mx-auto mb-6 border border-black/20 flex items-center justify-center text-2xl text-black">
             <i class="fas fa-lock"></i>
           </div>
-          <h4 class="text-xl font-medium mb-2 text-claro-text">Acceso Profesional</h4>
-          <p class="text-claro-muted text-sm mb-6">Ingresá tu contraseña para continuar</p>
+          <h4 class="text-xl font-medium mb-2 text-black">Acceso Profesional</h4>
+          <p class="text-gray-500 text-sm mb-6">Ingresá tu contraseña para continuar</p>
           <input type="password" id="admin-password" placeholder="Contraseña" 
-            class="input-claro w-full px-4 py-3 rounded-xl mb-4 text-center">
-          <button onclick="loginAdmin()" class="w-full px-8 py-3 btn-primary rounded-full font-medium flex items-center justify-center gap-2 group">
+            class="input-claro w-full px-4 py-3 mb-4 text-center">
+          <button onclick="loginAdmin()" class="w-full px-8 py-3 btn-primary font-medium flex items-center justify-center gap-2 group">
             <i class="fas fa-key group-hover:rotate-12 transition-transform"></i> Ingresar
           </button>
-          <p id="login-error" class="text-accent-red text-sm mt-3 hidden">Contraseña incorrecta</p>
+          <p id="login-error" class="text-red-600 text-sm mt-3 hidden">Contraseña incorrecta</p>
         </div>
 
         <!-- Admin Dashboard -->
         <div id="admin-dashboard" class="hidden">
           
           <!-- Tabs -->
-          <div class="flex gap-6 mb-8 border-b border-claro-border">
-            <button onclick="showAdminTab('turnos')" id="tab-turnos" class="px-4 py-3 border-b-2 border-claro-gold text-claro-gold font-medium transition-colors">
+          <div class="flex gap-6 mb-8 border-b border-gray-200">
+            <button onclick="showAdminTab('turnos')" id="tab-turnos" class="px-4 py-3 border-b-2 border-black text-black font-medium transition-colors">
               Turnos Reservados
             </button>
-            <button onclick="showAdminTab('config')" id="tab-config" class="px-4 py-3 border-b-2 border-transparent text-claro-muted hover:text-claro-text transition-colors">
+            <button onclick="showAdminTab('config')" id="tab-config" class="px-4 py-3 border-b-2 border-transparent text-gray-500 hover:text-black transition-colors">
               Configurar Disponibilidad
             </button>
           </div>
@@ -675,61 +688,61 @@
           <!-- Tab: Turnos -->
           <div id="admin-tab-turnos">
             <div class="flex justify-between items-center mb-6">
-              <h4 class="text-lg font-medium text-claro-text">Turnos Reservados</h4>
-              <button onclick="loadAppointments()" class="text-sm text-claro-muted hover:text-claro-gold transition-colors nav-link px-3 py-1 rounded">
+              <h4 class="text-lg font-medium text-black">Turnos Reservados</h4>
+              <button onclick="loadAppointments()" class="text-sm text-gray-500 hover:text-black transition-colors nav-link px-3 py-1">
                 <i class="fas fa-sync-alt mr-1"></i> Actualizar
               </button>
             </div>
             
             <div id="appointments-list" class="space-y-3">
-              <p class="text-claro-muted text-center py-8">Cargando turnos...</p>
+              <p class="text-gray-500 text-center py-8">Cargando turnos...</p>
             </div>
           </div>
 
           <!-- Tab: Configurar Disponibilidad -->
           <div id="admin-tab-config" class="hidden">
             <div class="mb-6">
-              <h4 class="text-lg font-medium text-claro-text mb-2">Configurar Disponibilidad</h4>
-              <p class="text-sm text-claro-muted mb-6">
+              <h4 class="text-lg font-medium text-black mb-2">Configurar Disponibilidad</h4>
+              <p class="text-sm text-gray-500 mb-6">
                 Seleccioná los días y configurá los horarios disponibles para cada modalidad.
               </p>
               
               <div class="flex justify-between items-center mb-4">
-                <button onclick="changeAdminMonth(-1)" class="p-2 hover:bg-claro-elevated rounded-full text-claro-muted hover:text-claro-gold transition-colors nav-link">
+                <button onclick="changeAdminMonth(-1)" class="p-2 hover:bg-gray-100 transition-colors nav-link">
                   <i class="fas fa-chevron-left"></i>
                 </button>
-                <h5 class="font-medium text-claro-text" id="adminCurrentMonth"></h5>
-                <button onclick="changeAdminMonth(1)" class="p-2 hover:bg-claro-elevated rounded-full text-claro-muted hover:text-claro-gold transition-colors nav-link">
+                <h5 class="font-medium text-black" id="adminCurrentMonth"></h5>
+                <button onclick="changeAdminMonth(1)" class="p-2 hover:bg-gray-100 transition-colors nav-link">
                   <i class="fas fa-chevron-right"></i>
                 </button>
               </div>
 
-              <div class="grid grid-cols-7 gap-1 text-center text-xs uppercase tracking-wider text-claro-muted mb-2">
+              <div class="grid grid-cols-7 gap-1 text-center text-xs uppercase tracking-wider text-gray-500 mb-2">
                 <div>Dom</div><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div>
               </div>
               <div class="grid grid-cols-7 gap-1" id="adminCalendar"></div>
               
-              <div class="flex gap-6 mt-4 text-xs justify-center text-claro-muted">
+              <div class="flex gap-6 mt-4 text-xs justify-center text-gray-500">
                 <div class="flex items-center gap-2">
-                  <div class="w-3 h-3 bg-blue-100 border border-blue-400 rounded"></div>
+                  <div class="w-3 h-3 bg-gray-100 border border-gray-400 rounded"></div>
                   <span>Virtual</span>
                 </div>
                 <div class="flex items-center gap-2">
-                  <div class="w-3 h-3 bg-green-100 border border-green-600 rounded"></div>
+                  <div class="w-3 h-3 bg-black border border-black rounded"></div>
                   <span>Presencial</span>
                 </div>
                 <div class="flex items-center gap-2">
-                  <div class="w-3 h-3 bg-gradient-to-br from-blue-100 to-green-100 border border-purple-400 rounded"></div>
+                  <div class="w-3 h-3 bg-gradient-to-br from-gray-100 to-black border border-black rounded"></div>
                   <span>Ambas</span>
                 </div>
               </div>
             </div>
 
             <!-- Configuración del día seleccionado -->
-            <div id="day-config-panel" class="hidden bg-claro-bg rounded-2xl p-6 border border-claro-border">
+            <div id="day-config-panel" class="hidden bg-white border border-gray-200 p-6">
               <div class="flex justify-between items-start mb-6">
-                <h5 class="font-medium text-claro-text text-lg" id="selected-day-title"></h5>
-                <button onclick="closeDayConfig()" class="text-claro-muted hover:text-claro-gold transition-colors nav-link p-1">
+                <h5 class="font-medium text-black text-lg" id="selected-day-title"></h5>
+                <button onclick="closeDayConfig()" class="text-gray-500 hover:text-black transition-colors nav-link p-1">
                   <i class="fas fa-times"></i>
                 </button>
               </div>
@@ -737,17 +750,17 @@
               <!-- SECCIÓN VIRTUAL -->
               <div class="modality-section">
                 <div class="modality-header">
-                  <i class="fas fa-video text-blue-500"></i>
-                  <span class="badge-virtual px-3 py-1 rounded-full text-xs">Virtual</span>
+                  <i class="fas fa-video text-gray-600"></i>
+                  <span class="badge-virtual px-3 py-1 rounded text-xs">Virtual</span>
                   <label class="flex items-center gap-2 ml-auto">
-                    <input type="checkbox" id="virtual-available" onchange="toggleModalitySection('virtual')" class="rounded border-claro-border bg-claro-bg text-claro-gold focus:ring-claro-gold/20">
-                    <span class="text-sm text-claro-muted font-normal">Activar</span>
+                    <input type="checkbox" id="virtual-available" onchange="toggleModalitySection('virtual')" class="rounded border-gray-300 bg-white text-black focus:ring-black/20">
+                    <span class="text-sm text-gray-500 font-normal">Activar</span>
                   </label>
                 </div>
                 
                 <div id="virtual-config-content" class="hidden">
                   <div class="mb-3">
-                    <label class="block text-xs uppercase tracking-wider text-claro-muted mb-3">Horarios Disponibles</label>
+                    <label class="block text-xs uppercase tracking-wider text-gray-500 mb-3">Horarios Disponibles</label>
                     <div id="virtual-time-slots" class="grid grid-cols-4 gap-2 max-h-48 overflow-y-auto">
                       <!-- Se generan dinámicamente -->
                     </div>
@@ -758,22 +771,22 @@
               <!-- SECCIÓN PRESENCIAL -->
               <div class="modality-section">
                 <div class="modality-header">
-                  <i class="fas fa-building text-green-600"></i>
-                  <span class="badge-presencial px-3 py-1 rounded-full text-xs">Presencial</span>
+                  <i class="fas fa-building text-black"></i>
+                  <span class="badge-presencial px-3 py-1 rounded text-xs">Presencial</span>
                   <label class="flex items-center gap-2 ml-auto">
-                    <input type="checkbox" id="presencial-available" onchange="toggleModalitySection('presencial')" class="rounded border-claro-border bg-claro-bg text-claro-gold focus:ring-claro-gold/20">
-                    <span class="text-sm text-claro-muted font-normal">Activar</span>
+                    <input type="checkbox" id="presencial-available" onchange="toggleModalitySection('presencial')" class="rounded border-gray-300 bg-white text-black focus:ring-black/20">
+                    <span class="text-sm text-gray-500 font-normal">Activar</span>
                   </label>
                 </div>
                 
                 <div id="presencial-config-content" class="hidden">
                   <div class="mb-3">
-                    <label class="block text-xs uppercase tracking-wider text-claro-muted mb-2">Dirección del Consultorio</label>
-                    <input type="text" id="presencial-address" class="input-claro w-full px-3 py-2 rounded-lg text-sm" placeholder="Ej: Calle 123, Ciudad">
+                    <label class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Dirección del Consultorio</label>
+                    <input type="text" id="presencial-address" class="input-claro w-full px-3 py-2 text-sm" placeholder="Ej: Calle 123, Ciudad">
                   </div>
                   
                   <div class="mb-3">
-                    <label class="block text-xs uppercase tracking-wider text-claro-muted mb-3">Horarios Disponibles</label>
+                    <label class="block text-xs uppercase tracking-wider text-gray-500 mb-3">Horarios Disponibles</label>
                     <div id="presencial-time-slots" class="grid grid-cols-4 gap-2 max-h-48 overflow-y-auto">
                       <!-- Se generan dinámicamente -->
                     </div>
@@ -782,13 +795,13 @@
               </div>
 
               <div class="flex gap-3 mt-6">
-                <button onclick="saveDayConfig()" class="flex-1 px-6 py-3 btn-primary rounded-full font-medium flex items-center justify-center gap-2 group">
+                <button onclick="saveDayConfig()" class="flex-1 px-6 py-3 btn-primary font-medium flex items-center justify-center gap-2 group">
                   <i class="fas fa-save mr-2 group-hover:scale-110 transition-transform"></i> Guardar Configuración
                 </button>
               </div>
 
-              <div class="mt-4 pt-4 border-t border-claro-border">
-                <button onclick="deleteDayConfig()" class="w-full px-6 py-3 bg-red-50 text-accent-red border border-red-200 rounded-full font-medium hover:bg-red-100 transition-colors flex items-center justify-center gap-2 group">
+              <div class="mt-4 pt-4 border-t border-gray-200">
+                <button onclick="deleteDayConfig()" class="w-full px-6 py-3 bg-gray-50 text-gray-600 border border-gray-300 font-medium hover:bg-gray-100 transition-colors flex items-center justify-center gap-2 group">
                   <i class="fas fa-trash-alt group-hover:rotate-12 transition-transform"></i> Eliminar Configuración de este Día
                 </button>
               </div>
@@ -804,43 +817,43 @@
   <div id="edit-modal" class="modal-overlay">
     <div class="modal-content">
       <div class="flex justify-between items-center mb-6">
-        <h4 class="serif text-2xl text-claro-text">Editar Turno</h4>
-        <button onclick="closeEditModal()" class="text-claro-muted hover:text-claro-gold transition-colors nav-link p-1">
+        <h4 class="serif text-2xl text-black">Editar Turno</h4>
+        <button onclick="closeEditModal()" class="text-gray-500 hover:text-black transition-colors nav-link p-1">
           <i class="fas fa-times text-xl"></i>
         </button>
       </div>
       
       <div class="space-y-4">
         <div>
-          <label class="block text-xs uppercase tracking-wider text-claro-muted mb-2">Paciente</label>
-          <input type="text" id="edit-patient-name" disabled class="input-claro w-full px-4 py-3 rounded-xl opacity-50">
+          <label class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Paciente</label>
+          <input type="text" id="edit-patient-name" disabled class="input-claro w-full px-4 py-3 opacity-50">
         </div>
         
         <div>
-          <label class="block text-xs uppercase tracking-wider text-claro-muted mb-2">Modalidad</label>
-          <select id="edit-modality" class="input-claro w-full px-4 py-3 rounded-xl">
+          <label class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Modalidad</label>
+          <select id="edit-modality" class="input-claro w-full px-4 py-3">
             <option value="virtual">Virtual</option>
             <option value="presencial">Presencial</option>
           </select>
         </div>
         
         <div>
-          <label class="block text-xs uppercase tracking-wider text-claro-muted mb-2">Nueva Fecha</label>
-          <input type="date" id="edit-date" required class="input-claro w-full px-4 py-3 rounded-xl">
+          <label class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Nueva Fecha</label>
+          <input type="date" id="edit-date" required class="input-claro w-full px-4 py-3">
         </div>
         
         <div>
-          <label class="block text-xs uppercase tracking-wider text-claro-muted mb-2">Nueva Hora</label>
-          <select id="edit-time" required class="input-claro w-full px-4 py-3 rounded-xl">
+          <label class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Nueva Hora</label>
+          <select id="edit-time" required class="input-claro w-full px-4 py-3">
             <option value="">Seleccionar hora...</option>
           </select>
         </div>
         
         <div class="flex gap-3 mt-6">
-          <button onclick="closeEditModal()" class="flex-1 px-6 py-3 border border-claro-border text-claro-muted rounded-full hover:border-claro-gold hover:text-claro-gold transition-colors nav-link">
+          <button onclick="closeEditModal()" class="flex-1 px-6 py-3 border border-gray-300 text-gray-500 font-medium hover:border-black hover:text-black transition-colors nav-link">
             Cancelar
           </button>
-          <button onclick="saveEdit()" class="flex-1 px-6 py-3 btn-primary rounded-full font-medium">
+          <button onclick="saveEdit()" class="flex-1 px-6 py-3 btn-primary font-medium">
             Guardar Cambios
           </button>
         </div>
@@ -849,21 +862,21 @@
   </div>
 
   <!-- CONTACTO -->
-  <section class="py-24 bg-claro-card border-t border-claro-border">
+  <section class="py-24 bg-white border-t border-gray-200">
     <div class="max-w-4xl mx-auto px-6 text-center">
-      <p class="text-claro-gold uppercase tracking-[0.3em] text-sm mb-4">Contacto</p>
-      <h3 class="serif text-4xl text-claro-text mb-12">Comunicate</h3>
+      <p class="text-gray-500 uppercase tracking-[0.3em] text-sm mb-4">Contacto</p>
+      <h3 class="serif text-4xl text-black mb-12">Comunicate</h3>
 
       <div class="flex flex-col md:flex-row justify-center items-center gap-10">
-        <a href="tel:2494596370" class="flex items-center gap-4 text-claro-muted hover:text-claro-gold transition-colors group px-6 py-3 rounded-full border border-transparent hover:border-claro-gold/30">
-          <div class="w-14 h-14 rounded-full border border-claro-border flex items-center justify-center group-hover:border-claro-gold group-hover:bg-claro-gold/5 transition-all group-hover:scale-110">
+        <a href="tel:2494596370" class="flex items-center gap-4 text-gray-600 hover:text-black transition-colors group px-6 py-3 border border-transparent hover:border-black/20">
+          <div class="w-14 h-14 border border-gray-300 flex items-center justify-center group-hover:border-black group-hover:bg-black group-hover:text-white transition-all group-hover:scale-110">
             <i class="fas fa-phone text-lg"></i>
           </div>
           <span class="text-lg">2494 596370</span>
         </a>
 
-        <a href="mailto:lic.albertisalvador@gmail.com" class="flex items-center gap-4 text-claro-muted hover:text-claro-gold transition-colors group px-6 py-3 rounded-full border border-transparent hover:border-claro-gold/30">
-          <div class="w-14 h-14 rounded-full border border-claro-border flex items-center justify-center group-hover:border-claro-gold group-hover:bg-claro-gold/5 transition-all group-hover:scale-110">
+        <a href="mailto:lic.albertisalvador@gmail.com" class="flex items-center gap-4 text-gray-600 hover:text-black transition-colors group px-6 py-3 border border-transparent hover:border-black/20">
+          <div class="w-14 h-14 border border-gray-300 flex items-center justify-center group-hover:border-black group-hover:bg-black group-hover:text-white transition-all group-hover:scale-110">
             <i class="fas fa-envelope text-lg"></i>
           </div>
           <span class="text-lg">lic.albertisalvador@gmail.com</span>
@@ -873,15 +886,15 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="bg-claro-bg border-t border-claro-border py-16">
+  <footer class="bg-gray-50 border-t border-gray-200 py-16">
     <div class="max-w-6xl mx-auto px-6 text-center">
-      <h4 class="handwritten text-4xl text-claro-gold mb-4">Alberti Bigliante Salvador</h4>
-      <p class="text-claro-text mb-2">Licenciado en Psicología - MN. 87014</p>
-      <p class="text-claro-muted text-sm mb-10">Atención a adolescentes y adultos</p>
+      <h4 class="handwritten text-4xl text-black mb-4">Alberti Bigliante Salvador</h4>
+      <p class="text-black mb-2">Licenciado en Psicología - MN. 87014</p>
+      <p class="text-gray-500 text-sm mb-10">Atención a adolescentes y adultos</p>
 
       <div class="decorative-line max-w-xs mx-auto mb-10"></div>
 
-      <p class="text-claro-muted text-sm">© 2026 Todos los derechos reservados</p>
+      <p class="text-gray-400 text-sm">© 2026 Todos los derechos reservados</p>
     </div>
   </footer>
 
@@ -957,8 +970,8 @@
       document.getElementById(`btn-${modality}`).classList.add('selected');
       const btn = document.getElementById('btn-next-1');
       btn.disabled = false;
-      btn.classList.remove('bg-claro-elevated', 'text-claro-muted', 'cursor-not-allowed');
-      btn.classList.add('btn-primary', 'shadow-gold');
+      btn.classList.remove('bg-gray-100', 'text-gray-400', 'cursor-not-allowed');
+      btn.classList.add('btn-primary', 'shadow-elegant');
     }
 
     function nextStep(step) {
@@ -973,11 +986,11 @@
       document.getElementById(`step${currentStep}-ind`).innerHTML = '<i class="fas fa-check text-xs"></i>';
 
       if (document.getElementById(`line${currentStep}`)) {
-        document.getElementById(`line${currentStep}`).classList.remove('bg-claro-border');
-        document.getElementById(`line${currentStep}`).classList.add('bg-claro-gold');
+        document.getElementById(`line${currentStep}`).classList.remove('bg-gray-200');
+        document.getElementById(`line${currentStep}`).classList.add('bg-black');
       }
 
-      document.getElementById(`step${step}-ind`).classList.remove('text-claro-muted', 'border-claro-border');
+      document.getElementById(`step${step}-ind`).classList.remove('text-gray-400', 'border-gray-200');
       document.getElementById(`step${step}-ind`).classList.add('active');
 
       currentStep = step;
@@ -1000,8 +1013,8 @@
       document.getElementById(`step${step}-ind`).innerHTML = step;
 
       if (document.getElementById(`line${step}`)) {
-        document.getElementById(`line${step}`).classList.remove('bg-claro-gold');
-        document.getElementById(`line${step}`).classList.add('bg-claro-border');
+        document.getElementById(`line${step}`).classList.remove('bg-black');
+        document.getElementById(`line${step}`).classList.add('bg-gray-200');
       }
 
       currentStep = step;
@@ -1049,17 +1062,17 @@
           });
         }
 
-        let classes = 'calendar-day p-3 rounded-lg text-center cursor-pointer text-sm ';
+        let classes = 'calendar-day p-3 text-center cursor-pointer text-sm ';
         if (isSelected) classes += 'selected ';
         else if (isPast) classes += 'disabled ';
         else if (availableSlots > 0) classes += 'available ';
         else if (totalSlots > 0 && availableSlots === 0) classes += 'booked ';
-        else classes += 'text-claro-muted cursor-not-allowed bg-transparent ';
+        else classes += 'text-gray-400 cursor-not-allowed ';
 
         let indicator = '';
         if (totalSlots > 0) {
-          if (availableSlots > 0) indicator = `<div class="text-xs mt-1 text-green-600">${availableSlots} libres</div>`;
-          else indicator = `<div class="text-xs mt-1 text-accent-red">Completo</div>`;
+          if (availableSlots > 0) indicator = `<div class="text-xs mt-1 text-black font-medium">${availableSlots} libres</div>`;
+          else indicator = `<div class="text-xs mt-1 text-gray-400">Completo</div>`;
         }
 
         const canSelect = !isPast && availableSlots > 0;
@@ -1085,7 +1098,7 @@
       const container = document.getElementById('time-slots-container');
       const locationInfo = document.getElementById('location-info');
       if (!selectedDate) {
-        container.innerHTML = '<p class="text-claro-muted text-sm italic">Seleccioná una fecha primero</p>';
+        container.innerHTML = '<p class="text-gray-500 text-sm italic">Seleccioná una fecha primero</p>';
         locationInfo.classList.add('hidden');
         return;
       }
@@ -1095,7 +1108,7 @@
       const modalityConfig = selectedModality === 'virtual' ? dayConfig.virtual : dayConfig.presencial;
       
       if (!modalityConfig.available || modalityConfig.times.length === 0) {
-        container.innerHTML = `<p class="text-claro-muted text-sm">No hay horarios ${selectedModality === 'virtual' ? 'virtuales' : 'presenciales'} configurados para este día</p>`;
+        container.innerHTML = `<p class="text-gray-500 text-sm">No hay horarios ${selectedModality === 'virtual' ? 'virtuales' : 'presenciales'} configurados para este día</p>`;
         locationInfo.classList.add('hidden');
         return;
       }
@@ -1104,15 +1117,15 @@
       modalityConfig.times.forEach(time => {
         const isSelected = selectedTime === time;
         const isBooked = isSlotBooked(dateStr, time);
-        let classes = 'time-slot p-3 rounded-xl border text-center text-sm font-medium ';
+        let classes = 'time-slot p-3 text-center text-sm font-medium ';
         if (isBooked) {
           classes += 'booked';
           html += `<div class="${classes}" title="Turno reservado">${time}</div>`;
         } else if (isSelected) {
-          classes += 'selected border-claro-gold cursor-pointer';
+          classes += 'selected cursor-pointer';
           html += `<button type="button" class="${classes}" onclick="selectTime('${time}')">${time}</button>`;
         } else {
-          classes += 'border-claro-border hover:border-claro-gold text-claro-text cursor-pointer';
+          classes += 'cursor-pointer';
           html += `<button type="button" class="${classes}" onclick="selectTime('${time}')">${time}</button>`;
         }
       });
@@ -1137,8 +1150,8 @@
       const btn = document.getElementById('btn-next-2');
       if (selectedTime) {
         btn.disabled = false;
-        btn.classList.remove('bg-claro-elevated', 'text-claro-muted', 'cursor-not-allowed');
-        btn.classList.add('btn-primary', 'shadow-gold');
+        btn.classList.remove('bg-gray-100', 'text-gray-400', 'cursor-not-allowed');
+        btn.classList.add('btn-primary', 'shadow-elegant');
       }
     }
 
@@ -1247,18 +1260,18 @@
           el.classList.add('active');
           el.innerHTML = '1';
         } else {
-          el.classList.add('border-claro-border', 'text-claro-muted');
+          el.classList.add('border-gray-200', 'text-gray-400');
           el.innerHTML = idx + 1;
         }
       });
       document.querySelectorAll('[id^="line"]').forEach(el => {
-        el.className = 'flex-1 h-px bg-claro-border mx-2';
+        el.className = 'flex-1 h-px bg-gray-200 mx-2';
       });
       document.getElementById('btn-next-1').disabled = true;
-      document.getElementById('btn-next-1').className = 'px-8 py-3 bg-claro-elevated text-claro-muted rounded-full font-medium cursor-not-allowed border border-claro-border';
+      document.getElementById('btn-next-1').className = 'px-8 py-3 bg-gray-100 text-gray-400 font-medium cursor-not-allowed border border-gray-200';
       document.querySelectorAll('.modalidad-btn').forEach(btn => btn.classList.remove('selected'));
       document.getElementById('bookingForm').reset();
-      document.getElementById('time-slots-container').innerHTML = '<p class="text-claro-muted text-sm italic">Seleccioná una fecha primero</p>';
+      document.getElementById('time-slots-container').innerHTML = '<p class="text-gray-500 text-sm italic">Seleccioná una fecha primero</p>';
     }
 
     function toggleAdmin() {
@@ -1286,18 +1299,18 @@
     function showAdminTab(tab) {
       document.getElementById('admin-tab-turnos').classList.add('hidden');
       document.getElementById('admin-tab-config').classList.add('hidden');
-      document.getElementById('tab-turnos').classList.remove('border-claro-gold', 'text-claro-gold', 'font-medium');
-      document.getElementById('tab-turnos').classList.add('border-transparent', 'text-claro-muted');
-      document.getElementById('tab-config').classList.remove('border-claro-gold', 'text-claro-gold', 'font-medium');
-      document.getElementById('tab-config').classList.add('border-transparent', 'text-claro-muted');
+      document.getElementById('tab-turnos').classList.remove('border-black', 'text-black', 'font-medium');
+      document.getElementById('tab-turnos').classList.add('border-transparent', 'text-gray-500');
+      document.getElementById('tab-config').classList.remove('border-black', 'text-black', 'font-medium');
+      document.getElementById('tab-config').classList.add('border-transparent', 'text-gray-500');
       document.getElementById(`admin-tab-${tab}`).classList.remove('hidden');
-      document.getElementById(`tab-${tab}`).classList.add('border-claro-gold', 'text-claro-gold', 'font-medium');
-      document.getElementById(`tab-${tab}`).classList.remove('border-transparent', 'text-claro-muted');
+      document.getElementById(`tab-${tab}`).classList.add('border-black', 'text-black', 'font-medium');
+      document.getElementById(`tab-${tab}`).classList.remove('border-transparent', 'text-gray-500');
     }
 
     async function loadAppointments() {
       const container = document.getElementById('appointments-list');
-      container.innerHTML = '<p class="text-claro-muted text-center py-8">Cargando turnos...</p>';
+      container.innerHTML = '<p class="text-gray-500 text-center py-8">Cargando turnos...</p>';
       try {
         const { data, error } = await supabaseClient.from('appointments').select('*').order('appointment_date', { ascending: true }).order('appointment_time', { ascending: true });
         if (error) {
@@ -1305,7 +1318,7 @@
           return;
         }
         if (!data || data.length === 0) {
-          container.innerHTML = '<p class="text-claro-muted text-center py-8">No hay turnos reservados</p>';
+          container.innerHTML = '<p class="text-gray-500 text-center py-8">No hay turnos reservados</p>';
           return;
         }
         let html = '';
@@ -1313,20 +1326,20 @@
           const date = new Date(apt.appointment_date);
           const dateStr = date.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' });
           html += `
-            <div class="appointment-card p-4 rounded-lg flex justify-between items-center">
+            <div class="appointment-card p-4 flex justify-between items-center">
               <div class="flex-1">
                 <div class="flex items-center gap-3 mb-1">
-                  <span class="font-medium text-claro-text">${dateStr}</span>
-                  <span class="text-claro-muted">${apt.appointment_time} hs</span>
-                  <span class="px-2 py-1 rounded text-xs ${apt.modality === 'virtual' ? 'badge-virtual' : 'badge-presencial'}">${apt.modality === 'virtual' ? 'Virtual' : 'Presencial'}</span>
+                  <span class="font-medium text-black">${dateStr}</span>
+                  <span class="text-gray-500">${apt.appointment_time} hs</span>
+                  <span class="px-2 py-1 text-xs ${apt.modality === 'virtual' ? 'badge-virtual' : 'badge-presencial'}">${apt.modality === 'virtual' ? 'Virtual' : 'Presencial'}</span>
                 </div>
-                <p class="text-sm text-claro-text font-medium">${apt.full_name}</p>
-                <p class="text-xs text-claro-muted">${apt.phone} | ${apt.email}</p>
-                ${apt.reason ? `<p class="text-xs text-claro-muted mt-1 italic">${apt.reason}</p>` : ''}
+                <p class="text-sm text-black font-medium">${apt.full_name}</p>
+                <p class="text-xs text-gray-500">${apt.phone} | ${apt.email}</p>
+                ${apt.reason ? `<p class="text-xs text-gray-500 mt-1 italic">${apt.reason}</p>` : ''}
               </div>
               <div class="flex gap-2">
-                <button onclick="openEditModal('${apt.id}')" class="px-3 py-2 bg-blue-50 text-blue-600 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors"><i class="fas fa-edit"></i></button>
-                <button onclick="deleteAppointment('${apt.id}')" class="px-3 py-2 bg-red-50 text-red-600 border border-red-200 rounded-lg hover:bg-red-100 transition-colors"><i class="fas fa-trash"></i></button>
+                <button onclick="openEditModal('${apt.id}')" class="px-3 py-2 bg-gray-100 text-black border border-gray-300 hover:bg-gray-200 transition-colors"><i class="fas fa-edit"></i></button>
+                <button onclick="deleteAppointment('${apt.id}')" class="px-3 py-2 bg-gray-100 text-red-600 border border-gray-300 hover:bg-red-50 transition-colors"><i class="fas fa-trash"></i></button>
               </div>
             </div>
           `;
@@ -1353,19 +1366,19 @@
         const dayConfig = getDayConfig(date);
         const hasVirtual = dayConfig.virtual.available && dayConfig.virtual.times.length > 0;
         const hasPresencial = dayConfig.presencial.available && dayConfig.presencial.times.length > 0;
-        let classes = 'admin-calendar-day p-2 rounded-lg text-center ';
-        let content = `<div class="font-medium mb-1 text-claro-text">${day}</div>`;
+        let classes = 'admin-calendar-day p-2 text-center ';
+        let content = `<div class="font-medium mb-1 text-black">${day}</div>`;
         if (hasVirtual && hasPresencial) {
           classes += 'has-both ';
-          content += `<div class="text-xs text-purple-600 font-medium">Ambas</div><div class="text-xs text-claro-muted">${dayConfig.virtual.times.length + dayConfig.presencial.times.length} hs</div>`;
+          content += `<div class="text-xs font-medium">Ambas</div><div class="text-xs text-gray-500">${dayConfig.virtual.times.length + dayConfig.presencial.times.length} hs</div>`;
         } else if (hasVirtual) {
           classes += 'has-virtual ';
-          content += `<div class="text-xs text-blue-600">Virtual</div><div class="text-xs text-claro-muted">${dayConfig.virtual.times.length} hs</div>`;
+          content += `<div class="text-xs text-gray-600">Virtual</div><div class="text-xs text-gray-500">${dayConfig.virtual.times.length} hs</div>`;
         } else if (hasPresencial) {
           classes += 'has-presencial ';
-          content += `<div class="text-xs text-green-600">Presencial</div><div class="text-xs text-claro-muted">${dayConfig.presencial.times.length} hs</div>`;
+          content += `<div class="text-xs text-white">Presencial</div><div class="text-xs text-gray-300">${dayConfig.presencial.times.length} hs</div>`;
         } else {
-          content += `<div class="text-xs text-claro-muted">No disp.</div>`;
+          content += `<div class="text-xs text-gray-400">No disp.</div>`;
         }
         html += `<div class="${classes}" onclick="selectAdminDay(${year}, ${month}, ${day})">${content}</div>`;
       }
@@ -1409,7 +1422,7 @@
         const isSelected = selectedTimes.includes(time);
         const div = document.createElement('div');
         div.className = 'flex items-center gap-2';
-        div.innerHTML = `<input type="checkbox" id="${modality}-time-${time}" value="${time}" ${isSelected ? 'checked' : ''} class="w-4 h-4 rounded border-claro-border bg-claro-bg text-claro-gold focus:ring-claro-gold/20"><label for="${modality}-time-${time}" class="text-sm text-claro-muted">${time}</label>`;
+        div.innerHTML = `<input type="checkbox" id="${modality}-time-${time}" value="${time}" ${isSelected ? 'checked' : ''} class="w-4 h-4 rounded border-gray-300 bg-white text-black focus:ring-black/20"><label for="${modality}-time-${time}" class="text-sm text-gray-600">${time}</label>`;
         container.appendChild(div);
       });
     }
