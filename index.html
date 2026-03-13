@@ -8,7 +8,6 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23c4c4c4'>Ψ</text></svg>" />
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -56,7 +55,6 @@
       font-family: 'Cormorant Garamond', serif;
     }
     
-    /* Fondo oscuro con gradientes sutiles */
     .bg-dark-gradient {
       background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
       position: relative;
@@ -73,7 +71,6 @@
       pointer-events: none;
     }
     
-    /* Botón crema elegante */
     .btn-cream {
       background-color: #c4c4c4;
       color: #0f0f0f;
@@ -86,7 +83,6 @@
       box-shadow: 0 10px 30px -10px rgba(196,196,196,0.3);
     }
     
-    /* Inputs oscuros */
     .input-dark {
       background-color: #1a1a1a;
       border: 1px solid #2a2a2a;
@@ -108,7 +104,6 @@
       color: #555555;
     }
     
-    /* Cards */
     .card-dark {
       background-color: #1a1a1a;
       border: 1px solid #2a2a2a;
@@ -120,7 +115,6 @@
       background-color: #242424;
     }
     
-    /* Modalidad */
     .modality-dark {
       background-color: #1a1a1a;
       border: 1px solid #2a2a2a;
@@ -148,7 +142,6 @@
       transition: all 0.3s ease;
     }
     
-    /* Calendario */
     .calendar-day {
       aspect-ratio: 1;
       display: flex;
@@ -189,7 +182,6 @@
       cursor: not-allowed;
     }
     
-    /* Time slots */
     .time-slot {
       background-color: #1a1a1a;
       border: 1px solid #2a2a2a;
@@ -216,7 +208,6 @@
       cursor: not-allowed;
     }
     
-    /* Steps */
     .step-dot {
       transition: all 0.3s ease;
     }
@@ -231,7 +222,6 @@
       color: #e8e8e8;
     }
     
-    /* Admin */
     .admin-dark {
       background-color: #141414;
       border: 1px solid #2a2a2a;
@@ -248,13 +238,11 @@
       color: #0f0f0f;
     }
     
-    /* Modal */
     .modal-backdrop {
       background-color: rgba(0,0,0,0.9);
       backdrop-filter: blur(8px);
     }
     
-    /* Scrollbar */
     ::-webkit-scrollbar {
       width: 8px;
     }
@@ -272,7 +260,6 @@
       background: #444444;
     }
     
-    /* Línea decorativa */
     .decorative-line {
       height: 1px;
       background: linear-gradient(90deg, transparent, #444444, transparent);
@@ -719,16 +706,16 @@
     // INICIALIZAR EMAILJS
     emailjs.init("9sVIrU2mBqYp26khK");
 
-    // CONFIGURACIÓN
+    // CONFIGURACIÓN - NUEVO PROYECTO SUPABASE
     const EMAILJS_SERVICE_ID = "service_mveo8v7";
     const EMAILJS_TEMPLATE_ID = "llkr08j";
-    const SUPABASE_URL = "https://yodefzidtoluudozgces.supabase.co";
-    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvZGVmemlkdG9sdXVkb3pnY2VzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MDEwOTUsImV4cCI6MjA4ODM3NzA5NX0.ZiHokkUpT7s1CebAl9roYGj39mN5r8lu17dz2gmrFCU";
+    const SUPABASE_URL = "https://nphjulvgbkfpijtbzjmj.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_KXCasl9f9i8BUAJpvGVmqA_p0NWexXC";
     const ADMIN_PASSWORD = "38303647Sa";
 
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    const TABLE_NAME = 'appointments_alberti';
-    const AVAILABILITY_TABLE = 'availability_alberti';
+    const TABLE_NAME = 'appointments';
+    const AVAILABILITY_TABLE = 'availability';
 
     let currentStep = 1;
     let selectedModality = null;
@@ -1028,7 +1015,7 @@
         const { data, error } = await supabaseClient.from(TABLE_NAME).insert([appointmentData]);
         if (error) {
           if (error.code === '42P01') {
-            alert('Error: Crear tabla "' + TABLE_NAME + '" en Supabase');
+            alert('Error: Crear tabla "appointments" en Supabase');
             btn.disabled = false;
             btn.innerHTML = original;
             return;
@@ -1282,7 +1269,7 @@
         }, { onConflict: 'date' });
         if (error) { 
           if (error.code === '42P01') {
-            alert('Error: Crear tabla "' + AVAILABILITY_TABLE + '" en Supabase');
+            alert('Error: Crear tabla "availability" en Supabase');
             return;
           }
           alert('Error al guardar: ' + error.message); 
