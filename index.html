@@ -72,16 +72,58 @@
       background: linear-gradient(135deg, #1c1c1c 0%, #242424 50%, #1a1a1a 100%);
     }
 
-    /* Botón principal estilo folleto */
+    /* Botón principal estilo folleto - MODIFICADO */
     .btn-primary {
       background-color: #d4cfc7;
       color: #1c1c1c;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
     }
     .btn-primary:hover {
       background-color: #c9b8a0;
       transform: translateY(-2px);
       box-shadow: 0 10px 30px -10px rgba(201, 184, 160, 0.4);
+    }
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    /* Botón secundario - MODIFICADO */
+    .btn-secondary {
+      border: 1px solid rgba(201, 184, 160, 0.5);
+      color: #d4cfc7;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-secondary::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: #c9b8a0;
+      transition: width 0.3s ease;
+    }
+    .btn-secondary:hover {
+      background-color: rgba(201, 184, 160, 0.1);
+      border-color: #c9b8a0;
+      color: #e5e5e5;
+    }
+    .btn-secondary:hover::after {
+      width: 100%;
     }
 
     /* Inputs elegantes oscuros */
@@ -173,11 +215,29 @@
       opacity: 0.6;
     }
 
-    /* Modalidad buttons */
+    /* Modalidad buttons - MODIFICADO */
     .modalidad-btn { 
       transition: all 0.4s ease;
       background-color: #2a2a2a;
       border: 1px solid #3a3a3a;
+      position: relative;
+      overflow: hidden;
+    }
+    .modalidad-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(201, 184, 160, 0.1);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    .modalidad-btn:hover::before {
+      width: 300px;
+      height: 300px;
     }
     .modalidad-btn:hover {
       border-color: #c9b8a0;
@@ -361,6 +421,27 @@
       background: linear-gradient(90deg, transparent, #c9b8a0, transparent);
       opacity: 0.5;
     }
+
+    /* Nuevo estilo para botones de navegación */
+    .btn-nav {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .btn-nav::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: #c9b8a0;
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+    .btn-nav:hover::after {
+      width: 80%;
+    }
   </style>
 </head>
 <body class="antialiased bg-dark-bg">
@@ -374,8 +455,8 @@
           <p class="text-xs uppercase tracking-[0.3em] text-text-muted mt-1">Lic. en Psicología</p>
         </div>
         
-        <button onclick="toggleAdmin()" class="text-text-secondary hover:text-elegant-gold-light flex items-center gap-2 text-sm uppercase tracking-wider transition-colors">
-          <i class="fas fa-lock text-xs"></i> <span class="hidden sm:inline">Admin</span>
+        <button onclick="toggleAdmin()" class="text-text-secondary hover:text-elegant-gold-light flex items-center gap-2 text-sm uppercase tracking-wider transition-colors btn-nav px-2 py-1">
+          <i class="fas fa-lock text-xs"></i> <span class="hidden sm:inline">Acceso profesional</span>
         </button>
       </div>
     </div>
@@ -391,9 +472,6 @@
       <p class="text-elegant-gold text-sm uppercase tracking-[0.4em] mb-6">Licenciado en Psicología</p>
       <h2 class="serif text-6xl md:text-7xl text-text-primary mb-4 leading-tight">Alberti Bigliante<br>Salvador</h2>
       
-      <p class="serif text-3xl md:text-4xl text-elegant-gold-light mb-2 italic font-light">La cura por la palabra</p>
-      <p class="handwritten text-xl md:text-2xl text-text-secondary mb-8 italic">"El inconsciente está estructurado como un lenguaje"</p>
-      
       <div class="decorative-line max-w-xs mx-auto my-8"></div>
       
       <p class="text-2xl font-light text-elegant-gold-light mb-2">MN. 87014</p>
@@ -403,12 +481,17 @@
         <p class="serif text-2xl text-elegant-gold-light tracking-wide">Agendá tu turno</p>
       </div>
 
+      <p class="text-text-secondary max-w-2xl mx-auto leading-relaxed mb-12 text-lg font-light">
+        Espacio terapéutico dedicado al acompañamiento profesional en el proceso de 
+        autoconocimiento y bienestar emocional.
+      </p>
+
       <div class="flex flex-col md:flex-row justify-center gap-6">
-        <a href="#agenda" class="px-10 py-4 btn-primary rounded-full font-medium tracking-wide shadow-gold">
-          <i class="far fa-calendar-alt mr-2"></i> Reservar Turno
+        <a href="#agenda" class="px-10 py-4 btn-primary rounded-full font-medium tracking-wide shadow-gold flex items-center justify-center gap-2 group">
+          <i class="fa-regular fa-calendar-check mr-2 group-hover:rotate-12 transition-transform"></i> Reservar Turno
         </a>
-        <a href="mailto:lic.albertisalvador@gmail.com" class="px-10 py-4 border border-elegant-gold/50 text-elegant-gold-light rounded-full hover:bg-elegant-gold/10 hover:border-elegant-gold smooth-transition">
-          <i class="far fa-envelope mr-2"></i> Contactar
+        <a href="mailto:lic.albertisalvador@gmail.com" class="px-10 py-4 btn-secondary rounded-full font-medium tracking-wide flex items-center justify-center gap-2">
+          <i class="fa-regular fa-paper-plane mr-2"></i> Contactar
         </a>
       </div>
     </div>
@@ -420,8 +503,8 @@
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Presencial -->
         <div class="bg-dark-bg p-10 rounded-2xl border border-white/5 text-center hover:border-elegant-gold/30 transition-all duration-500 group">
-          <div class="w-16 h-16 mx-auto mb-6 rounded-full border border-elegant-gold/30 flex items-center justify-center text-2xl text-elegant-gold group-hover:bg-elegant-gold/10 transition-all">
-            <i class="fas fa-building"></i>
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full border border-elegant-gold/30 flex items-center justify-center text-2xl text-elegant-gold group-hover:bg-elegant-gold/10 transition-all group-hover:scale-110">
+            <i class="fa-solid fa-door-open"></i>
           </div>
           <h3 class="serif text-2xl text-text-primary mb-2">Atención Presencial</h3>
           <p class="text-text-muted text-sm uppercase tracking-wider mb-4">Consultorio</p>
@@ -434,8 +517,8 @@
         <div class="bg-dark-bg p-10 rounded-2xl border border-white/5 text-center hover:border-elegant-gold/30 transition-all duration-500 group relative overflow-hidden">
           <div class="absolute inset-0 bg-gradient-to-br from-elegant-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
           <div class="relative z-10">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-elegant-gold/10 flex items-center justify-center text-2xl text-elegant-gold">
-              <i class="fas fa-video"></i>
+            <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-elegant-gold/10 flex items-center justify-center text-2xl text-elegant-gold group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-laptop-medical"></i>
             </div>
             <h3 class="serif text-2xl text-text-primary mb-2">Atención Virtual</h3>
             <p class="text-text-secondary text-sm leading-relaxed">
@@ -475,26 +558,26 @@
         <div class="grid md:grid-cols-2 gap-6 mb-10">
           <button onclick="selectModality('virtual')" id="btn-virtual"
             class="modalidad-btn p-8 rounded-2xl text-center group">
-            <div class="w-20 h-20 mx-auto mb-4 rounded-full icon-circle flex items-center justify-center text-3xl text-elegant-gold">
-              <i class="fas fa-video"></i>
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full icon-circle flex items-center justify-center text-3xl text-elegant-gold relative z-10">
+              <i class="fa-solid fa-headset"></i>
             </div>
-            <h5 class="serif text-xl mb-2 text-text-primary">Virtual</h5>
-            <p class="text-sm text-text-muted">Videollamada (horarios según disponibilidad)</p>
+            <h5 class="serif text-xl mb-2 text-text-primary relative z-10">Virtual</h5>
+            <p class="text-sm text-text-muted relative z-10">Videollamada (horarios según disponibilidad)</p>
           </button>
 
           <button onclick="selectModality('presencial')" id="btn-presencial"
             class="modalidad-btn p-8 rounded-2xl text-center group">
-            <div class="w-20 h-20 mx-auto mb-4 rounded-full icon-circle flex items-center justify-center text-3xl text-elegant-gold">
-              <i class="fas fa-building"></i>
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full icon-circle flex items-center justify-center text-3xl text-elegant-gold relative z-10">
+              <i class="fa-solid fa-couch"></i>
             </div>
-            <h5 class="serif text-xl mb-2 text-text-primary">Presencial</h5>
-            <p class="text-sm text-text-muted">Consultorio presencial</p>
+            <h5 class="serif text-xl mb-2 text-text-primary relative z-10">Presencial</h5>
+            <p class="text-sm text-text-muted relative z-10">Consultorio presencial</p>
           </button>
         </div>
 
         <div class="flex justify-end">
           <button onclick="nextStep(2)" id="btn-next-1"
-            class="px-8 py-3 bg-dark-elevated text-text-muted rounded-full font-medium cursor-not-allowed border border-white/10" disabled>
+            class="px-8 py-3 bg-dark-elevated text-text-muted rounded-full font-medium cursor-not-allowed border border-white/10 transition-all hover:shadow-lg" disabled>
             Continuar <i class="fas fa-arrow-right ml-2"></i>
           </button>
         </div>
@@ -508,11 +591,11 @@
         <div class="grid lg:grid-cols-2 gap-10">
           <div>
             <div class="flex justify-between items-center mb-6">
-              <button onclick="changeMonth(-1)" class="p-2 hover:bg-dark-elevated rounded-full text-text-secondary hover:text-elegant-gold transition-colors">
+              <button onclick="changeMonth(-1)" class="p-2 hover:bg-dark-elevated rounded-full text-text-secondary hover:text-elegant-gold transition-colors btn-nav">
                 <i class="fas fa-chevron-left"></i>
               </button>
               <h5 class="font-medium text-text-primary text-lg" id="currentMonth"></h5>
-              <button onclick="changeMonth(1)" class="p-2 hover:bg-dark-elevated rounded-full text-text-secondary hover:text-elegant-gold transition-colors">
+              <button onclick="changeMonth(1)" class="p-2 hover:bg-dark-elevated rounded-full text-text-secondary hover:text-elegant-gold transition-colors btn-nav">
                 <i class="fas fa-chevron-right"></i>
               </button>
             </div>
@@ -536,11 +619,11 @@
         </div>
 
         <div class="flex justify-between mt-10">
-          <button onclick="prevStep(1)" class="px-6 py-3 text-text-secondary hover:text-elegant-gold-light font-medium transition-colors">
+          <button onclick="prevStep(1)" class="px-6 py-3 text-text-secondary hover:text-elegant-gold-light font-medium transition-colors btn-nav">
             <i class="fas fa-arrow-left mr-2"></i> Volver
           </button>
           <button onclick="nextStep(3)" id="btn-next-2"
-            class="px-8 py-3 bg-dark-elevated text-text-muted rounded-full font-medium cursor-not-allowed border border-white/10" disabled>
+            class="px-8 py-3 bg-dark-elevated text-text-muted rounded-full font-medium cursor-not-allowed border border-white/10 transition-all hover:shadow-lg" disabled>
             Continuar <i class="fas fa-arrow-right ml-2"></i>
           </button>
         </div>
@@ -609,25 +692,25 @@
         </form>
 
         <div class="flex justify-between mt-10">
-          <button onclick="prevStep(2)" class="px-6 py-3 text-text-secondary hover:text-elegant-gold-light font-medium transition-colors">
+          <button onclick="prevStep(2)" class="px-6 py-3 text-text-secondary hover:text-elegant-gold-light font-medium transition-colors btn-nav">
             <i class="fas fa-arrow-left mr-2"></i> Volver
           </button>
-          <button id="btn-submit" onclick="submitBooking()" class="px-8 py-3 btn-primary rounded-full font-medium shadow-gold">
-            Enviar Solicitud <i class="fas fa-paper-plane ml-2"></i>
+          <button id="btn-submit" onclick="submitBooking()" class="px-8 py-3 btn-primary rounded-full font-medium shadow-gold flex items-center gap-2 group">
+            Enviar Solicitud <i class="fas fa-paper-plane ml-2 group-hover:translate-x-1 transition-transform"></i>
           </button>
         </div>
       </div>
 
       <!-- SUCCESS -->
       <div id="success" class="hidden bg-dark-card rounded-3xl shadow-elegant p-12 text-center border border-white/5">
-        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-elegant-gold/10 flex items-center justify-center text-3xl text-elegant-gold">
+        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-elegant-gold/10 flex items-center justify-center text-3xl text-elegant-gold animate-bounce">
           <i class="fas fa-check"></i>
         </div>
         <h4 class="serif text-4xl text-text-primary mb-4">¡Solicitud enviada!</h4>
         <p class="text-text-secondary mb-8 max-w-md mx-auto font-light">
           Tu solicitud de turno fue registrada. Me pondré en contacto a la brevedad para confirmar.
         </p>
-        <button onclick="resetBooking()" class="px-8 py-3 border border-elegant-gold/50 text-elegant-gold-light rounded-full hover:bg-elegant-gold/10 hover:border-elegant-gold smooth-transition">
+        <button onclick="resetBooking()" class="px-8 py-3 btn-secondary rounded-full">
           Agendar otro turno
         </button>
       </div>
@@ -643,7 +726,7 @@
             <h3 class="serif text-3xl text-text-primary">Panel de Administración</h3>
             <p class="text-text-muted text-sm mt-1">Gestión de turnos y disponibilidad</p>
           </div>
-          <button onclick="toggleAdmin()" class="text-text-muted hover:text-elegant-gold-light transition-colors">
+          <button onclick="toggleAdmin()" class="text-text-muted hover:text-elegant-gold-light transition-colors btn-nav p-2">
             <i class="fas fa-times text-xl"></i>
           </button>
         </div>
@@ -657,8 +740,8 @@
           <p class="text-text-muted text-sm mb-6">Ingresá tu contraseña para continuar</p>
           <input type="password" id="admin-password" placeholder="Contraseña" 
             class="input-elegant w-full px-4 py-3 rounded-xl mb-4 text-center">
-          <button onclick="loginAdmin()" class="w-full px-8 py-3 btn-primary rounded-full font-medium">
-            Ingresar
+          <button onclick="loginAdmin()" class="w-full px-8 py-3 btn-primary rounded-full font-medium group flex items-center justify-center gap-2">
+            <i class="fas fa-key group-hover:rotate-12 transition-transform"></i> Ingresar
           </button>
           <p id="login-error" class="text-red-400 text-sm mt-3 hidden">Contraseña incorrecta</p>
         </div>
@@ -668,7 +751,7 @@
           
           <!-- Tabs -->
           <div class="flex gap-6 mb-8 border-b border-white/10">
-            <button onclick="showAdminTab('turnos')" id="tab-turnos" class="px-4 py-3 border-b-2 border-elegant-gold text-elegant-gold font-medium">
+            <button onclick="showAdminTab('turnos')" id="tab-turnos" class="px-4 py-3 border-b-2 border-elegant-gold text-elegant-gold font-medium transition-colors">
               Turnos Reservados
             </button>
             <button onclick="showAdminTab('config')" id="tab-config" class="px-4 py-3 border-b-2 border-transparent text-text-muted hover:text-text-primary transition-colors">
@@ -680,7 +763,7 @@
           <div id="admin-tab-turnos">
             <div class="flex justify-between items-center mb-6">
               <h4 class="text-lg font-medium text-text-primary">Turnos Reservados</h4>
-              <button onclick="loadAppointments()" class="text-sm text-text-muted hover:text-elegant-gold-light transition-colors">
+              <button onclick="loadAppointments()" class="text-sm text-text-muted hover:text-elegant-gold-light transition-colors btn-nav px-3 py-1 rounded">
                 <i class="fas fa-sync-alt mr-1"></i> Actualizar
               </button>
             </div>
@@ -699,11 +782,11 @@
               </p>
               
               <div class="flex justify-between items-center mb-4">
-                <button onclick="changeAdminMonth(-1)" class="p-2 hover:bg-dark-elevated rounded-full text-text-secondary transition-colors">
+                <button onclick="changeAdminMonth(-1)" class="p-2 hover:bg-dark-elevated rounded-full text-text-secondary hover:text-elegant-gold transition-colors btn-nav">
                   <i class="fas fa-chevron-left"></i>
                 </button>
                 <h5 class="font-medium text-text-primary" id="adminCurrentMonth"></h5>
-                <button onclick="changeAdminMonth(1)" class="p-2 hover:bg-dark-elevated rounded-full text-text-secondary transition-colors">
+                <button onclick="changeAdminMonth(1)" class="p-2 hover:bg-dark-elevated rounded-full text-text-secondary hover:text-elegant-gold transition-colors btn-nav">
                   <i class="fas fa-chevron-right"></i>
                 </button>
               </div>
@@ -734,7 +817,7 @@
             <div id="day-config-panel" class="hidden bg-dark-bg rounded-2xl p-6 border border-white/5">
               <div class="flex justify-between items-start mb-6">
                 <h5 class="font-medium text-text-primary text-lg" id="selected-day-title"></h5>
-                <button onclick="closeDayConfig()" class="text-text-muted hover:text-elegant-gold-light transition-colors">
+                <button onclick="closeDayConfig()" class="text-text-muted hover:text-elegant-gold-light transition-colors btn-nav p-1">
                   <i class="fas fa-times"></i>
                 </button>
               </div>
@@ -744,7 +827,7 @@
                 <div class="modality-header">
                   <i class="fas fa-video text-blue-400"></i>
                   <span class="badge-virtual px-3 py-1 rounded-full text-xs">Virtual</span>
-                  <label class="flex items-center gap-2 ml-auto">
+                  <label class="flex items-center gap-2 ml-auto cursor-pointer">
                     <input type="checkbox" id="virtual-available" onchange="toggleModalitySection('virtual')" class="rounded bg-dark-bg border-white/20 text-elegant-gold focus:ring-elegant-gold/20">
                     <span class="text-sm text-text-secondary font-normal">Activar</span>
                   </label>
@@ -765,7 +848,7 @@
                 <div class="modality-header">
                   <i class="fas fa-building text-green-400"></i>
                   <span class="badge-presencial px-3 py-1 rounded-full text-xs">Presencial</span>
-                  <label class="flex items-center gap-2 ml-auto">
+                  <label class="flex items-center gap-2 ml-auto cursor-pointer">
                     <input type="checkbox" id="presencial-available" onchange="toggleModalitySection('presencial')" class="rounded bg-dark-bg border-white/20 text-elegant-gold focus:ring-elegant-gold/20">
                     <span class="text-sm text-text-secondary font-normal">Activar</span>
                   </label>
@@ -788,15 +871,15 @@
 
               <!-- BOTONES DE ACCIÓN -->
               <div class="flex gap-3 mt-6">
-                <button onclick="saveDayConfig()" class="flex-1 px-6 py-3 btn-primary rounded-full font-medium">
-                  <i class="fas fa-save mr-2"></i> Guardar Configuración
+                <button onclick="saveDayConfig()" class="flex-1 px-6 py-3 btn-primary rounded-full font-medium flex items-center justify-center gap-2 group">
+                  <i class="fas fa-save mr-2 group-hover:scale-110 transition-transform"></i> Guardar Configuración
                 </button>
               </div>
 
               <!-- BOTÓN PARA ELIMINAR CONFIGURACIÓN DEL DÍA -->
               <div class="mt-4 pt-4 border-t border-white/10">
-                <button onclick="deleteDayConfig()" class="w-full px-6 py-3 bg-red-900/30 text-red-300 border border-red-900/50 rounded-full font-medium hover:bg-red-900/50 transition-colors flex items-center justify-center gap-2">
-                  <i class="fas fa-trash-alt"></i> Eliminar Configuración de este Día
+                <button onclick="deleteDayConfig()" class="w-full px-6 py-3 bg-red-900/30 text-red-300 border border-red-900/50 rounded-full font-medium hover:bg-red-900/50 transition-colors flex items-center justify-center gap-2 group">
+                  <i class="fas fa-trash-alt group-hover:rotate-12 transition-transform"></i> Eliminar Configuración de este Día
                 </button>
               </div>
             </div>
@@ -812,7 +895,7 @@
     <div class="modal-content">
       <div class="flex justify-between items-center mb-6">
         <h4 class="serif text-2xl text-text-primary">Editar Turno</h4>
-        <button onclick="closeEditModal()" class="text-text-muted hover:text-elegant-gold-light transition-colors">
+        <button onclick="closeEditModal()" class="text-text-muted hover:text-elegant-gold-light transition-colors btn-nav p-1">
           <i class="fas fa-times text-xl"></i>
         </button>
       </div>
@@ -844,7 +927,7 @@
         </div>
         
         <div class="flex gap-3 mt-6">
-          <button onclick="closeEditModal()" class="flex-1 px-6 py-3 border border-white/10 text-text-secondary rounded-full hover:border-elegant-gold/50 hover:text-elegant-gold-light transition-colors">
+          <button onclick="closeEditModal()" class="flex-1 px-6 py-3 border border-white/10 text-text-secondary rounded-full hover:border-elegant-gold/50 hover:text-elegant-gold-light transition-colors btn-nav">
             Cancelar
           </button>
           <button onclick="saveEdit()" class="flex-1 px-6 py-3 btn-primary rounded-full font-medium">
@@ -862,15 +945,15 @@
       <h3 class="serif text-4xl text-text-primary mb-12">Comunicate</h3>
 
       <div class="flex flex-col md:flex-row justify-center items-center gap-10">
-        <a href="tel:2494596370" class="flex items-center gap-4 text-text-secondary hover:text-elegant-gold-light smooth-transition group">
-          <div class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:border-elegant-gold/50 group-hover:bg-elegant-gold/5 transition-all">
+        <a href="tel:2494596370" class="flex items-center gap-4 text-text-secondary hover:text-elegant-gold-light smooth-transition group px-6 py-3 rounded-full border border-transparent hover:border-elegant-gold/30 transition-all">
+          <div class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:border-elegant-gold/50 group-hover:bg-elegant-gold/5 transition-all group-hover:scale-110">
             <i class="fas fa-phone text-lg"></i>
           </div>
           <span class="text-lg">2494 596370</span>
         </a>
 
-        <a href="mailto:lic.albertisalvador@gmail.com" class="flex items-center gap-4 text-text-secondary hover:text-elegant-gold-light smooth-transition group">
-          <div class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:border-elegant-gold/50 group-hover:bg-elegant-gold/5 transition-all">
+        <a href="mailto:lic.albertisalvador@gmail.com" class="flex items-center gap-4 text-text-secondary hover:text-elegant-gold-light smooth-transition group px-6 py-3 rounded-full border border-transparent hover:border-elegant-gold/30 transition-all">
+          <div class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:border-elegant-gold/50 group-hover:bg-elegant-gold/5 transition-all group-hover:scale-110">
             <i class="fas fa-envelope text-lg"></i>
           </div>
           <span class="text-lg">lic.albertisalvador@gmail.com</span>
