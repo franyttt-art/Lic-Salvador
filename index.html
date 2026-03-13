@@ -82,6 +82,19 @@
       transform: translateY(-2px);
       box-shadow: 0 10px 30px -10px rgba(196,196,196,0.3);
     }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid #c4c4c4;
+      color: #c4c4c4;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-outline:hover {
+      background-color: #c4c4c4;
+      color: #0f0f0f;
+      transform: translateY(-2px);
+    }
     
     .input-dark {
       background-color: #1a1a1a;
@@ -265,6 +278,13 @@
       background: linear-gradient(90deg, transparent, #444444, transparent);
       opacity: 0.5;
     }
+
+    .text-gradient {
+      background: linear-gradient(135deg, #e8e8e8 0%, #c4c4c4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
   </style>
 </head>
 <body class="antialiased bg-dark-bg min-h-screen">
@@ -274,7 +294,7 @@
     <div class="max-w-6xl mx-auto px-6 py-4">
       <div class="flex justify-between items-center">
         <div class="flex flex-col">
-          <h1 class="font-serif text-2xl text-dark-text tracking-wide">Alberti Bigliante Salvador</h1>
+          <h1 class="font-serif text-xl text-dark-text tracking-wide">Alberti Bigliante Salvador</h1>
           <span class="text-[10px] uppercase tracking-[0.3em] text-dark-muted mt-0.5">Licenciado en Psicología</span>
         </div>
         
@@ -286,73 +306,71 @@
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="pt-32 pb-20 px-6 bg-dark-gradient min-h-screen flex items-center justify-center relative">
-    <div class="max-w-md mx-auto text-center relative z-10">
+  <!-- HERO - Estilo primera demo -->
+  <section class="pt-32 pb-16 px-6 bg-dark-bg min-h-[85vh] flex flex-col items-center justify-center relative">
+    <div class="max-w-2xl mx-auto text-center relative z-10">
       
-      <h2 class="font-serif text-5xl md:text-6xl text-dark-text mb-2 leading-tight tracking-tight">
-        Alberti Bigliante<br>
-        <span class="text-dark-accent">Salvador</span>
-      </h2>
-      
-      <div class="mb-6">
-        <p class="text-dark-muted text-sm uppercase tracking-[0.2em] mb-1">Lic. en Psicología</p>
-        <p class="text-dark-accent text-lg font-serif italic">MN. 87014</p>
-      </div>
-      
-      <div class="decorative-line max-w-xs mx-auto mb-8"></div>
-      
-      <a href="#agenda" class="inline-flex items-center gap-3 px-8 py-4 btn-cream rounded-full text-lg font-medium mb-10 group">
-        <i class="far fa-calendar-check text-xl group-hover:rotate-12 transition-transform duration-300"></i>
-        <span>Agendá tu turno</span>
-      </a>
-      
-      <p class="text-dark-text text-sm uppercase tracking-[0.15em] mb-8 font-medium">
-        Adolescentes y Adultos
-      </p>
-      
-      <div class="space-y-4 mb-10">
-        <div class="flex items-center justify-center gap-3 text-dark-muted">
-          <div class="w-10 h-10 rounded-full bg-dark-card flex items-center justify-center">
-            <i class="fas fa-video text-sm"></i>
-          </div>
-          <span class="text-sm tracking-wide">Atención virtual</span>
-        </div>
+      <div class="mb-8">
+        <p class="text-[10px] uppercase tracking-[0.4em] text-dark-muted mb-6">Licenciado en Psicología</p>
         
-        <div class="flex items-center justify-center gap-3 text-dark-muted">
-          <div class="w-10 h-10 rounded-full bg-dark-card flex items-center justify-center">
-            <i class="fas fa-phone text-sm"></i>
-          </div>
-          <span class="text-sm tracking-wide">2494 596370</span>
-        </div>
-        
-        <div class="flex items-center justify-center gap-3 text-dark-muted">
-          <div class="w-10 h-10 rounded-full bg-dark-card flex items-center justify-center">
-            <i class="fas fa-envelope text-sm"></i>
-          </div>
-          <span class="text-sm tracking-wide">lic.albertisalvador@gmail.com</span>
-        </div>
+        <h2 class="font-serif text-6xl md:text-7xl lg:text-8xl text-dark-text mb-4 leading-[0.9] tracking-tight">
+          Alberti<br>
+          Bigliante<br>
+          <span class="text-dark-accent">Salvador</span>
+        </h2>
       </div>
+
+      <div class="mb-10">
+        <p class="font-serif text-2xl md:text-3xl text-dark-accent italic mb-4">
+          La cura por la palabra
+        </p>
+        <p class="text-xs uppercase tracking-[0.3em] text-dark-muted">
+          Enfoque Psicoanalítico
+        </p>
+      </div>
+
+      <div class="decorative-line max-w-xs mx-auto mb-10"></div>
       
-      <div class="mt-8 px-4">
-        <p class="font-serif text-dark-accent text-lg italic leading-relaxed mb-3">
-          "Espacio terapéutico con compromiso y acompañamiento profesional."
-        </p>
-        <p class="text-dark-muted text-sm leading-relaxed">
-          Si estás pensando en empezar terapia, este puede ser tu lugar.
-        </p>
+      <div class="space-y-4 mb-12">
+        <p class="text-dark-muted text-sm tracking-wide">MN. 87014</p>
+        <p class="text-dark-muted text-xs uppercase tracking-[0.2em]">Adolescentes y Adultos</p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a href="#agenda" class="inline-flex items-center gap-3 px-8 py-4 btn-cream rounded-full text-base font-medium group min-w-[200px] justify-center">
+          <i class="far fa-calendar-check text-lg"></i>
+          <span>Agenda tu consulta</span>
+        </a>
+        
+        <a href="#contacto" class="inline-flex items-center gap-3 px-8 py-4 btn-outline rounded-full text-base font-medium group min-w-[200px] justify-center">
+          <i class="far fa-envelope text-lg"></i>
+          <span>Contactar</span>
+        </a>
       </div>
       
     </div>
   </section>
 
+  <!-- FRASE TERAPÉUTICA - Sin comillas -->
+  <section class="py-20 px-6 bg-dark-bg border-y border-dark-border">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="font-serif text-2xl md:text-3xl text-dark-text leading-relaxed mb-6">
+        Espacio terapéutico con compromiso y acompañamiento profesional
+      </p>
+      <p class="text-dark-muted text-sm leading-relaxed max-w-xl mx-auto">
+        Si estás pensando en empezar terapia, este puede ser tu lugar.
+      </p>
+    </div>
+  </section>
+
   <!-- BOOKING SECTION -->
-  <section id="agenda" class="py-20 px-6 bg-dark-bg relative">
+  <section id="agenda" class="py-24 px-6 bg-dark-gradient relative">
     <div class="max-w-2xl mx-auto relative z-10">
       
-      <div class="text-center mb-12">
-        <h3 class="font-serif text-4xl text-dark-text mb-3">Reservá tu consulta</h3>
-        <p class="text-dark-muted text-sm">Seleccioná la modalidad que prefieras</p>
+      <div class="text-center mb-16">
+        <p class="text-[10px] uppercase tracking-[0.4em] text-dark-muted mb-4">Reservas</p>
+        <h3 class="font-serif text-5xl md:text-6xl text-dark-text mb-4">Agendá tu Consulta</h3>
+        <p class="text-dark-muted text-sm">Seleccioná la modalidad y el horario que prefieras</p>
       </div>
 
       <!-- PROGRESS -->
@@ -367,8 +385,8 @@
       </div>
 
       <!-- STEP 1: MODALIDAD -->
-      <div id="step1" class="card-dark rounded-2xl p-8">
-        <h4 class="font-serif text-2xl text-dark-text mb-8 text-center">¿Cómo querés atenderte?</h4>
+      <div id="step1" class="card-dark rounded-2xl p-8 md:p-10">
+        <h4 class="font-serif text-3xl text-dark-text mb-10 text-center">¿Cómo querés atenderte?</h4>
 
         <div class="grid gap-4 mb-8">
           <button onclick="selectModality('virtual')" id="btn-virtual" class="modality-dark rounded-xl p-6 text-left flex items-center gap-4 group">
@@ -400,7 +418,7 @@
       </div>
 
       <!-- STEP 2: FECHA Y HORA -->
-      <div id="step2" class="hidden card-dark rounded-2xl p-8">
+      <div id="step2" class="hidden card-dark rounded-2xl p-8 md:p-10">
         <h4 class="font-serif text-2xl text-dark-text mb-2 text-center">Seleccioná fecha y hora</h4>
         <p class="text-center text-dark-muted mb-8 text-sm" id="modality-display"></p>
 
@@ -444,7 +462,7 @@
       </div>
 
       <!-- STEP 3: DATOS -->
-      <div id="step3" class="hidden card-dark rounded-2xl p-8">
+      <div id="step3" class="hidden card-dark rounded-2xl p-8 md:p-10">
         <h4 class="font-serif text-2xl text-dark-text mb-6 text-center">Confirmá tu solicitud</h4>
 
         <div class="bg-dark-card rounded-xl p-5 mb-6 border border-dark-border">
@@ -528,6 +546,46 @@
         <button onclick="resetBooking()" class="px-6 py-3 border border-dark-border text-dark-text rounded-full hover:border-dark-accent transition-colors">
           Agendar otro turno
         </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO - Al final como pidió -->
+  <section id="contacto" class="py-24 px-6 bg-dark-bg border-t border-dark-border">
+    <div class="max-w-xl mx-auto text-center">
+      <p class="text-[10px] uppercase tracking-[0.4em] text-dark-muted mb-4">Contacto</p>
+      <h3 class="font-serif text-4xl md:text-5xl text-dark-text mb-12">Comunicate</h3>
+      
+      <div class="space-y-8">
+        <div class="flex items-center justify-center gap-4 text-dark-text group">
+          <div class="w-14 h-14 rounded-full border border-dark-border flex items-center justify-center group-hover:border-dark-accent transition-colors">
+            <i class="fas fa-phone text-dark-accent"></i>
+          </div>
+          <div class="text-left">
+            <p class="text-xs text-dark-muted uppercase tracking-wider mb-1">Teléfono</p>
+            <a href="tel:2494596370" class="text-lg hover:text-dark-accent transition-colors">2494 596370</a>
+          </div>
+        </div>
+        
+        <div class="flex items-center justify-center gap-4 text-dark-text group">
+          <div class="w-14 h-14 rounded-full border border-dark-border flex items-center justify-center group-hover:border-dark-accent transition-colors">
+            <i class="fas fa-envelope text-dark-accent"></i>
+          </div>
+          <div class="text-left">
+            <p class="text-xs text-dark-muted uppercase tracking-wider mb-1">Email</p>
+            <a href="mailto:lic.albertisalvador@gmail.com" class="text-lg hover:text-dark-accent transition-colors">lic.albertisalvador@gmail.com</a>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-center gap-4 text-dark-text group">
+          <div class="w-14 h-14 rounded-full border border-dark-border flex items-center justify-center group-hover:border-dark-accent transition-colors">
+            <i class="fas fa-video text-dark-accent"></i>
+          </div>
+          <div class="text-left">
+            <p class="text-xs text-dark-muted uppercase tracking-wider mb-1">Atención</p>
+            <p class="text-lg">Virtual y Presencial</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -694,10 +752,11 @@
   </div>
 
   <!-- FOOTER -->
-  <footer class="bg-dark-bg border-t border-dark-border py-12">
+  <footer class="bg-dark-bg border-t border-dark-border py-8">
     <div class="max-w-4xl mx-auto px-6 text-center">
-      <h4 class="font-serif text-2xl text-dark-text mb-2">Alberti Bigliante Salvador</h4>
+      <h4 class="font-serif text-xl text-dark-text mb-2">Alberti Bigliante Salvador</h4>
       <p class="text-dark-muted text-sm mb-1">Licenciado en Psicología - MN. 87014</p>
+      <p class="text-dark-muted text-xs mb-4">Enfoque Psicoanalítico</p>
       <p class="text-dark-muted text-xs">Atención a adolescentes y adultos</p>
     </div>
   </footer>
