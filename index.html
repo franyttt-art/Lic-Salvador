@@ -27,6 +27,16 @@
               accent: '#c4c4c4',
               border: '#2a2a2a',
               hover: '#333333'
+            },
+            'gold': {
+              700: '#B7791F',
+              800: '#975A16',
+              900: '#744210',
+            },
+            'slate': {
+              700: '#334155',
+              800: '#1e293b',
+              900: '#0f172a',
             }
           },
           fontFamily: {
@@ -279,11 +289,47 @@
       opacity: 0.5;
     }
 
-    .text-gradient {
-      background: linear-gradient(135deg, #e8e8e8 0%, #c4c4c4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    /* Colores especiales para Admin */
+    .admin-virtual {
+      background-color: #1e293b;
+      border-color: #334155;
+      color: #cbd5e1;
+    }
+    .admin-virtual:hover {
+      background-color: #334155;
+      border-color: #475569;
+    }
+    
+    .admin-presencial {
+      background-color: #744210;
+      border-color: #B7791F;
+      color: #F6E05E;
+    }
+    .admin-presencial:hover {
+      background-color: #975A16;
+      border-color: #D69E2E;
+    }
+    
+    .admin-mixta {
+      background: linear-gradient(135deg, #1e293b 0%, #744210 100%);
+      border-color: #B7791F;
+      color: #ffffff;
+    }
+    .admin-mixta:hover {
+      background: linear-gradient(135deg, #334155 0%, #975A16 100%);
+    }
+
+    /* Estados seleccionados en configuración de horarios */
+    .slot-virtual-selected {
+      background-color: #475569 !important;
+      color: #ffffff !important;
+      border-color: #64748b !important;
+    }
+    
+    .slot-presencial-selected {
+      background-color: #B7791F !important;
+      color: #ffffff !important;
+      border-color: #D69E2E !important;
     }
   </style>
 </head>
@@ -653,6 +699,22 @@
               <div class="grid grid-cols-7 gap-2" id="adminCalendar"></div>
             </div>
 
+            <!-- Leyenda de colores -->
+            <div class="flex gap-4 mb-4 text-xs justify-center">
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded bg-slate-800 border border-slate-600"></div>
+                <span class="text-dark-muted">Virtual</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded bg-amber-900 border border-amber-700"></div>
+                <span class="text-dark-muted">Presencial</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded bg-gradient-to-br from-slate-800 to-amber-900 border border-amber-600"></div>
+                <span class="text-dark-muted">Mixta</span>
+              </div>
+            </div>
+
             <div id="day-config-panel" class="hidden bg-dark-card rounded-xl p-6 border border-dark-border">
               <div class="flex justify-between items-start mb-6">
                 <h5 class="font-serif text-lg text-dark-text" id="selected-day-title"></h5>
@@ -662,23 +724,27 @@
               </div>
               
               <div class="space-y-4 mb-6">
-                <div class="flex items-center justify-between p-4 bg-dark-bg rounded-xl border border-dark-border">
+                <div class="flex items-center justify-between p-4 bg-dark-bg rounded-xl border border-dark-border hover:border-slate-600 transition-colors">
                   <div class="flex items-center gap-3">
-                    <i class="fas fa-video text-dark-accent"></i>
-                    <span class="text-dark-text">Virtual</span>
+                    <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-300">
+                      <i class="fas fa-video text-sm"></i>
+                    </div>
+                    <span class="text-dark-text font-medium">Virtual</span>
                   </div>
-                  <input type="checkbox" id="virtual-available" onchange="toggleModalitySection('virtual')" class="w-5 h-5 rounded border-dark-border bg-dark-bg text-dark-accent focus:ring-dark-accent/20">
+                  <input type="checkbox" id="virtual-available" onchange="toggleModalitySection('virtual')" class="w-5 h-5 rounded border-dark-border bg-dark-bg text-slate-600 focus:ring-slate-600/20">
                 </div>
                 <div id="virtual-config-content" class="hidden pl-4">
                   <div id="virtual-time-slots" class="grid grid-cols-4 gap-2"></div>
                 </div>
 
-                <div class="flex items-center justify-between p-4 bg-dark-bg rounded-xl border border-dark-border">
+                <div class="flex items-center justify-between p-4 bg-dark-bg rounded-xl border border-dark-border hover:border-amber-700 transition-colors">
                   <div class="flex items-center gap-3">
-                    <i class="fas fa-building text-dark-accent"></i>
-                    <span class="text-dark-text">Presencial</span>
+                    <div class="w-8 h-8 rounded-full bg-amber-900 flex items-center justify-center text-amber-200">
+                      <i class="fas fa-building text-sm"></i>
+                    </div>
+                    <span class="text-dark-text font-medium">Presencial</span>
                   </div>
-                  <input type="checkbox" id="presencial-available" onchange="toggleModalitySection('presencial')" class="w-5 h-5 rounded border-dark-border bg-dark-bg text-dark-accent focus:ring-dark-accent/20">
+                  <input type="checkbox" id="presencial-available" onchange="toggleModalitySection('presencial')" class="w-5 h-5 rounded border-dark-border bg-dark-bg text-amber-700 focus:ring-amber-700/20">
                 </div>
                 <div id="presencial-config-content" class="hidden pl-4 space-y-3">
                   <input type="text" id="presencial-address" class="input-dark w-full px-3 py-2 rounded-lg text-sm" placeholder="Dirección del consultorio">
@@ -1240,18 +1306,24 @@
         const dayConfig = getDayConfig(date);
         const hasVirtual = dayConfig.virtual.available && dayConfig.virtual.times.length > 0;
         const hasPresencial = dayConfig.presencial.available && dayConfig.presencial.times.length > 0;
+        
         let classes = 'aspect-square rounded-lg p-2 cursor-pointer transition-all flex flex-col items-center justify-center text-xs border ';
         let content = `<span class="font-semibold mb-0.5">${day}</span>`;
+        
         if (hasVirtual && hasPresencial) {
-          classes += 'bg-gradient-to-br from-dark-card to-dark-accent border-dark-accent text-dark-bg ';
-          content += `<span class="text-[9px]">Ambas</span>`;
-        } else if (hasVirtual) {
-          classes += 'bg-dark-card border-dark-border text-dark-muted ';
-          content += `<span class="text-[9px] text-dark-accent">${dayConfig.virtual.times.length}h</span>`;
+          // Mixta - Gradiente dorado y gris
+          classes += 'admin-mixta ';
+          content += `<span class="text-[9px] font-bold">Mix</span>`;
         } else if (hasPresencial) {
-          classes += 'bg-dark-accent border-dark-accent text-dark-bg ';
-          content += `<span class="text-[9px]">${dayConfig.presencial.times.length}h</span>`;
+          // Solo presencial - Dorado oscuro/bronce
+          classes += 'admin-presencial ';
+          content += `<span class="text-[9px] opacity-80">${dayConfig.presencial.times.length}h</span>`;
+        } else if (hasVirtual) {
+          // Solo virtual - Gris azulado
+          classes += 'admin-virtual ';
+          content += `<span class="text-[9px] opacity-80">${dayConfig.virtual.times.length}h</span>`;
         } else {
+          // Sin configurar
           classes += 'bg-dark-bg border-dark-border text-dark-muted hover:border-dark-muted ';
           content += `<span class="text-[9px]">-</span>`;
         }
@@ -1268,15 +1340,24 @@
 
     function selectAdminDay(year, month, day) {
       selectedConfigDate = new Date(year, month, day);
+      const dateStr = selectedConfigDate.toISOString().split('T')[0];
       const dayConfig = getDayConfig(selectedConfigDate);
+      
       document.getElementById('selected-day-title').textContent = selectedConfigDate.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+      
+      // Cargar estado de checkboxes principales
       document.getElementById('virtual-available').checked = dayConfig.virtual.available;
-      renderTimeSlotsConfig('virtual', dayConfig.virtual.times);
       document.getElementById('presencial-available').checked = dayConfig.presencial.available;
       document.getElementById('presencial-address').value = dayConfig.presencial.address || '';
+      
+      // Renderizar slots de tiempo con colores específicos
+      renderTimeSlotsConfig('virtual', dayConfig.virtual.times);
       renderTimeSlotsConfig('presencial', dayConfig.presencial.times);
+      
+      // Mostrar/ocultar secciones según disponibilidad
       toggleModalitySection('virtual');
       toggleModalitySection('presencial');
+      
       document.getElementById('day-config-panel').classList.remove('hidden');
     }
 
@@ -1293,18 +1374,45 @@
     function renderTimeSlotsConfig(modality, selectedTimes = []) {
       const container = document.getElementById(`${modality}-time-slots`);
       container.innerHTML = '';
+      
       defaultTimeSlots.forEach(time => {
         const isSelected = selectedTimes.includes(time);
         const div = document.createElement('div');
         div.className = 'flex items-center justify-center';
+        
+        // Clases específicas según modalidad y estado
+        let labelClass = 'flex items-center gap-1 cursor-pointer w-full justify-center p-2 rounded-lg transition-all duration-200 ';
+        if (isSelected) {
+          if (modality === 'virtual') {
+            labelClass += 'slot-virtual-selected shadow-lg shadow-slate-900/50';
+          } else {
+            labelClass += 'slot-presencial-selected shadow-lg shadow-amber-900/50';
+          }
+        } else {
+          labelClass += 'bg-dark-bg text-dark-muted hover:bg-dark-hover border border-transparent hover:border-dark-border';
+        }
+        
         div.innerHTML = `
-          <label class="flex items-center gap-1 cursor-pointer w-full justify-center p-2 rounded-lg hover:bg-dark-bg transition-colors ${isSelected ? 'bg-dark-accent text-dark-bg' : 'text-dark-muted'}">
-            <input type="checkbox" id="${modality}-time-${time}" value="${time}" ${isSelected ? 'checked' : ''} class="hidden">
+          <label class="${labelClass}">
+            <input type="checkbox" id="${modality}-time-${time}" value="${time}" ${isSelected ? 'checked' : ''} class="hidden" onchange="updateSlotVisual(this, '${modality}')">
             <span class="text-xs font-medium">${time}</span>
           </label>
         `;
         container.appendChild(div);
       });
+    }
+
+    function updateSlotVisual(checkbox, modality) {
+      const label = checkbox.parentElement;
+      if (checkbox.checked) {
+        if (modality === 'virtual') {
+          label.className = 'flex items-center gap-1 cursor-pointer w-full justify-center p-2 rounded-lg transition-all duration-200 slot-virtual-selected shadow-lg shadow-slate-900/50';
+        } else {
+          label.className = 'flex items-center gap-1 cursor-pointer w-full justify-center p-2 rounded-lg transition-all duration-200 slot-presencial-selected shadow-lg shadow-amber-900/50';
+        }
+      } else {
+        label.className = 'flex items-center gap-1 cursor-pointer w-full justify-center p-2 rounded-lg transition-all duration-200 bg-dark-bg text-dark-muted hover:bg-dark-hover border border-transparent hover:border-dark-border';
+      }
     }
 
     async function saveDayConfig() {
@@ -1336,7 +1444,10 @@
           alert('Error al guardar: ' + error.message); 
           return; 
         }
-        dayAvailability[dateStr] = { virtual: { available: virtualAvailable, times: virtualTimes }, presencial: { available: presencialAvailable, times: presencialTimes, address: presencialAddress }};
+        dayAvailability[dateStr] = { 
+          virtual: { available: virtualAvailable, times: virtualTimes }, 
+          presencial: { available: presencialAvailable, times: presencialTimes, address: presencialAddress }
+        };
         alert('Guardado correctamente');
         renderAdminCalendar();
       } catch (err) { alert('Error de conexión'); }
