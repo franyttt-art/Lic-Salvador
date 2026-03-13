@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lic. Alberti Bigliante Salvador | Psicología</title>
   
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%234a4a4a'>Ψ</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23e8e6e1'>Ψ</text></svg>" />
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <script>
@@ -17,33 +17,24 @@
       theme: {
         extend: {
           colors: {
-            'warm': {
-              50: '#fafaf9',
-              100: '#f5f5f4',
-              200: '#e7e5e4',
-              300: '#d6d3d1',
-              400: '#a8a29e',
-              500: '#78716c',
-              600: '#57534e',
-              700: '#44403c',
-              800: '#292524',
-              900: '#1c1917',
+            'dark': {
+              bg: '#4a4a48',
+              card: '#5c5c5a',
+              text: '#f5f5f0',
+              muted: '#b8b6b1',
+              accent: '#e8e6e1',
+              border: '#6b6b69'
             },
-            'stone': {
-              850: '#1c1917',
+            'cream': {
+              50: '#f9f8f6',
+              100: '#f0efe9',
+              200: '#e8e6e1',
+              300: '#d4d2cd'
             }
           },
           fontFamily: {
-            'serif': ['Playfair Display', 'serif'],
-            'sans': ['Plus Jakarta Sans', 'sans-serif'],
-          },
-          borderRadius: {
-            '4xl': '2rem',
-            '5xl': '2.5rem',
-          },
-          transitionTimingFunction: {
-            'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
-            'bounce-soft': 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+            'serif': ['Cormorant Garamond', 'serif'],
+            'sans': ['Inter', 'sans-serif'],
           }
         }
       }
@@ -57,375 +48,270 @@
     }
     
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #fafaf9;
-      color: #1c1917;
-      font-weight: 400;
-      line-height: 1.6;
+      font-family: 'Inter', sans-serif;
+      background-color: #4a4a48;
+      color: #f5f5f0;
+      font-weight: 300;
     }
     
     .font-serif {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Cormorant Garamond', serif;
     }
     
-    /* Glass morphism suave */
-    .glass {
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-    }
-    
-    /* Sombras premium */
-    .shadow-soft {
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02),
-                  0 2px 4px -1px rgba(0, 0, 0, 0.02),
-                  0 20px 25px -5px rgba(0, 0, 0, 0.05);
-    }
-    
-    .shadow-hover {
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1),
-                  0 10px 20px -10px rgba(0, 0, 0, 0.05);
-    }
-    
-    .shadow-glow {
-      box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.1);
-    }
-    
-    /* Botones primarios - Elegantes */
-    .btn-primary {
-      background: linear-gradient(135deg, #292524 0%, #44403c 100%);
-      color: #fafaf9;
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Fondo con sombras de plantas simuladas */
+    .bg-plant-shadows {
+      background: linear-gradient(135deg, #4a4a48 0%, #525250 50%, #4a4a48 100%);
       position: relative;
       overflow: hidden;
     }
     
-    .btn-primary::before {
+    .bg-plant-shadows::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.7s;
+      top: -20%;
+      right: -10%;
+      width: 60%;
+      height: 80%;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, transparent 70%);
+      filter: blur(40px);
+      transform: rotate(-15deg);
+      pointer-events: none;
     }
     
-    .btn-primary:hover::before {
-      left: 100%;
+    .bg-plant-shadows::after {
+      content: '';
+      position: absolute;
+      bottom: -10%;
+      left: -5%;
+      width: 50%;
+      height: 60%;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, transparent 60%);
+      filter: blur(30px);
+      transform: rotate(10deg);
+      pointer-events: none;
     }
     
-    .btn-primary:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 20px 40px -10px rgba(41, 37, 36, 0.3);
-    }
-    
-    .btn-primary:active {
-      transform: translateY(-1px) scale(0.98);
-    }
-    
-    /* Botones secundarios - Outline suave */
-    .btn-secondary {
-      background: transparent;
-      color: #44403c;
-      border: 1.5px solid #d6d3d1;
+    /* Botón principal estilo tarjeta */
+    .btn-cream {
+      background-color: #e8e6e1;
+      color: #4a4a48;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(255,255,255,0.1);
     }
     
-    .btn-secondary:hover {
-      background: #fafaf9;
-      border-color: #78716c;
-      color: #292524;
+    .btn-cream:hover {
+      background-color: #f5f5f0;
       transform: translateY(-2px);
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
     }
     
-    /* Inputs elegantes */
-    .input-elegant {
-      background: #ffffff;
-      border: 1.5px solid #e7e5e4;
-      color: #292524;
+    /* Inputs elegantes oscuros */
+    .input-dark {
+      background-color: rgba(255,255,255,0.05);
+      border: 1px solid #6b6b69;
+      color: #f5f5f0;
+      transition: all 0.3s ease;
+    }
+    
+    .input-dark:hover {
+      border-color: #8b8b89;
+    }
+    
+    .input-dark:focus {
+      outline: none;
+      border-color: #e8e6e1;
+      background-color: rgba(255,255,255,0.08);
+    }
+    
+    .input-dark::placeholder {
+      color: #8b8b89;
+    }
+    
+    /* Cards oscuras */
+    .card-dark {
+      background-color: rgba(255,255,255,0.03);
+      border: 1px solid #6b6b69;
+      transition: all 0.4s ease;
+    }
+    
+    .card-dark:hover {
+      border-color: #8b8b89;
+      background-color: rgba(255,255,255,0.05);
+    }
+    
+    /* Selección de modalidad */
+    .modality-dark {
+      background-color: rgba(255,255,255,0.03);
+      border: 1px solid #6b6b69;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
-    .input-elegant:hover {
-      border-color: #d6d3d1;
+    .modality-dark:hover {
+      border-color: #e8e6e1;
+      background-color: rgba(255,255,255,0.06);
     }
     
-    .input-elegant:focus {
-      outline: none;
-      border-color: #78716c;
-      box-shadow: 0 0 0 4px rgba(120, 113, 108, 0.08);
-      background: #fafaf9;
+    .modality-dark.selected {
+      border-color: #e8e6e1;
+      background-color: rgba(232,230,225,0.1);
     }
     
-    /* Cards con elevación suave */
-    .card-elegant {
-      background: #ffffff;
-      border: 1px solid rgba(231, 229, 228, 0.5);
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .card-elegant:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.12);
-      border-color: rgba(168, 162, 158, 0.3);
-    }
-    
-    /* Selección de modalidad - Estilo premium */
-    .modality-card {
-      background: #ffffff;
-      border: 2px solid #e7e5e4;
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .modality-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at center, rgba(120, 113, 108, 0.05) 0%, transparent 70%);
-      opacity: 0;
-      transition: opacity 0.5s;
-    }
-    
-    .modality-card:hover {
-      border-color: #a8a29e;
-      transform: translateY(-5px) scale(1.01);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
-    }
-    
-    .modality-card:hover::after {
-      opacity: 1;
-    }
-    
-    .modality-card.selected {
-      border-color: #44403c;
-      background: #fafaf9;
-      transform: translateY(-5px);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-    }
-    
-    .modality-card.selected .icon-modality {
-      background: #44403c;
-      color: #fafaf9;
-      transform: scale(1.1) rotate(5deg);
+    .modality-dark.selected .icon-modality {
+      background-color: #e8e6e1;
+      color: #4a4a48;
     }
     
     .icon-modality {
-      background: #f5f5f4;
-      color: #78716c;
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      background-color: rgba(255,255,255,0.1);
+      color: #e8e6e1;
+      transition: all 0.3s ease;
     }
     
-    /* Calendario elegante */
+    /* Calendario oscuro */
     .calendar-day {
       aspect-ratio: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: #ffffff;
-      border: 1.5px solid transparent;
-      border-radius: 1rem;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background-color: rgba(255,255,255,0.03);
+      border: 1px solid transparent;
+      border-radius: 0.75rem;
+      transition: all 0.3s ease;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .calendar-day::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at center, rgba(120, 113, 108, 0.1) 0%, transparent 70%);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    
-    .calendar-day:hover::before {
-      opacity: 1;
     }
     
     .calendar-day:hover:not(.disabled):not(.empty) {
-      border-color: #d6d3d1;
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      border-color: #8b8b89;
+      background-color: rgba(255,255,255,0.06);
     }
     
     .calendar-day.selected {
-      background: #44403c;
-      color: #fafaf9;
-      border-color: #44403c;
-      transform: scale(1.05);
-      box-shadow: 0 15px 30px -10px rgba(68, 64, 60, 0.3);
+      background-color: #e8e6e1;
+      color: #4a4a48;
+      border-color: #e8e6e1;
     }
     
     .calendar-day.available {
-      border-color: #d6d3d1;
-      background: #fafaf9;
-    }
-    
-    .calendar-day.available:hover {
-      border-color: #a8a29e;
+      border-color: #6b6b69;
     }
     
     .calendar-day.booked {
-      background: #f5f5f4;
-      color: #a8a29e;
-      cursor: not-allowed;
+      background-color: rgba(255,255,255,0.02);
+      color: #6b6b69;
       text-decoration: line-through;
+      cursor: not-allowed;
     }
     
     .calendar-day.disabled {
-      color: #d6d3d1;
+      color: #5a5a58;
       cursor: not-allowed;
     }
     
     /* Time slots */
     .time-slot {
-      background: #ffffff;
-      border: 1.5px solid #e7e5e4;
-      border-radius: 1rem;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      background-color: rgba(255,255,255,0.03);
+      border: 1px solid #6b6b69;
+      border-radius: 0.75rem;
+      transition: all 0.3s ease;
+      color: #f5f5f0;
     }
     
     .time-slot:hover:not(.disabled):not(.booked) {
-      border-color: #a8a29e;
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      border-color: #e8e6e1;
+      background-color: rgba(255,255,255,0.06);
     }
     
     .time-slot.selected {
-      background: #44403c;
-      color: #fafaf9;
-      border-color: #44403c;
-      transform: scale(1.05);
-      box-shadow: 0 15px 30px -10px rgba(68, 64, 60, 0.3);
+      background-color: #e8e6e1;
+      color: #4a4a48;
+      border-color: #e8e6e1;
     }
     
     .time-slot.booked {
-      background: #f5f5f4;
-      color: #a8a29e;
+      background-color: rgba(255,255,255,0.02);
+      color: #5a5a58;
       text-decoration: line-through;
       cursor: not-allowed;
     }
     
     /* Step indicators */
     .step-dot {
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: all 0.3s ease;
     }
     
     .step-dot.active {
-      background: #44403c;
-      transform: scale(1.2);
-      box-shadow: 0 0 0 8px rgba(68, 64, 60, 0.1);
+      background-color: #e8e6e1;
+      color: #4a4a48;
     }
     
     .step-dot.completed {
-      background: #78716c;
+      background-color: #8b8b89;
+      color: #f5f5f0;
     }
     
-    .step-line {
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Admin panel oscuro */
+    .admin-dark {
+      background-color: #3a3a38;
+      border: 1px solid #5c5c5a;
     }
     
-    /* Animaciones de entrada */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .badge-virtual {
+      background-color: rgba(232,230,225,0.1);
+      color: #e8e6e1;
+      border: 1px solid #6b6b69;
     }
     
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
+    .badge-presencial {
+      background-color: #e8e6e1;
+      color: #4a4a48;
     }
     
-    .animate-fade-in {
-      animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    /* Modal */
+    .modal-backdrop {
+      background-color: rgba(30,30,28,0.9);
+      backdrop-filter: blur(8px);
     }
     
-    .animate-float {
-      animation: float 6s ease-in-out infinite;
-    }
-    
-    /* Scrollbar elegante */
+    /* Scrollbar oscura */
     ::-webkit-scrollbar {
       width: 8px;
     }
     
     ::-webkit-scrollbar-track {
-      background: #f5f5f4;
-      border-radius: 4px;
+      background: #3a3a38;
     }
     
     ::-webkit-scrollbar-thumb {
-      background: #d6d3d1;
+      background: #5c5c5a;
       border-radius: 4px;
     }
     
     ::-webkit-scrollbar-thumb:hover {
-      background: #a8a29e;
+      background: #6b6b69;
     }
     
-    /* Gradientes sutiles */
-    .gradient-warm {
-      background: linear-gradient(135deg, #fafaf9 0%, #f5f5f4 50%, #fafaf9 100%);
-    }
-    
-    /* Badge elegantes */
-    .badge {
-      background: rgba(68, 64, 60, 0.08);
-      color: #44403c;
-      border: 1px solid rgba(68, 64, 60, 0.15);
-    }
-    
-    .badge-filled {
-      background: #44403c;
-      color: #fafaf9;
-    }
-    
-    /* Modal */
-    .modal-backdrop {
-      background: rgba(28, 25, 23, 0.6);
-      backdrop-filter: blur(8px);
-    }
-    
-    /* Admin panel */
-    .admin-card {
-      background: #ffffff;
-      border: 1px solid #e7e5e4;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .admin-card:hover {
-      transform: translateX(8px);
-      border-color: #d6d3d1;
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+    /* Línea decorativa */
+    .decorative-line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #e8e6e1, transparent);
+      opacity: 0.3;
     }
   </style>
 </head>
-<body class="antialiased bg-warm-50">
+<body class="antialiased bg-dark-bg min-h-screen">
 
   <!-- NAV -->
-  <nav class="fixed w-full z-50 glass border-b border-warm-200/50">
-    <div class="max-w-6xl mx-auto px-6 py-5">
+  <nav class="fixed w-full z-50 bg-dark-bg/90 backdrop-blur-md border-b border-dark-border">
+    <div class="max-w-6xl mx-auto px-6 py-4">
       <div class="flex justify-between items-center">
         <div class="flex flex-col">
-          <h1 class="font-serif text-2xl text-warm-800 tracking-tight">Alberti Bigliante Salvador</h1>
-          <span class="text-[10px] uppercase tracking-[0.3em] text-warm-500 font-medium mt-0.5">Licenciado en Psicología</span>
+          <h1 class="font-serif text-2xl text-dark-text tracking-wide">Alberti Bigliante Salvador</h1>
+          <span class="text-[10px] uppercase tracking-[0.3em] text-dark-muted mt-0.5">Licenciado en Psicología</span>
         </div>
         
-        <button onclick="toggleAdmin()" class="group flex items-center gap-2 px-5 py-2.5 rounded-full border border-warm-200 text-warm-600 text-sm font-medium transition-all duration-300 hover:border-warm-400 hover:text-warm-800 hover:shadow-soft">
-          <i class="fas fa-lock text-xs transition-transform duration-300 group-hover:rotate-12"></i>
+        <button onclick="toggleAdmin()" class="group flex items-center gap-2 px-4 py-2 rounded-full border border-dark-border text-dark-muted text-sm transition-all duration-300 hover:border-dark-accent hover:text-dark-text">
+          <i class="fas fa-lock text-xs group-hover:rotate-12 transition-transform duration-300"></i>
           <span class="hidden sm:inline">Acceso profesional</span>
         </button>
       </div>
@@ -433,263 +319,260 @@
   </nav>
 
   <!-- HERO -->
-  <section class="pt-36 pb-24 px-6 gradient-warm relative overflow-hidden">
-    <!-- Elementos decorativos flotantes -->
-    <div class="absolute top-20 right-20 w-72 h-72 bg-warm-200/30 rounded-full blur-3xl animate-float"></div>
-    <div class="absolute bottom-20 left-20 w-96 h-96 bg-warm-300/20 rounded-full blur-3xl animate-float" style="animation-delay: -3s;"></div>
-    
-    <div class="max-w-4xl mx-auto text-center relative z-10">
-      <div class="animate-fade-in">
-        <p class="text-warm-500 text-xs uppercase tracking-[0.4em] mb-8 font-medium">Psicología Clínica</p>
-        
-        <h2 class="font-serif text-6xl md:text-7xl text-warm-900 mb-6 leading-[1.1] tracking-tight">
-          Alberti Bigliante<br>
-          <span class="text-warm-700">Salvador</span>
-        </h2>
-        
-        <div class="flex items-center justify-center gap-4 mb-8">
-          <div class="h-px w-12 bg-warm-300"></div>
-          <p class="font-serif text-2xl md:text-3xl text-warm-700 italic font-normal">"La cura por la palabra"</p>
-          <div class="h-px w-12 bg-warm-300"></div>
+  <section class="pt-32 pb-20 px-6 bg-plant-shadows min-h-screen flex items-center justify-center relative">
+    <div class="max-w-md mx-auto text-center relative z-10">
+      
+      <!-- Nombre principal -->
+      <h2 class="font-serif text-5xl md:text-6xl text-dark-text mb-2 leading-tight tracking-tight">
+        Alberti Bigliante<br>
+        <span class="text-dark-accent">Salvador</span>
+      </h2>
+      
+      <!-- Subtítulo -->
+      <div class="mb-6">
+        <p class="text-dark-muted text-sm uppercase tracking-[0.2em] mb-1">Lic. en Psicología</p>
+        <p class="text-dark-accent text-lg font-serif italic">MN. 87014</p>
+      </div>
+      
+      <!-- Línea decorativa -->
+      <div class="decorative-line max-w-xs mx-auto mb-8"></div>
+      
+      <!-- Botón principal -->
+      <a href="#agenda" class="inline-flex items-center gap-3 px-8 py-4 btn-cream rounded-full text-lg font-medium mb-10 group">
+        <i class="far fa-calendar-check text-xl group-hover:rotate-12 transition-transform duration-300"></i>
+        <span>Agendá tu turno</span>
+      </a>
+      
+      <!-- Especialidad -->
+      <p class="text-dark-text text-sm uppercase tracking-[0.15em] mb-8 font-medium">
+        Adolescentes y Adultos
+      </p>
+      
+      <!-- Iconos de contacto -->
+      <div class="space-y-4 mb-10">
+        <div class="flex items-center justify-center gap-3 text-dark-muted">
+          <div class="w-10 h-10 rounded-full bg-dark-card flex items-center justify-center">
+            <i class="fas fa-video text-sm"></i>
+          </div>
+          <span class="text-sm tracking-wide">Atención virtual</span>
         </div>
         
-        <p class="font-serif text-xl text-warm-500 italic mb-10 max-w-2xl mx-auto leading-relaxed">
-          "El inconsciente está estructurado como un lenguaje"
-        </p>
-        
-        <div class="inline-flex items-center gap-3 px-6 py-3 bg-white/80 backdrop-blur rounded-full border border-warm-200 shadow-soft mb-12">
-          <span class="w-2 h-2 rounded-full bg-warm-400 animate-pulse"></span>
-          <span class="text-warm-600 text-sm font-medium tracking-wide">MN. 87014 · Adolescentes y Adultos</span>
+        <div class="flex items-center justify-center gap-3 text-dark-muted">
+          <div class="w-10 h-10 rounded-full bg-dark-card flex items-center justify-center">
+            <i class="fas fa-phone text-sm"></i>
+          </div>
+          <span class="text-sm tracking-wide">2494 596370</span>
         </div>
-
-        <p class="text-warm-600 max-w-xl mx-auto leading-relaxed mb-12 text-lg font-light">
-          Espacio terapéutico dedicado al acompañamiento profesional en el proceso de 
-          autoconocimiento y bienestar emocional.
-        </p>
-
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="#agenda" class="px-10 py-4 btn-primary rounded-2xl font-medium text-base flex items-center justify-center gap-3 group">
-            <i class="far fa-calendar-check text-lg transition-transform duration-300 group-hover:rotate-12"></i>
-            <span>Reservar Turno</span>
-          </a>
-          <a href="mailto:lic.albertisalvador@gmail.com" class="px-10 py-4 btn-secondary rounded-2xl font-medium text-base flex items-center justify-center gap-3">
-            <i class="far fa-paper-plane text-lg"></i>
-            <span>Contactar</span>
-          </a>
+        
+        <div class="flex items-center justify-center gap-3 text-dark-muted">
+          <div class="w-10 h-10 rounded-full bg-dark-card flex items-center justify-center">
+            <i class="fas fa-envelope text-sm"></i>
+          </div>
+          <span class="text-sm tracking-wide">lic.albertisalvador@gmail.com</span>
         </div>
       </div>
+      
+      <!-- Frase nueva -->
+      <div class="mt-8 px-4">
+        <p class="font-serif text-dark-accent text-lg italic leading-relaxed mb-3">
+          "Espacio terapéutico con compromiso y acompañamiento profesional."
+        </p>
+        <p class="text-dark-muted text-sm leading-relaxed">
+          Si estás pensando en empezar terapia, este puede ser tu lugar.
+        </p>
+      </div>
+      
     </div>
-  </section>
-
-  <!-- MODALIDADES -->
-  <section class="py-24 px-6 bg-white">
-    <div class="max-w-5xl mx-auto">
-      <div class="grid md:grid-cols-2 gap-8">
-        <!-- Presencial -->
-        <div class="card-elegant rounded-3xl p-10 text-center group cursor-default">
-          <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-warm-100 flex items-center justify-center text-3xl text-warm-600 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-warm-200">
-            <i class="fas fa-door-open"></i>
-          </div>
-          <h3 class="font-serif text-2xl text-warm-900 mb-3">Atención Presencial</h3>
-          <p class="text-warm-500 text-xs uppercase tracking-widest mb-4 font-medium">Consultorio</p>
-          <p class="text-warm-600 leading-relaxed" id="display-address">
-            La dirección se confirmará según disponibilidad
-          </p>
-        </div>
-
-        <!-- Virtual -->
-        <div class="card-elegant rounded-3xl p-10 text-center group cursor-default">
-          <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-warm-100 flex items-center justify-center text-3xl text-warm-600 transition-all duration-500 group-hover:scale-110 group-hover:-rotate-6 group-hover:bg-warm-200">
-            <i class="fas fa-laptop-medical"></i>
-          </div>
-          <h3 class="font-serif text-2xl text-warm-900 mb-3">Atención Virtual</h3>
-          <p class="text-warm-500 text-xs uppercase tracking-widest mb-4 font-medium">Online</p>
-          <p class="text-warm-600 leading-relaxed">
-            Videollamada desde cualquier lugar.<br>
-            Sesiones seguras y privadas.
-          </p>
-        </div>
-      </div>
+    
+    <!-- Elementos decorativos de plantas (simulados con CSS) -->
+    <div class="absolute bottom-0 left-0 w-32 h-64 opacity-20 pointer-events-none">
+      <div class="w-full h-full bg-gradient-to-t from-black/30 to-transparent" style="clip-path: polygon(0 100%, 50% 0, 100% 100%);"></div>
+    </div>
+    <div class="absolute top-20 right-0 w-24 h-48 opacity-15 pointer-events-none">
+      <div class="w-full h-full bg-gradient-to-b from-black/20 to-transparent" style="clip-path: polygon(100% 0, 0 50%, 100% 100%);"></div>
     </div>
   </section>
 
   <!-- BOOKING SECTION -->
-  <section id="agenda" class="py-24 px-6 bg-warm-50 relative">
-    <div class="max-w-4xl mx-auto relative z-10">
-      <div class="text-center mb-16">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-warm-200/50 text-warm-600 text-xs uppercase tracking-widest font-medium mb-4">Reservas</span>
-        <h3 class="font-serif text-5xl text-warm-900 mb-4 tracking-tight">Agendá tu Consulta</h3>
-        <p class="text-warm-500 font-light text-lg">Seleccioná la modalidad y el horario que prefieras</p>
+  <section id="agenda" class="py-20 px-6 bg-dark-bg relative">
+    <div class="max-w-2xl mx-auto relative z-10">
+      
+      <div class="text-center mb-12">
+        <h3 class="font-serif text-4xl text-dark-text mb-3">Reservá tu consulta</h3>
+        <p class="text-dark-muted text-sm">Seleccioná la modalidad que prefieras</p>
       </div>
 
       <!-- PROGRESS -->
-      <div class="flex justify-center items-center mb-16 max-w-md mx-auto">
-        <div class="flex items-center w-full relative">
-          <div class="step-dot active w-10 h-10 rounded-full bg-warm-300 flex items-center justify-center text-sm font-medium text-warm-700 z-10" id="step1-ind">1</div>
-          <div class="step-line flex-1 h-0.5 bg-warm-200 mx-2" id="line1"></div>
-          <div class="step-dot w-10 h-10 rounded-full bg-warm-200 flex items-center justify-center text-sm font-medium text-warm-500 z-10" id="step2-ind">2</div>
-          <div class="step-line flex-1 h-0.5 bg-warm-200 mx-2" id="line2"></div>
-          <div class="step-dot w-10 h-10 rounded-full bg-warm-200 flex items-center justify-center text-sm font-medium text-warm-500 z-10" id="step3-ind">3</div>
+      <div class="flex justify-center items-center mb-12 max-w-sm mx-auto">
+        <div class="flex items-center w-full">
+          <div class="step-dot active w-8 h-8 rounded-full border border-dark-accent flex items-center justify-center text-sm font-medium" id="step1-ind">1</div>
+          <div class="flex-1 h-px bg-dark-border mx-2" id="line1"></div>
+          <div class="step-dot w-8 h-8 rounded-full border border-dark-border text-dark-muted flex items-center justify-center text-sm font-medium" id="step2-ind">2</div>
+          <div class="flex-1 h-px bg-dark-border mx-2" id="line2"></div>
+          <div class="step-dot w-8 h-8 rounded-full border border-dark-border text-dark-muted flex items-center justify-center text-sm font-medium" id="step3-ind">3</div>
         </div>
       </div>
 
       <!-- STEP 1: MODALIDAD -->
-      <div id="step1" class="bg-white rounded-3xl shadow-soft p-8 md:p-12 border border-warm-100">
-        <h4 class="font-serif text-3xl text-warm-900 mb-10 text-center">¿Cómo querés atenderte?</h4>
+      <div id="step1" class="card-dark rounded-2xl p-8">
+        <h4 class="font-serif text-2xl text-dark-text mb-8 text-center">¿Cómo querés atenderte?</h4>
 
-        <div class="grid md:grid-cols-2 gap-6 mb-10">
-          <button onclick="selectModality('virtual')" id="btn-virtual" class="modality-card rounded-3xl p-8 text-center group">
-            <div class="icon-modality w-24 h-24 mx-auto mb-6 rounded-2xl flex items-center justify-center text-4xl">
+        <div class="grid gap-4 mb-8">
+          <button onclick="selectModality('virtual')" id="btn-virtual" class="modality-dark rounded-xl p-6 text-left flex items-center gap-4 group">
+            <div class="icon-modality w-14 h-14 rounded-full flex items-center justify-center text-2xl">
               <i class="fas fa-headset"></i>
             </div>
-            <h5 class="font-serif text-xl mb-2 text-warm-900">Virtual</h5>
-            <p class="text-sm text-warm-500">Videollamada segura</p>
+            <div>
+              <h5 class="font-serif text-xl text-dark-text mb-1">Atención Virtual</h5>
+              <p class="text-sm text-dark-muted">Videollamada desde cualquier lugar</p>
+            </div>
           </button>
 
-          <button onclick="selectModality('presencial')" id="btn-presencial" class="modality-card rounded-3xl p-8 text-center group">
-            <div class="icon-modality w-24 h-24 mx-auto mb-6 rounded-2xl flex items-center justify-center text-4xl">
+          <button onclick="selectModality('presencial')" id="btn-presencial" class="modality-dark rounded-xl p-6 text-left flex items-center gap-4 group">
+            <div class="icon-modality w-14 h-14 rounded-full flex items-center justify-center text-2xl">
               <i class="fas fa-couch"></i>
             </div>
-            <h5 class="font-serif text-xl mb-2 text-warm-900">Presencial</h5>
-            <p class="text-sm text-warm-500">Consultorio privado</p>
+            <div>
+              <h5 class="font-serif text-xl text-dark-text mb-1">Atención Presencial</h5>
+              <p class="text-sm text-dark-muted">Consultorio privado</p>
+            </div>
           </button>
         </div>
 
         <div class="flex justify-end">
-          <button onclick="nextStep(2)" id="btn-next-1" class="px-8 py-3.5 bg-warm-100 text-warm-400 rounded-2xl font-medium cursor-not-allowed transition-all duration-300" disabled>
+          <button onclick="nextStep(2)" id="btn-next-1" class="px-6 py-3 bg-dark-card text-dark-muted rounded-full font-medium cursor-not-allowed border border-dark-border transition-all duration-300" disabled>
             Continuar <i class="fas fa-arrow-right ml-2"></i>
           </button>
         </div>
       </div>
 
       <!-- STEP 2: FECHA Y HORA -->
-      <div id="step2" class="hidden bg-white rounded-3xl shadow-soft p-8 md:p-12 border border-warm-100">
-        <h4 class="font-serif text-3xl text-warm-900 mb-2 text-center">Seleccioná fecha y hora</h4>
-        <p class="text-center text-warm-500 mb-10 text-sm uppercase tracking-widest font-medium" id="modality-display"></p>
+      <div id="step2" class="hidden card-dark rounded-2xl p-8">
+        <h4 class="font-serif text-2xl text-dark-text mb-2 text-center">Seleccioná fecha y hora</h4>
+        <p class="text-center text-dark-muted mb-8 text-sm" id="modality-display"></p>
 
-        <div class="grid lg:grid-cols-2 gap-10">
-          <div>
-            <div class="flex justify-between items-center mb-6">
-              <button onclick="changeMonth(-1)" class="w-10 h-10 rounded-full bg-warm-100 text-warm-600 hover:bg-warm-200 hover:text-warm-800 transition-all duration-300 flex items-center justify-center">
-                <i class="fas fa-chevron-left"></i>
-              </button>
-              <h5 class="font-medium text-warm-900 text-lg" id="currentMonth"></h5>
-              <button onclick="changeMonth(1)" class="w-10 h-10 rounded-full bg-warm-100 text-warm-600 hover:bg-warm-200 hover:text-warm-800 transition-all duration-300 flex items-center justify-center">
-                <i class="fas fa-chevron-right"></i>
-              </button>
-            </div>
-
-            <div class="grid grid-cols-7 gap-2 text-center text-xs uppercase tracking-wider text-warm-400 mb-3 font-medium">
-              <div>Dom</div><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div>
-            </div>
-            <div class="grid grid-cols-7 gap-2" id="calendar"></div>
+        <div class="mb-8">
+          <div class="flex justify-between items-center mb-4">
+            <button onclick="changeMonth(-1)" class="w-10 h-10 rounded-full bg-dark-card text-dark-muted hover:text-dark-text transition-colors flex items-center justify-center">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <h5 class="font-medium text-dark-text" id="currentMonth"></h5>
+            <button onclick="changeMonth(1)" class="w-10 h-10 rounded-full bg-dark-card text-dark-muted hover:text-dark-text transition-colors flex items-center justify-center">
+              <i class="fas fa-chevron-right"></i>
+            </button>
           </div>
 
-          <div>
-            <h5 class="font-medium text-warm-900 mb-6 text-lg">Horarios disponibles</h5>
-            <div id="time-slots-container" class="space-y-3">
-              <p class="text-warm-500 text-sm italic bg-warm-50 p-4 rounded-2xl">Seleccioná una fecha primero</p>
-            </div>
-            <div id="location-info" class="mt-6 p-5 bg-warm-50 rounded-2xl border border-warm-200 hidden">
-              <p class="text-sm text-warm-500 mb-1 font-medium">Dirección del consultorio:</p>
-              <p class="font-medium text-warm-800" id="selected-location"></p>
-            </div>
+          <div class="grid grid-cols-7 gap-2 text-center text-xs uppercase tracking-wider text-dark-muted mb-2">
+            <div>Dom</div><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div>
+          </div>
+          <div class="grid grid-cols-7 gap-2" id="calendar"></div>
+        </div>
+
+        <div class="mb-6">
+          <h5 class="font-medium text-dark-text mb-4">Horarios disponibles</h5>
+          <div id="time-slots-container" class="grid grid-cols-3 gap-3">
+            <p class="text-dark-muted text-sm col-span-3 text-center py-4">Seleccioná una fecha primero</p>
           </div>
         </div>
 
-        <div class="flex justify-between mt-10">
-          <button onclick="prevStep(1)" class="px-6 py-3 text-warm-500 hover:text-warm-800 font-medium transition-colors duration-300 flex items-center gap-2">
+        <div id="location-info" class="hidden p-4 bg-dark-card rounded-xl border border-dark-border mb-6">
+          <p class="text-sm text-dark-muted mb-1">Dirección:</p>
+          <p class="font-medium text-dark-accent" id="selected-location"></p>
+        </div>
+
+        <div class="flex justify-between">
+          <button onclick="prevStep(1)" class="px-4 py-2 text-dark-muted hover:text-dark-text transition-colors flex items-center gap-2">
             <i class="fas fa-arrow-left"></i> Volver
           </button>
-          <button onclick="nextStep(3)" id="btn-next-2" class="px-8 py-3.5 bg-warm-100 text-warm-400 rounded-2xl font-medium cursor-not-allowed transition-all duration-300" disabled>
+          <button onclick="nextStep(3)" id="btn-next-2" class="px-6 py-3 bg-dark-card text-dark-muted rounded-full font-medium cursor-not-allowed border border-dark-border transition-all duration-300" disabled>
             Continuar <i class="fas fa-arrow-right ml-2"></i>
           </button>
         </div>
       </div>
 
       <!-- STEP 3: DATOS -->
-      <div id="step3" class="hidden bg-white rounded-3xl shadow-soft p-8 md:p-12 border border-warm-100">
-        <h4 class="font-serif text-3xl text-warm-900 mb-10 text-center">Confirmá tu solicitud</h4>
+      <div id="step3" class="hidden card-dark rounded-2xl p-8">
+        <h4 class="font-serif text-2xl text-dark-text mb-6 text-center">Confirmá tu solicitud</h4>
 
-        <div class="bg-warm-50 rounded-2xl p-6 mb-8 border border-warm-200">
-          <div class="flex items-center gap-4 mb-4 pb-4 border-b border-warm-200">
-            <div class="w-12 h-12 rounded-xl bg-white border border-warm-200 flex items-center justify-center text-warm-700">
-              <i class="far fa-calendar-check text-xl"></i>
+        <div class="bg-dark-card rounded-xl p-5 mb-6 border border-dark-border">
+          <div class="flex items-center gap-3 mb-4 pb-4 border-b border-dark-border">
+            <div class="w-10 h-10 rounded-full bg-dark-bg border border-dark-border flex items-center justify-center text-dark-accent">
+              <i class="far fa-calendar-check"></i>
             </div>
-            <div class="flex-1">
-              <p class="text-xs text-warm-500 uppercase tracking-wider font-medium">Modalidad</p>
-              <p class="font-medium text-warm-900 capitalize" id="confirm-modality"></p>
+            <div>
+              <p class="text-xs text-dark-muted uppercase tracking-wider">Modalidad</p>
+              <p class="font-medium text-dark-text capitalize" id="confirm-modality"></p>
             </div>
           </div>
 
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-2 gap-4 mb-4">
             <div>
-              <p class="text-xs text-warm-500 uppercase tracking-wider font-medium mb-1">Fecha</p>
-              <p class="font-medium text-warm-900" id="confirm-date"></p>
+              <p class="text-xs text-dark-muted uppercase tracking-wider mb-1">Fecha</p>
+              <p class="font-medium text-dark-text text-sm" id="confirm-date"></p>
             </div>
             <div>
-              <p class="text-xs text-warm-500 uppercase tracking-wider font-medium mb-1">Hora</p>
-              <p class="font-medium text-warm-900" id="confirm-time"></p>
+              <p class="text-xs text-dark-muted uppercase tracking-wider mb-1">Hora</p>
+              <p class="font-medium text-dark-text" id="confirm-time"></p>
             </div>
           </div>
 
-          <div id="confirm-location-wrap" class="mt-4 hidden">
-            <p class="text-xs text-warm-500 uppercase tracking-wider font-medium mb-1">Dirección</p>
-            <p class="font-medium text-warm-800" id="confirm-location"></p>
+          <div id="confirm-location-wrap" class="hidden">
+            <p class="text-xs text-dark-muted uppercase tracking-wider mb-1">Dirección</p>
+            <p class="font-medium text-dark-accent text-sm" id="confirm-location"></p>
           </div>
         </div>
 
-        <form id="bookingForm" class="space-y-5">
-          <div class="grid md:grid-cols-2 gap-5">
+        <form id="bookingForm" class="space-y-4">
+          <div class="grid md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs uppercase tracking-wider text-warm-500 mb-2 font-medium">Nombre completo</label>
-              <input id="fullName" name="fullName" type="text" required class="input-elegant w-full px-5 py-3.5 rounded-2xl" placeholder="Tu nombre">
+              <label class="block text-xs uppercase tracking-wider text-dark-muted mb-2">Nombre completo</label>
+              <input id="fullName" name="fullName" type="text" required class="input-dark w-full px-4 py-3 rounded-xl" placeholder="Tu nombre">
             </div>
             <div>
-              <label class="block text-xs uppercase tracking-wider text-warm-500 mb-2 font-medium">Email</label>
-              <input id="email" name="email" type="email" required class="input-elegant w-full px-5 py-3.5 rounded-2xl" placeholder="tu@email.com">
+              <label class="block text-xs uppercase tracking-wider text-dark-muted mb-2">Email</label>
+              <input id="email" name="email" type="email" required class="input-dark w-full px-4 py-3 rounded-xl" placeholder="tu@email.com">
             </div>
           </div>
 
           <div>
-            <label class="block text-xs uppercase tracking-wider text-warm-500 mb-2 font-medium">Teléfono</label>
-            <input id="phone" name="phone" type="tel" required class="input-elegant w-full px-5 py-3.5 rounded-2xl" placeholder="2494 596370">
+            <label class="block text-xs uppercase tracking-wider text-dark-muted mb-2">Teléfono</label>
+            <input id="phone" name="phone" type="tel" required class="input-dark w-full px-4 py-3 rounded-xl" placeholder="2494 596370">
           </div>
 
           <div>
-            <label class="block text-xs uppercase tracking-wider text-warm-500 mb-2 font-medium">Motivo de consulta (opcional)</label>
-            <textarea id="reason" name="reason" rows="3" class="input-elegant w-full px-5 py-3.5 rounded-2xl resize-none" placeholder="Contame brevemente por qué buscás atención..."></textarea>
+            <label class="block text-xs uppercase tracking-wider text-dark-muted mb-2">Motivo de consulta (opcional)</label>
+            <textarea id="reason" name="reason" rows="3" class="input-dark w-full px-4 py-3 rounded-xl resize-none" placeholder="Contame brevemente por qué buscás atención..."></textarea>
           </div>
 
-          <div class="flex items-start gap-3 p-4 bg-warm-50 rounded-2xl border border-warm-200">
-            <input type="checkbox" required id="terms" class="mt-1 w-5 h-5 rounded-lg border-warm-300 bg-white text-warm-700 focus:ring-warm-400/20">
-            <label for="terms" class="text-sm text-warm-600 leading-relaxed">
+          <div class="flex items-start gap-3 p-4 bg-dark-card rounded-xl border border-dark-border">
+            <input type="checkbox" required id="terms" class="mt-1 w-5 h-5 rounded border-dark-border bg-dark-bg text-dark-accent focus:ring-dark-accent/20">
+            <label for="terms" class="text-sm text-dark-muted leading-relaxed">
               Confirmo que soy mayor de edad o responsable de un menor, y acepto las políticas de cancelación con 24hs de anticipación.
             </label>
           </div>
         </form>
 
-        <div class="flex justify-between mt-10">
-          <button onclick="prevStep(2)" class="px-6 py-3 text-warm-500 hover:text-warm-800 font-medium transition-colors duration-300 flex items-center gap-2">
+        <div class="flex justify-between mt-8">
+          <button onclick="prevStep(2)" class="px-4 py-2 text-dark-muted hover:text-dark-text transition-colors flex items-center gap-2">
             <i class="fas fa-arrow-left"></i> Volver
           </button>
-          <button id="btn-submit" onclick="submitBooking()" class="px-10 py-4 btn-primary rounded-2xl font-medium flex items-center gap-3 group">
+          <button id="btn-submit" onclick="submitBooking()" class="px-8 py-3 btn-cream rounded-full font-medium flex items-center gap-2 group">
             <span>Enviar Solicitud</span>
-            <i class="fas fa-paper-plane transition-transform duration-300 group-hover:translate-x-1"></i>
+            <i class="fas fa-paper-plane group-hover:translate-x-1 transition-transform duration-300"></i>
           </button>
         </div>
       </div>
 
       <!-- SUCCESS -->
-      <div id="success" class="hidden bg-white rounded-3xl shadow-soft p-12 text-center border border-warm-100">
-        <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-warm-100 flex items-center justify-center text-4xl text-warm-700 animate-bounce">
+      <div id="success" class="hidden card-dark rounded-2xl p-10 text-center">
+        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-dark-accent flex items-center justify-center text-2xl text-dark-bg">
           <i class="fas fa-check"></i>
         </div>
-        <h4 class="font-serif text-4xl text-warm-900 mb-4">¡Solicitud enviada!</h4>
-        <p class="text-warm-600 mb-8 max-w-md mx-auto font-light text-lg leading-relaxed">
-          Tu solicitud de turno fue registrada. Me pondré en contacto a la brevedad para confirmar.
+        <h4 class="font-serif text-3xl text-dark-text mb-3">¡Solicitud enviada!</h4>
+        <p class="text-dark-muted mb-8 max-w-sm mx-auto">
+          Tu solicitud fue registrada. Me pondré en contacto a la brevedad para confirmar.
         </p>
-        <button onclick="resetBooking()" class="px-8 py-4 btn-secondary rounded-2xl font-medium">
+        <button onclick="resetBooking()" class="px-6 py-3 border border-dark-border text-dark-text rounded-full hover:border-dark-accent transition-colors">
           Agendar otro turno
         </button>
       </div>
@@ -697,179 +580,111 @@
   </section>
 
   <!-- ADMIN PANEL -->
-  <section id="admin-section" class="py-24 px-6 bg-warm-100 hidden">
-    <div class="max-w-6xl mx-auto">
-      <div class="bg-white rounded-3xl shadow-soft border border-warm-200 overflow-hidden">
-        <div class="flex justify-between items-center p-8 border-b border-warm-200">
+  <section id="admin-section" class="py-20 px-6 bg-dark-bg hidden">
+    <div class="max-w-4xl mx-auto">
+      <div class="admin-dark rounded-2xl p-8">
+        <div class="flex justify-between items-center mb-8 border-b border-dark-border pb-4">
           <div>
-            <h3 class="font-serif text-3xl text-warm-900">Panel de Administración</h3>
-            <p class="text-warm-500 text-sm mt-1">Gestión de turnos y disponibilidad</p>
+            <h3 class="font-serif text-2xl text-dark-text">Panel de Administración</h3>
+            <p class="text-dark-muted text-sm mt-1">Gestión de turnos</p>
           </div>
-          <button onclick="toggleAdmin()" class="w-10 h-10 rounded-full bg-warm-100 text-warm-500 hover:bg-warm-200 hover:text-warm-800 transition-all duration-300 flex items-center justify-center">
-            <i class="fas fa-times text-lg"></i>
+          <button onclick="toggleAdmin()" class="w-10 h-10 rounded-full bg-dark-card text-dark-muted hover:text-dark-text transition-colors flex items-center justify-center">
+            <i class="fas fa-times"></i>
           </button>
         </div>
 
         <!-- Login Form -->
-        <div id="admin-login" class="max-w-md mx-auto text-center py-16 px-6">
-          <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-warm-100 flex items-center justify-center text-3xl text-warm-600">
+        <div id="admin-login" class="max-w-sm mx-auto text-center py-12">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-dark-card flex items-center justify-center text-2xl text-dark-accent">
             <i class="fas fa-lock"></i>
           </div>
-          <h4 class="font-serif text-2xl text-warm-900 mb-2">Acceso Profesional</h4>
-          <p class="text-warm-500 text-sm mb-8">Ingresá tu contraseña para continuar</p>
+          <h4 class="font-serif text-xl text-dark-text mb-2">Acceso Profesional</h4>
+          <p class="text-dark-muted text-sm mb-6">Ingresá tu contraseña</p>
           <input type="password" id="admin-password" placeholder="Contraseña" 
-            class="input-elegant w-full px-5 py-4 rounded-2xl mb-4 text-center text-lg">
-          <button onclick="loginAdmin()" class="w-full px-8 py-4 btn-primary rounded-2xl font-medium flex items-center justify-center gap-3 group">
-            <i class="fas fa-key transition-transform duration-300 group-hover:rotate-12"></i>
-            <span>Ingresar</span>
+            class="input-dark w-full px-4 py-3 rounded-xl mb-4 text-center">
+          <button onclick="loginAdmin()" class="w-full px-6 py-3 btn-cream rounded-full font-medium">
+            Ingresar
           </button>
-          <p id="login-error" class="text-red-500 text-sm mt-4 hidden">Contraseña incorrecta</p>
+          <p id="login-error" class="text-red-400 text-sm mt-3 hidden">Contraseña incorrecta</p>
         </div>
 
         <!-- Admin Dashboard -->
-        <div id="admin-dashboard" class="hidden p-8">
-          
-          <!-- Tabs -->
-          <div class="flex gap-2 mb-8 p-1 bg-warm-100 rounded-2xl w-fit">
-            <button onclick="showAdminTab('turnos')" id="tab-turnos" class="px-6 py-3 rounded-xl text-warm-900 font-medium transition-all duration-300 bg-white shadow-sm">
-              Turnos Reservados
+        <div id="admin-dashboard" class="hidden">
+          <div class="flex gap-2 mb-6">
+            <button onclick="showAdminTab('turnos')" id="tab-turnos" class="px-4 py-2 rounded-lg bg-dark-accent text-dark-bg font-medium text-sm">
+              Turnos
             </button>
-            <button onclick="showAdminTab('config')" id="tab-config" class="px-6 py-3 rounded-xl text-warm-500 hover:text-warm-800 font-medium transition-all duration-300">
-              Configurar Disponibilidad
+            <button onclick="showAdminTab('config')" id="tab-config" class="px-4 py-2 rounded-lg bg-dark-card text-dark-muted hover:text-dark-text font-medium text-sm transition-colors">
+              Configurar
             </button>
           </div>
 
-          <!-- Tab: Turnos -->
           <div id="admin-tab-turnos">
-            <div class="flex justify-between items-center mb-6">
-              <h4 class="text-lg font-medium text-warm-900">Turnos Reservados</h4>
-              <button onclick="loadAppointments()" class="px-4 py-2 rounded-xl bg-warm-100 text-warm-600 hover:bg-warm-200 hover:text-warm-800 transition-all duration-300 text-sm font-medium flex items-center gap-2">
-                <i class="fas fa-sync-alt"></i> Actualizar
-              </button>
-            </div>
-            
             <div id="appointments-list" class="space-y-3">
-              <p class="text-warm-500 text-center py-12">Cargando turnos...</p>
+              <p class="text-dark-muted text-center py-8">Cargando...</p>
             </div>
           </div>
 
-          <!-- Tab: Configurar Disponibilidad -->
           <div id="admin-tab-config" class="hidden">
-            <div class="mb-8">
-              <h4 class="text-lg font-medium text-warm-900 mb-2">Configurar Disponibilidad</h4>
-              <p class="text-warm-500 text-sm mb-6">
-                Seleccioná los días y configurá los horarios disponibles para cada modalidad.
-              </p>
-              
-              <div class="flex justify-between items-center mb-6">
-                <button onclick="changeAdminMonth(-1)" class="w-10 h-10 rounded-full bg-warm-100 text-warm-600 hover:bg-warm-200 hover:text-warm-800 transition-all duration-300 flex items-center justify-center">
+            <div class="mb-4">
+              <div class="flex justify-between items-center mb-4">
+                <button onclick="changeAdminMonth(-1)" class="w-8 h-8 rounded-full bg-dark-card text-dark-muted hover:text-dark-text flex items-center justify-center">
                   <i class="fas fa-chevron-left"></i>
                 </button>
-                <h5 class="font-medium text-warm-900 text-lg" id="adminCurrentMonth"></h5>
-                <button onclick="changeAdminMonth(1)" class="w-10 h-10 rounded-full bg-warm-100 text-warm-600 hover:bg-warm-200 hover:text-warm-800 transition-all duration-300 flex items-center justify-center">
+                <h5 class="font-medium text-dark-text" id="adminCurrentMonth"></h5>
+                <button onclick="changeAdminMonth(1)" class="w-8 h-8 rounded-full bg-dark-card text-dark-muted hover:text-dark-text flex items-center justify-center">
                   <i class="fas fa-chevron-right"></i>
                 </button>
               </div>
-
-              <div class="grid grid-cols-7 gap-2 text-center text-xs uppercase tracking-wider text-warm-400 mb-3 font-medium">
+              <div class="grid grid-cols-7 gap-2 text-center text-xs text-dark-muted mb-2">
                 <div>Dom</div><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div>
               </div>
               <div class="grid grid-cols-7 gap-2" id="adminCalendar"></div>
-              
-              <div class="flex gap-6 mt-6 text-xs justify-center text-warm-500">
-                <div class="flex items-center gap-2">
-                  <div class="w-4 h-4 rounded-lg bg-warm-200 border border-warm-300"></div>
-                  <span>Virtual</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <div class="w-4 h-4 rounded-lg bg-warm-800 border border-warm-900"></div>
-                  <span>Presencial</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <div class="w-4 h-4 rounded-lg bg-gradient-to-br from-warm-200 to-warm-800 border border-warm-500"></div>
-                  <span>Ambas</span>
-                </div>
-              </div>
             </div>
 
-            <!-- Configuración del día seleccionado -->
-            <div id="day-config-panel" class="hidden bg-warm-50 rounded-3xl p-8 border border-warm-200">
-              <div class="flex justify-between items-start mb-8">
-                <h5 class="font-serif text-xl text-warm-900" id="selected-day-title"></h5>
-                <button onclick="closeDayConfig()" class="w-8 h-8 rounded-full bg-white text-warm-500 hover:text-warm-800 hover:shadow-sm transition-all duration-300 flex items-center justify-center">
+            <div id="day-config-panel" class="hidden bg-dark-card rounded-xl p-6 border border-dark-border">
+              <div class="flex justify-between items-start mb-6">
+                <h5 class="font-serif text-lg text-dark-text" id="selected-day-title"></h5>
+                <button onclick="closeDayConfig()" class="text-dark-muted hover:text-dark-text">
                   <i class="fas fa-times"></i>
                 </button>
               </div>
               
-              <!-- SECCIÓN VIRTUAL -->
-              <div class="bg-white rounded-2xl p-6 mb-4 border border-warm-200">
-                <div class="flex items-center justify-between mb-4">
+              <div class="space-y-4 mb-6">
+                <div class="flex items-center justify-between p-4 bg-dark-bg rounded-xl border border-dark-border">
                   <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-warm-100 flex items-center justify-center text-warm-600">
-                      <i class="fas fa-video"></i>
-                    </div>
-                    <span class="badge px-3 py-1 rounded-full text-xs font-medium">Virtual</span>
+                    <i class="fas fa-video text-dark-accent"></i>
+                    <span class="text-dark-text">Virtual</span>
                   </div>
-                  <label class="flex items-center gap-3 cursor-pointer">
-                    <span class="text-sm text-warm-500 font-medium">Activar</span>
-                    <input type="checkbox" id="virtual-available" onchange="toggleModalitySection('virtual')" class="w-5 h-5 rounded-lg border-warm-300 bg-white text-warm-700 focus:ring-warm-400/20">
-                  </label>
+                  <input type="checkbox" id="virtual-available" onchange="toggleModalitySection('virtual')" class="w-5 h-5 rounded border-dark-border bg-dark-bg text-dark-accent">
                 </div>
-                
-                <div id="virtual-config-content" class="hidden">
-                  <label class="block text-xs uppercase tracking-wider text-warm-500 mb-3 font-medium">Horarios Disponibles</label>
-                  <div id="virtual-time-slots" class="grid grid-cols-4 sm:grid-cols-6 gap-2 max-h-48 overflow-y-auto p-2 bg-warm-50 rounded-xl">
-                    <!-- Se generan dinámicamente -->
-                  </div>
+                <div id="virtual-config-content" class="hidden pl-4">
+                  <div id="virtual-time-slots" class="grid grid-cols-4 gap-2"></div>
                 </div>
-              </div>
 
-              <!-- SECCIÓN PRESENCIAL -->
-              <div class="bg-white rounded-2xl p-6 mb-6 border border-warm-200">
-                <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center justify-between p-4 bg-dark-bg rounded-xl border border-dark-border">
                   <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-warm-800 flex items-center justify-center text-warm-100">
-                      <i class="fas fa-building"></i>
-                    </div>
-                    <span class="badge-filled px-3 py-1 rounded-full text-xs font-medium">Presencial</span>
+                    <i class="fas fa-building text-dark-accent"></i>
+                    <span class="text-dark-text">Presencial</span>
                   </div>
-                  <label class="flex items-center gap-3 cursor-pointer">
-                    <span class="text-sm text-warm-500 font-medium">Activar</span>
-                    <input type="checkbox" id="presencial-available" onchange="toggleModalitySection('presencial')" class="w-5 h-5 rounded-lg border-warm-300 bg-white text-warm-700 focus:ring-warm-400/20">
-                  </label>
+                  <input type="checkbox" id="presencial-available" onchange="toggleModalitySection('presencial')" class="w-5 h-5 rounded border-dark-border bg-dark-bg text-dark-accent">
                 </div>
-                
-                <div id="presencial-config-content" class="hidden space-y-4">
-                  <div>
-                    <label class="block text-xs uppercase tracking-wider text-warm-500 mb-2 font-medium">Dirección del Consultorio</label>
-                    <input type="text" id="presencial-address" class="input-elegant w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: Calle 123, Ciudad">
-                  </div>
-                  
-                  <div>
-                    <label class="block text-xs uppercase tracking-wider text-warm-500 mb-3 font-medium">Horarios Disponibles</label>
-                    <div id="presencial-time-slots" class="grid grid-cols-4 sm:grid-cols-6 gap-2 max-h-48 overflow-y-auto p-2 bg-warm-50 rounded-xl">
-                      <!-- Se generan dinámicamente -->
-                    </div>
-                  </div>
+                <div id="presencial-config-content" class="hidden pl-4 space-y-3">
+                  <input type="text" id="presencial-address" class="input-dark w-full px-3 py-2 rounded-lg text-sm" placeholder="Dirección del consultorio">
+                  <div id="presencial-time-slots" class="grid grid-cols-4 gap-2"></div>
                 </div>
               </div>
 
               <div class="flex gap-3">
-                <button onclick="saveDayConfig()" class="flex-1 px-6 py-4 btn-primary rounded-2xl font-medium flex items-center justify-center gap-2 group">
-                  <i class="fas fa-save transition-transform duration-300 group-hover:scale-110"></i>
-                  <span>Guardar Configuración</span>
+                <button onclick="saveDayConfig()" class="flex-1 px-4 py-3 btn-cream rounded-xl font-medium text-sm">
+                  Guardar
                 </button>
-              </div>
-
-              <div class="mt-4 pt-4 border-t border-warm-200">
-                <button onclick="deleteDayConfig()" class="w-full px-6 py-3 bg-red-50 text-red-600 border border-red-200 rounded-2xl font-medium hover:bg-red-100 transition-all duration-300 flex items-center justify-center gap-2 group">
-                  <i class="fas fa-trash-alt transition-transform duration-300 group-hover:rotate-12"></i>
-                  <span>Eliminar Configuración</span>
+                <button onclick="deleteDayConfig()" class="px-4 py-3 border border-red-400 text-red-400 rounded-xl hover:bg-red-400/10 text-sm">
+                  Eliminar
                 </button>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -878,98 +693,78 @@
   <!-- EDIT MODAL -->
   <div id="edit-modal" class="fixed inset-0 modal-backdrop z-50 hidden opacity-0 transition-opacity duration-300">
     <div class="flex items-center justify-center min-h-screen p-4">
-      <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 transform scale-95 transition-transform duration-300" id="edit-modal-content">
+      <div class="bg-dark-bg border border-dark-border rounded-2xl max-w-md w-full p-6 transform scale-95 transition-transform duration-300" id="edit-modal-content">
         <div class="flex justify-between items-center mb-6">
-          <h4 class="font-serif text-2xl text-warm-900">Editar Turno</h4>
-          <button onclick="closeEditModal()" class="w-10 h-10 rounded-full bg-warm-100 text-warm-500 hover:bg-warm-200 hover:text-warm-800 transition-all duration-300 flex items-center justify-center">
+          <h4 class="font-serif text-xl text-dark-text">Editar Turno</h4>
+          <button onclick="closeEditModal()" class="text-dark-muted hover:text-dark-text">
             <i class="fas fa-times"></i>
           </button>
         </div>
         
-        <div class="space-y-5">
+        <div class="space-y-4">
           <div>
-            <label class="block text-xs uppercase tracking-wider text-warm-500 mb-2 font-medium">Paciente</label>
-            <input type="text" id="edit-patient-name" disabled class="input-elegant w-full px-4 py-3 rounded-xl opacity-50">
+            <label class="block text-xs uppercase tracking-wider text-dark-muted mb-2">Paciente</label>
+            <input type="text" id="edit-patient-name" disabled class="input-dark w-full px-4 py-3 rounded-xl opacity-50">
           </div>
           
           <div>
-            <label class="block text-xs uppercase tracking-wider text-warm-500 mb-2 font-medium">Modalidad</label>
-            <select id="edit-modality" class="input-elegant w-full px-4 py-3 rounded-xl">
+            <label class="block text-xs uppercase tracking-wider text-dark-muted mb-2">Modalidad</label>
+            <select id="edit-modality" class="input-dark w-full px-4 py-3 rounded-xl">
               <option value="virtual">Virtual</option>
               <option value="presencial">Presencial</option>
             </select>
           </div>
           
           <div>
-            <label class="block text-xs uppercase tracking-wider text-warm-500 mb-2 font-medium">Nueva Fecha</label>
-            <input type="date" id="edit-date" required class="input-elegant w-full px-4 py-3 rounded-xl">
+            <label class="block text-xs uppercase tracking-wider text-dark-muted mb-2">Fecha</label>
+            <input type="date" id="edit-date" required class="input-dark w-full px-4 py-3 rounded-xl">
           </div>
           
           <div>
-            <label class="block text-xs uppercase tracking-wider text-warm-500 mb-2 font-medium">Nueva Hora</label>
-            <select id="edit-time" required class="input-elegant w-full px-4 py-3 rounded-xl">
-              <option value="">Seleccionar hora...</option>
+            <label class="block text-xs uppercase tracking-wider text-dark-muted mb-2">Hora</label>
+            <select id="edit-time" required class="input-dark w-full px-4 py-3 rounded-xl">
+              <option value="">Seleccionar...</option>
             </select>
           </div>
           
-          <div class="flex gap-3 mt-8">
-            <button onclick="closeEditModal()" class="flex-1 px-6 py-3.5 border border-warm-200 text-warm-600 rounded-2xl font-medium hover:border-warm-400 hover:text-warm-800 transition-all duration-300">
+          <div class="flex gap-3 mt-6">
+            <button onclick="closeEditModal()" class="flex-1 px-4 py-3 border border-dark-border text-dark-text rounded-xl hover:border-dark-accent text-sm">
               Cancelar
             </button>
-            <button onclick="saveEdit()" class="flex-1 px-6 py-3.5 btn-primary rounded-2xl font-medium">
-              Guardar Cambios
+            <button onclick="saveEdit()" class="flex-1 px-4 py-3 btn-cream rounded-xl font-medium text-sm">
+              Guardar
             </button>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- CONTACTO -->
-  <section class="py-24 px-6 bg-white border-t border-warm-100">
-    <div class="max-w-4xl mx-auto text-center">
-      <span class="inline-block px-4 py-1.5 rounded-full bg-warm-100 text-warm-600 text-xs uppercase tracking-widest font-medium mb-4">Contacto</span>
-      <h3 class="font-serif text-4xl text-warm-900 mb-12">Comunicate</h3>
-
-      <div class="flex flex-col md:flex-row justify-center items-center gap-8">
-        <a href="tel:2494596370" class="group flex items-center gap-4 px-8 py-5 rounded-2xl bg-warm-50 border border-warm-200 hover:border-warm-400 hover:shadow-soft transition-all duration-500">
-          <div class="w-14 h-14 rounded-xl bg-white border border-warm-200 flex items-center justify-center text-warm-700 group-hover:scale-110 group-hover:border-warm-400 transition-all duration-300">
-            <i class="fas fa-phone text-xl"></i>
-          </div>
-          <span class="text-lg text-warm-800 font-medium">2494 596370</span>
-        </a>
-
-        <a href="mailto:lic.albertisalvador@gmail.com" class="group flex items-center gap-4 px-8 py-5 rounded-2xl bg-warm-50 border border-warm-200 hover:border-warm-400 hover:shadow-soft transition-all duration-500">
-          <div class="w-14 h-14 rounded-xl bg-white border border-warm-200 flex items-center justify-center text-warm-700 group-hover:scale-110 group-hover:border-warm-400 transition-all duration-300">
-            <i class="fas fa-envelope text-xl"></i>
-          </div>
-          <span class="text-lg text-warm-800 font-medium">lic.albertisalvador@gmail.com</span>
-        </a>
-      </div>
-    </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="bg-warm-100 border-t border-warm-200 py-16">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <h4 class="font-serif text-3xl text-warm-900 mb-3">Alberti Bigliante Salvador</h4>
-      <p class="text-warm-700 mb-1 font-medium">Licenciado en Psicología - MN. 87014</p>
-      <p class="text-warm-500 text-sm mb-10">Atención a adolescentes y adultos</p>
-
-      <div class="h-px w-32 bg-warm-300 mx-auto mb-10"></div>
-
-      <p class="text-warm-400 text-sm">© 2026 Todos los derechos reservados</p>
+  <footer class="bg-dark-bg border-t border-dark-border py-12">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h4 class="font-serif text-2xl text-dark-text mb-2">Alberti Bigliante Salvador</h4>
+      <p class="text-dark-muted text-sm mb-1">Licenciado en Psicología - MN. 87014</p>
+      <p class="text-dark-muted text-xs">Atención a adolescentes y adultos</p>
     </div>
   </footer>
 
   <script>
-    // [Todo el JavaScript permanece igual que en la versión anterior funcional]
+    // CONFIGURACIÓN - Mismo proyecto Supabase que el primer psicólogo, tabla diferente
     const SUPABASE_URL = "https://yodefzidtoluudozgces.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvZGVmemlkdG9sdXVkb3pnY2VzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MDEwOTUsImV4cCI6MjA4ODM3NzA5NX0.ZiHokkUpT7s1CebAl9roYGj39mN5r8lu17dz2gmrFCU";
-    const FORMSPREE_ENDPOINT = "https://formspree.io/f/xykdleee";
-    const ADMIN_PASSWORD = "Apolito2026";
+    
+    // STATIC FORMS - Reemplaza a Formspree (500 envíos/mes gratis)
+    const STATIC_FORMS_ENDPOINT = "https://api.staticforms.xyz/submit";
+    const STATIC_FORMS_ACCESS_KEY = "tu-access-key-aqui"; // Se obtiene gratis en staticforms.xyz
+    
+    const ADMIN_PASSWORD = "38303647Sa";
 
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // Usamos tabla 'appointments_alberti' para separar del primer psicólogo
+    const TABLE_NAME = 'appointments_alberti';
+    const AVAILABILITY_TABLE = 'availability_alberti';
 
     let currentStep = 1;
     let selectedModality = null;
@@ -991,8 +786,12 @@
 
     async function loadAvailability() {
       try {
-        const { data, error } = await supabaseClient.from('availability').select('*');
-        if (error) return;
+        const { data, error } = await supabaseClient.from(AVAILABILITY_TABLE).select('*');
+        if (error) {
+          // Si la tabla no existe, crearla dinámicamente (solo para desarrollo)
+          console.log('Tabla de disponibilidad no encontrada');
+          return;
+        }
         dayAvailability = {};
         data.forEach(day => {
           dayAvailability[day.date] = {
@@ -1022,7 +821,7 @@
 
     async function loadBookedSlots() {
       try {
-        const { data, error } = await supabaseClient.from('appointments').select('appointment_date, appointment_time, modality, id');
+        const { data, error } = await supabaseClient.from(TABLE_NAME).select('appointment_date, appointment_time, modality, id');
         if (!error) bookedSlots = data || [];
       } catch (err) {}
     }
@@ -1031,12 +830,12 @@
       selectedModality = modality;
       selectedDate = null;
       selectedTime = null;
-      document.querySelectorAll('.modality-card').forEach(btn => btn.classList.remove('selected'));
+      document.querySelectorAll('.modality-dark').forEach(btn => btn.classList.remove('selected'));
       document.getElementById(`btn-${modality}`).classList.add('selected');
       const btn = document.getElementById('btn-next-1');
       btn.disabled = false;
-      btn.classList.remove('bg-warm-100', 'text-warm-400', 'cursor-not-allowed');
-      btn.classList.add('btn-primary', 'shadow-hover');
+      btn.classList.remove('bg-dark-card', 'text-dark-muted', 'cursor-not-allowed');
+      btn.classList.add('btn-cream');
     }
 
     function nextStep(step) {
@@ -1051,11 +850,11 @@
       document.getElementById(`step${currentStep}-ind`).innerHTML = '<i class="fas fa-check text-xs"></i>';
 
       if (document.getElementById(`line${currentStep}`)) {
-        document.getElementById(`line${currentStep}`).classList.remove('bg-warm-200');
-        document.getElementById(`line${currentStep}`).classList.add('bg-warm-400');
+        document.getElementById(`line${currentStep}`).classList.remove('bg-dark-border');
+        document.getElementById(`line${currentStep}`).classList.add('bg-dark-accent');
       }
 
-      document.getElementById(`step${step}-ind`).classList.remove('text-warm-500', 'bg-warm-200');
+      document.getElementById(`step${step}-ind`).classList.remove('text-dark-muted', 'border-dark-border');
       document.getElementById(`step${step}-ind`).classList.add('active');
 
       currentStep = step;
@@ -1078,8 +877,8 @@
       document.getElementById(`step${step}-ind`).innerHTML = step;
 
       if (document.getElementById(`line${step}`)) {
-        document.getElementById(`line${step}`).classList.remove('bg-warm-400');
-        document.getElementById(`line${step}`).classList.add('bg-warm-200');
+        document.getElementById(`line${step}`).classList.remove('bg-dark-accent');
+        document.getElementById(`line${step}`).classList.add('bg-dark-border');
       }
 
       currentStep = step;
@@ -1132,12 +931,12 @@
         else if (isPast) classes += 'disabled ';
         else if (availableSlots > 0) classes += 'available ';
         else if (totalSlots > 0 && availableSlots === 0) classes += 'booked ';
-        else classes += 'text-warm-300 cursor-not-allowed ';
+        else classes += 'text-dark-muted cursor-not-allowed ';
 
         let indicator = '';
         if (totalSlots > 0) {
-          if (availableSlots > 0) indicator = `<div class="text-[10px] mt-1 font-medium text-warm-600">${availableSlots} libres</div>`;
-          else indicator = `<div class="text-[10px] mt-1 text-warm-400">Completo</div>`;
+          if (availableSlots > 0) indicator = `<div class="text-[10px] mt-0.5 font-medium text-dark-accent">${availableSlots}</div>`;
+          else indicator = `<div class="text-[10px] mt-0.5 text-dark-muted">×</div>`;
         }
 
         const canSelect = !isPast && availableSlots > 0;
@@ -1163,7 +962,7 @@
       const container = document.getElementById('time-slots-container');
       const locationInfo = document.getElementById('location-info');
       if (!selectedDate) {
-        container.innerHTML = '<p class="text-warm-500 text-sm italic bg-warm-50 p-4 rounded-2xl">Seleccioná una fecha primero</p>';
+        container.innerHTML = '<p class="text-dark-muted text-sm col-span-3 text-center py-4">Seleccioná una fecha primero</p>';
         locationInfo.classList.add('hidden');
         return;
       }
@@ -1173,12 +972,12 @@
       const modalityConfig = selectedModality === 'virtual' ? dayConfig.virtual : dayConfig.presencial;
       
       if (!modalityConfig.available || modalityConfig.times.length === 0) {
-        container.innerHTML = `<p class="text-warm-500 text-sm bg-warm-50 p-4 rounded-2xl">No hay horarios ${selectedModality === 'virtual' ? 'virtuales' : 'presenciales'} configurados para este día</p>`;
+        container.innerHTML = `<p class="text-dark-muted text-sm col-span-3 text-center py-4">No hay horarios disponibles</p>`;
         locationInfo.classList.add('hidden');
         return;
       }
 
-      let html = '<div class="grid grid-cols-3 gap-3">';
+      let html = '';
       modalityConfig.times.forEach(time => {
         const isSelected = selectedTime === time;
         const isBooked = isSlotBooked(dateStr, time);
@@ -1193,7 +992,6 @@
           html += `<button type="button" class="${classes}" onclick="selectTime('${time}')">${time}</button>`;
         }
       });
-      html += '</div>';
       container.innerHTML = html;
 
       if (selectedModality === 'presencial' && modalityConfig.address) {
@@ -1214,21 +1012,21 @@
       const btn = document.getElementById('btn-next-2');
       if (selectedTime) {
         btn.disabled = false;
-        btn.classList.remove('bg-warm-100', 'text-warm-400', 'cursor-not-allowed');
-        btn.classList.add('btn-primary', 'shadow-hover');
+        btn.classList.remove('bg-dark-card', 'text-dark-muted', 'cursor-not-allowed');
+        btn.classList.add('btn-cream');
       }
     }
 
     function updateConfirmation() {
       document.getElementById('confirm-modality').textContent = selectedModality === 'virtual' ? 'Virtual' : 'Presencial';
-      const dateStr = selectedDate.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      const dateStr = selectedDate.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
       document.getElementById('confirm-date').textContent = dateStr;
       document.getElementById('confirm-time').textContent = selectedTime + ' hs';
       const wrap = document.getElementById('confirm-location-wrap');
       if (selectedModality === 'presencial') {
         const dayConfig = getDayConfig(selectedDate);
         wrap.classList.remove('hidden');
-        document.getElementById('confirm-location').textContent = dayConfig.presencial.address || 'Consultorio (dirección no especificada)';
+        document.getElementById('confirm-location').textContent = dayConfig.presencial.address || 'Consultorio';
       } else {
         wrap.classList.add('hidden');
       }
@@ -1242,7 +1040,7 @@
       }
 
       if (isSlotBooked(selectedDate, selectedTime)) {
-        alert('Lo sentimos, este turno acaba de ser reservado por otra persona. Por favor seleccioná otro horario.');
+        alert('Este turno ya fue reservado. Seleccioná otro horario.');
         renderTimeSlots();
         return;
       }
@@ -1250,7 +1048,6 @@
       const btn = document.getElementById('btn-submit');
       const original = btn.innerHTML;
       btn.disabled = true;
-      btn.classList.add('opacity-70', 'cursor-not-allowed');
       btn.innerHTML = 'Enviando... <i class="fas fa-spinner fa-spin ml-2"></i>';
 
       const dayConfig = getDayConfig(selectedDate);
@@ -1262,50 +1059,61 @@
         modality: selectedModality,
         appointment_date: selectedDate.toISOString().split('T')[0],
         appointment_time: selectedTime,
-        status: 'pending'
+        status: 'pending',
+        created_at: new Date().toISOString()
       };
 
       try {
-        const { data, error } = await supabaseClient.from('appointments').insert([appointmentData]);
+        // 1. Guardar en Supabase
+        const { data, error } = await supabaseClient.from(TABLE_NAME).insert([appointmentData]);
         if (error) {
+          if (error.code === '42P01') {
+            alert('Error: La tabla no existe. Crear tabla "appointments_alberti" en Supabase.');
+            btn.disabled = false;
+            btn.innerHTML = original;
+            return;
+          }
           if (error.code === '23505') {
-            alert('Este turno ya fue reservado. Por favor seleccioná otro horario.');
+            alert('Turno ya reservado. Seleccioná otro horario.');
             renderTimeSlots();
           } else {
-            alert('Error al guardar el turno: ' + error.message);
+            alert('Error al guardar: ' + error.message);
           }
           btn.disabled = false;
-          btn.classList.remove('opacity-70', 'cursor-not-allowed');
           btn.innerHTML = original;
           return;
         }
 
+        // 2. Enviar email via Static Forms (reemplaza a Formspree)
         const emailData = {
-          _subject: `Nuevo turno: ${appointmentData.full_name}`,
-          Nombre: appointmentData.full_name,
-          Email: appointmentData.email,
-          Teléfono: appointmentData.phone,
-          Modalidad: appointmentData.modality === 'virtual' ? 'Virtual' : 'Presencial',
-          Fecha: appointmentData.appointment_date,
-          Hora: appointmentData.appointment_time,
-          Direccion: appointmentData.modality === 'presencial' ? (dayConfig.presencial.address || 'Consultorio') : 'Virtual',
-          Motivo: appointmentData.reason || 'No especificado',
-          _replyto: appointmentData.email
+          subject: `Nuevo turno: ${appointmentData.full_name}`,
+          name: appointmentData.full_name,
+          email: appointmentData.email,
+          phone: appointmentData.phone,
+          message: `
+Modalidad: ${appointmentData.modality === 'virtual' ? 'Virtual' : 'Presencial'}
+Fecha: ${appointmentData.appointment_date}
+Hora: ${appointmentData.appointment_time}
+Dirección: ${appointmentData.modality === 'presencial' ? (dayConfig.presencial.address || 'Consultorio') : 'Virtual'}
+Motivo: ${appointmentData.reason || 'No especificado'}
+          `,
+          replyTo: appointmentData.email,
+          accessKey: STATIC_FORMS_ACCESS_KEY
         };
 
-        fetch(FORMSPREE_ENDPOINT, {
+        // Enviar a Static Forms (silencioso, no bloquea si falla)
+        fetch(STATIC_FORMS_ENDPOINT, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(emailData)
-        }).catch(err => console.error('Error enviando email:', err));
+        }).catch(err => console.log('Email error:', err));
 
         document.getElementById('step3').classList.add('hidden');
         document.getElementById('success').classList.remove('hidden');
         await loadBookedSlots();
       } catch (err) {
-        alert('Error de conexión. Por favor intentá nuevamente.');
+        alert('Error de conexión. Intentá nuevamente.');
         btn.disabled = false;
-        btn.classList.remove('opacity-70', 'cursor-not-allowed');
         btn.innerHTML = original;
       }
     }
@@ -1319,23 +1127,23 @@
       document.getElementById('success').classList.add('hidden');
       document.getElementById('step1').classList.remove('hidden');
       document.querySelectorAll('.step-dot').forEach((el, idx) => {
-        el.className = 'step-dot w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium z-10';
+        el.className = 'step-dot w-8 h-8 rounded-full border flex items-center justify-center text-sm font-medium';
         if (idx === 0) {
-          el.classList.add('active', 'text-warm-100');
+          el.classList.add('active', 'border-dark-accent');
           el.innerHTML = '1';
         } else {
-          el.classList.add('bg-warm-200', 'text-warm-500');
+          el.classList.add('border-dark-border', 'text-dark-muted');
           el.innerHTML = idx + 1;
         }
       });
       document.querySelectorAll('.step-line').forEach(el => {
-        el.className = 'step-line flex-1 h-0.5 bg-warm-200 mx-2';
+        el.className = 'flex-1 h-px bg-dark-border mx-2';
       });
       document.getElementById('btn-next-1').disabled = true;
-      document.getElementById('btn-next-1').className = 'px-8 py-3.5 bg-warm-100 text-warm-400 rounded-2xl font-medium cursor-not-allowed transition-all duration-300';
-      document.querySelectorAll('.modality-card').forEach(btn => btn.classList.remove('selected'));
+      document.getElementById('btn-next-1').className = 'px-6 py-3 bg-dark-card text-dark-muted rounded-full font-medium cursor-not-allowed border border-dark-border transition-all duration-300';
+      document.querySelectorAll('.modality-dark').forEach(btn => btn.classList.remove('selected'));
       document.getElementById('bookingForm').reset();
-      document.getElementById('time-slots-container').innerHTML = '<p class="text-warm-500 text-sm italic bg-warm-50 p-4 rounded-2xl">Seleccioná una fecha primero</p>';
+      document.getElementById('time-slots-container').innerHTML = '<p class="text-dark-muted text-sm col-span-3 text-center py-4">Seleccioná una fecha primero</p>';
     }
 
     function toggleAdmin() {
@@ -1363,26 +1171,26 @@
     function showAdminTab(tab) {
       document.getElementById('admin-tab-turnos').classList.add('hidden');
       document.getElementById('admin-tab-config').classList.add('hidden');
-      document.getElementById('tab-turnos').classList.remove('bg-white', 'shadow-sm', 'text-warm-900');
-      document.getElementById('tab-turnos').classList.add('text-warm-500');
-      document.getElementById('tab-config').classList.remove('bg-white', 'shadow-sm', 'text-warm-900');
-      document.getElementById('tab-config').classList.add('text-warm-500');
+      document.getElementById('tab-turnos').classList.remove('bg-dark-accent', 'text-dark-bg');
+      document.getElementById('tab-turnos').classList.add('bg-dark-card', 'text-dark-muted');
+      document.getElementById('tab-config').classList.remove('bg-dark-accent', 'text-dark-bg');
+      document.getElementById('tab-config').classList.add('bg-dark-card', 'text-dark-muted');
       document.getElementById(`admin-tab-${tab}`).classList.remove('hidden');
-      document.getElementById(`tab-${tab}`).classList.add('bg-white', 'shadow-sm', 'text-warm-900');
-      document.getElementById(`tab-${tab}`).classList.remove('text-warm-500');
+      document.getElementById(`tab-${tab}`).classList.remove('bg-dark-card', 'text-dark-muted');
+      document.getElementById(`tab-${tab}`).classList.add('bg-dark-accent', 'text-dark-bg');
     }
 
     async function loadAppointments() {
       const container = document.getElementById('appointments-list');
-      container.innerHTML = '<p class="text-warm-500 text-center py-12">Cargando turnos...</p>';
+      container.innerHTML = '<p class="text-dark-muted text-center py-8">Cargando...</p>';
       try {
-        const { data, error } = await supabaseClient.from('appointments').select('*').order('appointment_date', { ascending: true }).order('appointment_time', { ascending: true });
+        const { data, error } = await supabaseClient.from(TABLE_NAME).select('*').order('appointment_date', { ascending: true }).order('appointment_time', { ascending: true });
         if (error) {
-          container.innerHTML = `<p class="text-red-500 text-center">Error: ${error.message}</p>`;
+          container.innerHTML = `<p class="text-red-400 text-center">Error: ${error.message}</p>`;
           return;
         }
         if (!data || data.length === 0) {
-          container.innerHTML = '<p class="text-warm-500 text-center py-12">No hay turnos reservados</p>';
+          container.innerHTML = '<p class="text-dark-muted text-center py-8">No hay turnos</p>';
           return;
         }
         let html = '';
@@ -1390,23 +1198,22 @@
           const date = new Date(apt.appointment_date);
           const dateStr = date.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' });
           html += `
-            <div class="admin-card rounded-2xl p-5 flex justify-between items-center">
+            <div class="bg-dark-bg rounded-xl p-4 flex justify-between items-center border border-dark-border">
               <div class="flex-1">
-                <div class="flex items-center gap-3 mb-2">
-                  <span class="font-semibold text-warm-900">${dateStr}</span>
-                  <span class="text-warm-500 text-sm">${apt.appointment_time} hs</span>
-                  <span class="px-3 py-1 rounded-full text-xs font-medium ${apt.modality === 'virtual' ? 'bg-warm-100 text-warm-700 border border-warm-200' : 'bg-warm-800 text-warm-100'}">${apt.modality === 'virtual' ? 'Virtual' : 'Presencial'}</span>
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="font-semibold text-dark-text text-sm">${dateStr}</span>
+                  <span class="text-dark-muted text-xs">${apt.appointment_time}</span>
+                  <span class="px-2 py-0.5 rounded text-xs ${apt.modality === 'virtual' ? 'badge-virtual' : 'badge-presencial'}">${apt.modality === 'virtual' ? 'Virtual' : 'Presencial'}</span>
                 </div>
-                <p class="text-sm text-warm-900 font-semibold">${apt.full_name}</p>
-                <p class="text-xs text-warm-500">${apt.phone} | ${apt.email}</p>
-                ${apt.reason ? `<p class="text-xs text-warm-400 mt-1 italic">${apt.reason}</p>` : ''}
+                <p class="text-sm text-dark-text font-medium">${apt.full_name}</p>
+                <p class="text-xs text-dark-muted">${apt.phone}</p>
               </div>
               <div class="flex gap-2">
-                <button onclick="openEditModal('${apt.id}')" class="w-10 h-10 rounded-xl bg-warm-100 text-warm-600 hover:bg-warm-200 hover:text-warm-800 transition-all duration-300 flex items-center justify-center">
-                  <i class="fas fa-edit"></i>
+                <button onclick="openEditModal('${apt.id}')" class="w-8 h-8 rounded-lg bg-dark-card text-dark-muted hover:text-dark-text flex items-center justify-center">
+                  <i class="fas fa-edit text-xs"></i>
                 </button>
-                <button onclick="deleteAppointment('${apt.id}')" class="w-10 h-10 rounded-xl bg-red-50 text-red-500 hover:bg-red-100 transition-all duration-300 flex items-center justify-center">
-                  <i class="fas fa-trash"></i>
+                <button onclick="deleteAppointment('${apt.id}')" class="w-8 h-8 rounded-lg bg-dark-card text-red-400 hover:bg-red-400/10 flex items-center justify-center">
+                  <i class="fas fa-trash text-xs"></i>
                 </button>
               </div>
             </div>
@@ -1414,7 +1221,7 @@
         });
         container.innerHTML = html;
       } catch (err) {
-        container.innerHTML = '<p class="text-red-500 text-center">Error de conexión</p>';
+        container.innerHTML = '<p class="text-red-400 text-center">Error de conexión</p>';
       }
     }
 
@@ -1434,20 +1241,20 @@
         const dayConfig = getDayConfig(date);
         const hasVirtual = dayConfig.virtual.available && dayConfig.virtual.times.length > 0;
         const hasPresencial = dayConfig.presencial.available && dayConfig.presencial.times.length > 0;
-        let classes = 'aspect-square rounded-xl p-2 cursor-pointer transition-all duration-300 flex flex-col items-center justify-center text-sm border ';
-        let content = `<span class="font-semibold mb-1">${day}</span>`;
+        let classes = 'aspect-square rounded-lg p-2 cursor-pointer transition-all flex flex-col items-center justify-center text-xs border ';
+        let content = `<span class="font-semibold mb-0.5">${day}</span>`;
         if (hasVirtual && hasPresencial) {
-          classes += 'bg-gradient-to-br from-warm-100 to-warm-800 border-warm-400 text-warm-900 ';
-          content += `<span class="text-[10px] text-warm-100 font-medium">Ambas</span>`;
+          classes += 'bg-gradient-to-br from-dark-card to-dark-accent border-dark-accent text-dark-bg ';
+          content += `<span class="text-[9px]">Ambas</span>`;
         } else if (hasVirtual) {
-          classes += 'bg-warm-100 border-warm-300 text-warm-700 ';
-          content += `<span class="text-[10px] text-warm-500">${dayConfig.virtual.times.length} hs</span>`;
+          classes += 'bg-dark-card border-dark-border text-dark-muted ';
+          content += `<span class="text-[9px] text-dark-accent">${dayConfig.virtual.times.length}h</span>`;
         } else if (hasPresencial) {
-          classes += 'bg-warm-800 border-warm-900 text-warm-100 ';
-          content += `<span class="text-[10px] text-warm-300">${dayConfig.presencial.times.length} hs</span>`;
+          classes += 'bg-dark-accent border-dark-accent text-dark-bg ';
+          content += `<span class="text-[9px]">${dayConfig.presencial.times.length}h</span>`;
         } else {
-          classes += 'bg-white border-warm-200 text-warm-400 hover:border-warm-300 ';
-          content += `<span class="text-[10px]">-</span>`;
+          classes += 'bg-dark-bg border-dark-border text-dark-muted hover:border-dark-muted ';
+          content += `<span class="text-[9px]">-</span>`;
         }
         html += `<div class="${classes}" onclick="selectAdminDay(${year}, ${month}, ${day})">${content}</div>`;
       }
@@ -1490,11 +1297,11 @@
       defaultTimeSlots.forEach(time => {
         const isSelected = selectedTimes.includes(time);
         const div = document.createElement('div');
-        div.className = 'flex items-center justify-center p-2';
+        div.className = 'flex items-center justify-center';
         div.innerHTML = `
-          <label class="flex items-center gap-2 cursor-pointer w-full justify-center p-2 rounded-lg hover:bg-warm-100 transition-colors ${isSelected ? 'bg-warm-200' : ''}">
-            <input type="checkbox" id="${modality}-time-${time}" value="${time}" ${isSelected ? 'checked' : ''} class="w-4 h-4 rounded border-warm-300 text-warm-700 focus:ring-warm-500/20">
-            <span class="text-sm text-warm-700 font-medium">${time}</span>
+          <label class="flex items-center gap-1 cursor-pointer w-full justify-center p-2 rounded-lg hover:bg-dark-bg transition-colors ${isSelected ? 'bg-dark-accent text-dark-bg' : 'text-dark-muted'}">
+            <input type="checkbox" id="${modality}-time-${time}" value="${time}" ${isSelected ? 'checked' : ''} class="hidden">
+            <span class="text-xs font-medium">${time}</span>
           </label>
         `;
         container.appendChild(div);
@@ -1516,15 +1323,22 @@
       if (!virtualAvailable && !presencialAvailable) { await deleteDayConfig(); return; }
       
       try {
-        const { error } = await supabaseClient.from('availability').upsert({
+        const { error } = await supabaseClient.from(AVAILABILITY_TABLE).upsert({
           date: dateStr,
           virtual: { available: virtualAvailable, times: virtualTimes },
           presencial: { available: presencialAvailable, times: presencialTimes, address: presencialAddress },
           updated_at: new Date().toISOString()
         }, { onConflict: 'date' });
-        if (error) { alert('Error al guardar: ' + error.message); return; }
+        if (error) { 
+          if (error.code === '42P01') {
+            alert('Error: Crear tabla "' + AVAILABILITY_TABLE + '" en Supabase');
+            return;
+          }
+          alert('Error al guardar: ' + error.message); 
+          return; 
+        }
         dayAvailability[dateStr] = { virtual: { available: virtualAvailable, times: virtualTimes }, presencial: { available: presencialAvailable, times: presencialTimes, address: presencialAddress }};
-        alert('Configuración guardada correctamente');
+        alert('Guardado correctamente');
         renderAdminCalendar();
       } catch (err) { alert('Error de conexión'); }
     }
@@ -1533,7 +1347,7 @@
       if (!selectedConfigDate || !confirm('¿Eliminar configuración?')) return;
       const dateStr = selectedConfigDate.toISOString().split('T')[0];
       try {
-        await supabaseClient.from('availability').delete().eq('date', dateStr);
+        await supabaseClient.from(AVAILABILITY_TABLE).delete().eq('date', dateStr);
         delete dayAvailability[dateStr];
         closeDayConfig();
         renderAdminCalendar();
@@ -1541,7 +1355,7 @@
     }
 
     async function openEditModal(appointmentId) {
-      const { data } = await supabaseClient.from('appointments').select('*').eq('id', appointmentId).single();
+      const { data } = await supabaseClient.from(TABLE_NAME).select('*').eq('id', appointmentId).single();
       if (!data) return;
       editingAppointment = data;
       document.getElementById('edit-patient-name').value = data.full_name;
@@ -1572,7 +1386,7 @@
       const date = new Date(dateStr);
       const dayConfig = getDayConfig(date);
       const select = document.getElementById('edit-time');
-      select.innerHTML = '<option value="">Seleccionar hora...</option>';
+      select.innerHTML = '<option value="">Seleccionar...</option>';
       const slots = (dayConfig[modality]?.available && dayConfig[modality]?.times.length > 0) ? dayConfig[modality].times : defaultTimeSlots;
       slots.forEach(time => {
         const isBooked = isSlotBooked(dateStr, time, editingAppointment?.id);
@@ -1603,7 +1417,7 @@
       if (!newDate || !newTime) return;
       if (isSlotBooked(newDate, newTime, editingAppointment.id)) { alert('Horario ocupado'); return; }
       try {
-        await supabaseClient.from('appointments').update({ modality: newModality, appointment_date: newDate, appointment_time: newTime }).eq('id', editingAppointment.id);
+        await supabaseClient.from(TABLE_NAME).update({ modality: newModality, appointment_date: newDate, appointment_time: newTime }).eq('id', editingAppointment.id);
         closeEditModal();
         loadAppointments();
         loadBookedSlots();
@@ -1613,7 +1427,7 @@
 
     async function deleteAppointment(id) {
       if (!confirm('¿Eliminar turno?')) return;
-      await supabaseClient.from('appointments').delete().eq('id', id);
+      await supabaseClient.from(TABLE_NAME).delete().eq('id', id);
       loadAppointments();
       loadBookedSlots();
     }
