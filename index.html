@@ -487,8 +487,8 @@
 
         <div class="mb-6">
           <h5 class="font-medium text-dark-text mb-4 text-lg">Horarios disponibles</h5>
-          <div id="time-slots-container" class="grid grid-cols-3 gap-3">
-            <p class="text-dark-muted text-base col-span-3 text-center py-4">Seleccioná una fecha primero</p>
+          <div id="time-slots-container" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+            <p class="text-dark-muted text-base col-span-full text-center py-4">Seleccioná una fecha primero</p>
           </div>
         </div>
 
@@ -733,7 +733,7 @@
                   <input type="checkbox" id="virtual-available" onchange="toggleModalitySection('virtual')" class="w-5 h-5 rounded border-dark-border bg-dark-bg text-slate-600 focus:ring-slate-600/20">
                 </div>
                 <div id="virtual-config-content" class="hidden pl-4">
-                  <div id="virtual-time-slots" class="grid grid-cols-4 gap-2"></div>
+                  <div id="virtual-time-slots" class="grid grid-cols-5 sm:grid-cols-6 gap-2"></div>
                 </div>
 
                 <div class="flex items-center justify-between p-4 bg-dark-bg rounded-xl border border-dark-border hover:border-amber-700 transition-colors">
@@ -747,7 +747,7 @@
                 </div>
                 <div id="presencial-config-content" class="hidden pl-4 space-y-3">
                   <input type="text" id="presencial-address" class="input-dark w-full px-3 py-2 rounded-lg text-base" placeholder="Dirección del consultorio">
-                  <div id="presencial-time-slots" class="grid grid-cols-4 gap-2"></div>
+                  <div id="presencial-time-slots" class="grid grid-cols-5 sm:grid-cols-6 gap-2"></div>
                 </div>
               </div>
 
@@ -860,11 +860,14 @@
     let dayAvailability = {};
     let selectedAdminDayElement = null;
 
+    // HORARIOS ACTUALIZADOS: 07:00 a 22:00 (intervalos de 30 min)
     const defaultTimeSlots = [
+      "07:00", "07:30", "08:00", "08:30",
       "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
       "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
       "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
-      "18:00", "18:30", "19:00", "19:30", "20:00"
+      "18:00", "18:30", "19:00", "19:30", "20:00", "20:30",
+      "21:00", "21:30", "22:00"
     ];
 
     async function loadAvailability() {
@@ -1071,7 +1074,7 @@
       const container = document.getElementById('time-slots-container');
       const locationInfo = document.getElementById('location-info');
       if (!selectedDate) {
-        if (container) container.innerHTML = '<p class="text-dark-muted text-base col-span-3 text-center py-4">Seleccioná una fecha primero</p>';
+        if (container) container.innerHTML = '<p class="text-dark-muted text-base col-span-full text-center py-4">Seleccioná una fecha primero</p>';
         if (locationInfo) locationInfo.classList.add('hidden');
         return;
       }
@@ -1081,7 +1084,7 @@
       const modalityConfig = selectedModality === 'virtual' ? dayConfig.virtual : dayConfig.presencial;
       
       if (!modalityConfig.available || modalityConfig.times.length === 0) {
-        if (container) container.innerHTML = `<p class="text-dark-muted text-base col-span-3 text-center py-4">No hay horarios disponibles</p>`;
+        if (container) container.innerHTML = `<p class="text-dark-muted text-base col-span-full text-center py-4">No hay horarios disponibles</p>`;
         if (locationInfo) locationInfo.classList.add('hidden');
         return;
       }
@@ -1250,7 +1253,7 @@
       if (form) form.reset();
       
       const timeSlots = document.getElementById('time-slots-container');
-      if (timeSlots) timeSlots.innerHTML = '<p class="text-dark-muted text-base col-span-3 text-center py-4">Seleccioná una fecha primero</p>';
+      if (timeSlots) timeSlots.innerHTML = '<p class="text-dark-muted text-base col-span-full text-center py-4">Seleccioná una fecha primero</p>';
     }
 
     function toggleAdmin() {
