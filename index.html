@@ -1463,7 +1463,7 @@
     function updateSlotVisual(checkbox, modality) {
       const label = checkbox.parentElement;
       if (checkbox.checked) {
-        if (modalidad === 'virtual') {
+        if (modality === 'virtual') {
           label.className = 'flex items-center gap-1 cursor-pointer w-full justify-center p-2 rounded-lg transition-all duration-200 slot-virtual-selected shadow-lg shadow-slate-900/50';
         } else {
           label.className = 'flex items-center gap-1 cursor-pointer w-full justify-center p-2 rounded-lg transition-all duration-200 slot-presencial-selected shadow-lg shadow-amber-900/50';
