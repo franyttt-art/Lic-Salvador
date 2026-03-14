@@ -27,16 +27,6 @@
               accent: '#d4d4d4',
               border: '#333333',
               hover: '#404040'
-            },
-            'gold': {
-              700: '#B7791F',
-              800: '#975A16',
-              900: '#744210',
-            },
-            'slate': {
-              700: '#334155',
-              800: '#1e293b',
-              900: '#0f172a',
             }
           },
           fontFamily: {
@@ -72,17 +62,6 @@
       position: relative;
     }
     
-    .bg-dark-gradient::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(ellipse at top, rgba(255,255,255,0.03) 0%, transparent 50%);
-      pointer-events: none;
-    }
-    
     .btn-cream {
       background-color: #d4d4d4;
       color: #1a1a1a;
@@ -115,18 +94,10 @@
       transition: all 0.3s ease;
     }
     
-    .input-dark:hover {
-      border-color: #404040;
-    }
-    
     .input-dark:focus {
       outline: none;
       border-color: #555555;
       background-color: #2a2a2a;
-    }
-    
-    .input-dark::placeholder {
-      color: #666666;
     }
     
     .card-dark {
@@ -135,15 +106,10 @@
       transition: all 0.4s ease;
     }
     
-    .card-dark:hover {
-      border-color: #404040;
-      background-color: #2a2a2a;
-    }
-    
-    /* NUEVO ESTILO DE MODALIDADES - ESTILO IMAGEN REFERENCIA */
+    /* Modalidades - Formato nuevo pero oscuro */
     .modality-card {
-      background-color: #f5f5f5;
-      border: 2px solid transparent;
+      background-color: #242424;
+      border: 2px solid #333333;
       border-radius: 24px;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
@@ -151,14 +117,15 @@
     }
     
     .modality-card:hover {
+      border-color: #555555;
       transform: translateY(-2px);
-      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.3);
+      background-color: #2a2a2a;
     }
     
     .modality-card.selected {
-      border-color: #1a1a1a;
-      background-color: #ffffff;
-      box-shadow: 0 0 0 4px rgba(26,26,26,0.1), 0 20px 40px -15px rgba(0,0,0,0.4);
+      border-color: #d4d4d4;
+      background-color: #2a2a2a;
+      box-shadow: 0 0 20px rgba(212,212,212,0.1);
     }
     
     .modality-icon-circle {
@@ -166,6 +133,7 @@
       height: 80px;
       border-radius: 50%;
       background-color: #1a1a1a;
+      border: 2px solid #444444;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -174,13 +142,13 @@
     }
     
     .modality-card.selected .modality-icon-circle {
-      background-color: #1a1a1a;
-      transform: scale(1.05);
+      border-color: #d4d4d4;
+      background-color: #333333;
     }
     
     .modality-card .icon-modality {
       font-size: 28px;
-      color: #ffffff;
+      color: #d4d4d4;
     }
     
     .modality-content {
@@ -191,13 +159,13 @@
     .modality-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: 28px;
-      color: #1a1a1a;
+      color: #f5f5f5;
       margin-bottom: 12px;
       font-weight: 500;
     }
     
     .modality-desc {
-      color: #666666;
+      color: #a0a0a0;
       font-size: 15px;
       line-height: 1.5;
     }
@@ -216,7 +184,7 @@
     }
     
     .calendar-day:hover:not(.disabled):not(.empty) {
-      border-color: #404040;
+      border-color: #555555;
       background-color: #2a2a2a;
     }
     
@@ -227,11 +195,11 @@
     }
     
     .calendar-day.available {
-      border-color: #333333;
+      border-color: #444444;
     }
     
     .calendar-day.booked {
-      background-color: #242424;
+      background-color: #1a1a1a;
       color: #555555;
       text-decoration: line-through;
       cursor: not-allowed;
@@ -262,7 +230,7 @@
     }
     
     .time-slot.booked {
-      background-color: #242424;
+      background-color: #1a1a1a;
       color: #444444;
       text-decoration: line-through;
       cursor: not-allowed;
@@ -290,7 +258,7 @@
     .badge-virtual {
       background-color: rgba(212,212,212,0.1);
       color: #d4d4d4;
-      border: 1px solid #404040;
+      border: 1px solid #444444;
     }
     
     .badge-presencial {
@@ -312,12 +280,8 @@
     }
     
     ::-webkit-scrollbar-thumb {
-      background: #404040;
+      background: #444444;
       border-radius: 4px;
-    }
-    
-    ::-webkit-scrollbar-thumb:hover {
-      background: #555555;
     }
     
     .decorative-line {
@@ -326,7 +290,7 @@
       opacity: 0.5;
     }
 
-    /* Colores especiales para Admin */
+    /* Admin calendar colors */
     .admin-virtual {
       background-color: #1e293b;
       border-color: #334155;
@@ -334,7 +298,6 @@
     }
     .admin-virtual:hover {
       background-color: #334155;
-      border-color: #475569;
     }
     
     .admin-presencial {
@@ -344,7 +307,6 @@
     }
     .admin-presencial:hover {
       background-color: #975A16;
-      border-color: #D69E2E;
     }
     
     .admin-mixta {
@@ -352,11 +314,8 @@
       border-color: #B7791F;
       color: #ffffff;
     }
-    .admin-mixta:hover {
-      background: linear-gradient(135deg, #334155 0%, #975A16 100%);
-    }
 
-    /* Día seleccionado en el calendario admin - MARCO DORADO FINO */
+    /* Marco dorado fino para día seleccionado en admin */
     .admin-day-selected {
       border: 1.5px solid #D69E2E !important;
       box-shadow: 0 0 0 2px rgba(214, 158, 46, 0.2);
@@ -365,7 +324,6 @@
       position: relative;
     }
 
-    /* Estados seleccionados en configuración de horarios */
     .slot-virtual-selected {
       background-color: #475569 !important;
       color: #ffffff !important;
@@ -399,7 +357,7 @@
   </nav>
 
   <!-- HERO -->
-  <section class="pt-32 pb-16 px-6 bg-dark-bg min-h-[85vh] flex flex-col items-center justify-center relative">
+  <section class="pt-32 pb-16 px-6 bg-dark-bg min-h-screen flex flex-col items-center justify-center relative">
     <div class="max-w-2xl mx-auto text-center relative z-10">
       
       <div class="mb-8">
@@ -428,6 +386,16 @@
         <p class="text-dark-muted text-sm uppercase tracking-[0.2em]">Adolescentes y Adultos</p>
       </div>
 
+      <!-- FRASE TERAPÉUTICA - AHORA ANTES DE LOS BOTONES -->
+      <div class="max-w-xl mx-auto mb-12 px-6">
+        <p class="font-serif text-2xl md:text-3xl text-dark-text leading-relaxed mb-6">
+          Espacio terapéutico con compromiso y acompañamiento profesional
+        </p>
+        <p class="text-dark-muted text-base leading-relaxed">
+          Si estás pensando en empezar terapia, este puede ser tu lugar.
+        </p>
+      </div>
+
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
         <a href="#agenda" class="inline-flex items-center gap-3 px-8 py-4 btn-cream rounded-full text-base font-medium group min-w-[200px] justify-center">
           <i class="far fa-calendar-check text-lg"></i>
@@ -440,18 +408,6 @@
         </a>
       </div>
       
-    </div>
-  </section>
-
-  <!-- FRASE TERAPÉUTICA - MOVIDA AQUI (ANTES DE AGENDAR) -->
-  <section class="py-24 px-6 bg-dark-bg border-y border-dark-border">
-    <div class="max-w-3xl mx-auto text-center">
-      <p class="font-serif text-3xl md:text-4xl text-dark-text leading-relaxed mb-8">
-        Espacio terapéutico con compromiso y acompañamiento profesional
-      </p>
-      <p class="text-dark-muted text-base leading-relaxed max-w-xl mx-auto">
-        Si estás pensando en empezar terapia, este puede ser tu lugar.
-      </p>
     </div>
   </section>
 
@@ -476,7 +432,7 @@
         </div>
       </div>
 
-      <!-- STEP 1: MODALIDAD - NUEVO DISEÑO -->
+      <!-- STEP 1: MODALIDAD -->
       <div id="step1" class="card-dark rounded-3xl p-8 md:p-12">
         <h4 class="font-serif text-3xl md:text-4xl text-dark-text mb-12 text-center">¿Cómo querés atenderte?</h4>
 
@@ -747,7 +703,6 @@
               <div class="grid grid-cols-7 gap-2" id="adminCalendar"></div>
             </div>
 
-            <!-- Leyenda de colores -->
             <div class="flex gap-4 mb-4 text-xs justify-center">
               <div class="flex items-center gap-2">
                 <div class="w-3 h-3 rounded bg-slate-800 border border-slate-600"></div>
@@ -877,20 +832,25 @@
 
   <script>
     // INICIALIZAR EMAILJS
-    emailjs.init("9sVIrU2mBqYp26khK");
+    (function() {
+      emailjs.init("9sVIrU2mBqYp26khK");
+    })();
 
-    // CONFIGURACIÓN - NUEVO PROYECTO SUPABASE
+    // CONFIGURACIÓN
     const EMAILJS_SERVICE_ID = "service_mveo8v7";
     const EMAILJS_TEMPLATE_ID = "llkr08j";
     const SUPABASE_URL = "https://nphjulvgbkfpijtbzjmj.supabase.co";
     const SUPABASE_KEY = "sb_publishable_KXCasl9f9i8BUAJpvGVmqA_p0NWexXC";
     const ADMIN_PASSWORD = "38303647Sa";
-
-    // NOMBRES DE TABLAS EXACTOS COMO EN SUPABASE
     const TABLE_NAME = 'appointments_alberti';
     const AVAILABILITY_TABLE = 'availability_alberti';
 
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    let supabaseClient;
+    try {
+      supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    } catch(e) {
+      console.error("Error inicializando Supabase:", e);
+    }
 
     let currentStep = 1;
     let selectedModality = null;
@@ -902,7 +862,7 @@
     let editingAppointment = null;
     let selectedConfigDate = null;
     let dayAvailability = {};
-    let selectedAdminDayElement = null; // Para guardar la referencia al día seleccionado
+    let selectedAdminDayElement = null;
 
     const defaultTimeSlots = [
       "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
@@ -912,6 +872,7 @@
     ];
 
     async function loadAvailability() {
+      if (!supabaseClient) return;
       try {
         const { data, error } = await supabaseClient.from(AVAILABILITY_TABLE).select('*');
         if (error) return;
@@ -943,6 +904,7 @@
     }
 
     async function loadBookedSlots() {
+      if (!supabaseClient) return;
       try {
         const { data, error } = await supabaseClient.from(TABLE_NAME).select('appointment_date, appointment_time, modality, id');
         if (!error) bookedSlots = data || [];
@@ -954,18 +916,21 @@
       selectedDate = null;
       selectedTime = null;
       
-      // Remover selección anterior
       document.querySelectorAll('.modality-card').forEach(btn => {
         btn.classList.remove('selected');
       });
       
-      // Agregar selección nueva
-      document.getElementById(`btn-${modality}`).classList.add('selected');
+      const selectedBtn = document.getElementById(`btn-${modality}`);
+      if (selectedBtn) {
+        selectedBtn.classList.add('selected');
+      }
       
       const btn = document.getElementById('btn-next-1');
-      btn.disabled = false;
-      btn.classList.remove('bg-dark-card', 'text-dark-muted', 'cursor-not-allowed');
-      btn.classList.add('btn-cream');
+      if (btn) {
+        btn.disabled = false;
+        btn.classList.remove('bg-dark-card', 'text-dark-muted', 'cursor-not-allowed');
+        btn.classList.add('btn-cream');
+      }
     }
 
     function nextStep(step) {
@@ -975,22 +940,32 @@
       document.getElementById(`step${currentStep}`).classList.add('hidden');
       document.getElementById(`step${step}`).classList.remove('hidden');
 
-      document.getElementById(`step${currentStep}-ind`).classList.remove('active');
-      document.getElementById(`step${currentStep}-ind`).classList.add('completed');
-      document.getElementById(`step${currentStep}-ind`).innerHTML = '<i class="fas fa-check text-xs"></i>';
-
-      if (document.getElementById(`line${currentStep}`)) {
-        document.getElementById(`line${currentStep}`).classList.remove('bg-dark-border');
-        document.getElementById(`line${currentStep}`).classList.add('bg-dark-accent');
+      const currentInd = document.getElementById(`step${currentStep}-ind`);
+      if (currentInd) {
+        currentInd.classList.remove('active');
+        currentInd.classList.add('completed');
+        currentInd.innerHTML = '<i class="fas fa-check text-xs"></i>';
       }
 
-      document.getElementById(`step${step}-ind`).classList.remove('text-dark-muted', 'border-dark-border');
-      document.getElementById(`step${step}-ind`).classList.add('active');
+      const line = document.getElementById(`line${currentStep}`);
+      if (line) {
+        line.classList.remove('bg-dark-border');
+        line.classList.add('bg-dark-accent');
+      }
+
+      const nextInd = document.getElementById(`step${step}-ind`);
+      if (nextInd) {
+        nextInd.classList.remove('text-dark-muted', 'border-dark-border');
+        nextInd.classList.add('active');
+      }
 
       currentStep = step;
 
       if (step === 2) {
-        document.getElementById('modality-display').textContent = `Modalidad: ${selectedModality === 'virtual' ? 'Virtual' : 'Presencial'}`;
+        const modalityDisplay = document.getElementById('modality-display');
+        if (modalityDisplay) {
+          modalityDisplay.textContent = `Modalidad: ${selectedModality === 'virtual' ? 'Virtual' : 'Presencial'}`;
+        }
         renderCalendar();
         renderTimeSlots();
       } else if (step === 3) {
@@ -1002,13 +977,17 @@
       document.getElementById(`step${currentStep}`).classList.add('hidden');
       document.getElementById(`step${step}`).classList.remove('hidden');
 
-      document.getElementById(`step${step}-ind`).classList.remove('completed');
-      document.getElementById(`step${step}-ind`).classList.add('active');
-      document.getElementById(`step${step}-ind`).innerHTML = step;
+      const prevInd = document.getElementById(`step${step}-ind`);
+      if (prevInd) {
+        prevInd.classList.remove('completed');
+        prevInd.classList.add('active');
+        prevInd.innerHTML = step;
+      }
 
-      if (document.getElementById(`line${step}`)) {
-        document.getElementById(`line${step}`).classList.remove('bg-dark-accent');
-        document.getElementById(`line${step}`).classList.add('bg-dark-border');
+      const line = document.getElementById(`line${step}`);
+      if (line) {
+        line.classList.remove('bg-dark-accent');
+        line.classList.add('bg-dark-border');
       }
 
       currentStep = step;
@@ -1021,7 +1000,10 @@
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth();
       const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-      document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+      const currentMonthEl = document.getElementById('currentMonth');
+      if (currentMonthEl) {
+        currentMonthEl.textContent = `${monthNames[month]} ${year}`;
+      }
 
       const firstDay = new Date(year, month, 1).getDay();
       const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -1072,7 +1054,8 @@
         const canSelect = !isPast && availableSlots > 0;
         html += `<div class="${classes}" onclick="${canSelect ? `selectDate(${year}, ${month}, ${day})` : ''}"><div class="font-semibold">${day}</div>${indicator}</div>`;
       }
-      document.getElementById('calendar').innerHTML = html;
+      const calendar = document.getElementById('calendar');
+      if (calendar) calendar.innerHTML = html;
     }
 
     function changeMonth(delta) {
@@ -1092,8 +1075,8 @@
       const container = document.getElementById('time-slots-container');
       const locationInfo = document.getElementById('location-info');
       if (!selectedDate) {
-        container.innerHTML = '<p class="text-dark-muted text-base col-span-3 text-center py-4">Seleccioná una fecha primero</p>';
-        locationInfo.classList.add('hidden');
+        if (container) container.innerHTML = '<p class="text-dark-muted text-base col-span-3 text-center py-4">Seleccioná una fecha primero</p>';
+        if (locationInfo) locationInfo.classList.add('hidden');
         return;
       }
 
@@ -1102,8 +1085,8 @@
       const modalityConfig = selectedModality === 'virtual' ? dayConfig.virtual : dayConfig.presencial;
       
       if (!modalityConfig.available || modalityConfig.times.length === 0) {
-        container.innerHTML = `<p class="text-dark-muted text-base col-span-3 text-center py-4">No hay horarios disponibles</p>`;
-        locationInfo.classList.add('hidden');
+        if (container) container.innerHTML = `<p class="text-dark-muted text-base col-span-3 text-center py-4">No hay horarios disponibles</p>`;
+        if (locationInfo) locationInfo.classList.add('hidden');
         return;
       }
 
@@ -1122,13 +1105,14 @@
           html += `<button type="button" class="${classes}" onclick="selectTime('${time}')">${time}</button>`;
         }
       });
-      container.innerHTML = html;
+      if (container) container.innerHTML = html;
 
       if (selectedModality === 'presencial' && modalityConfig.address) {
-        document.getElementById('selected-location').textContent = modalityConfig.address;
-        locationInfo.classList.remove('hidden');
+        const selectedLocation = document.getElementById('selected-location');
+        if (selectedLocation) selectedLocation.textContent = modalityConfig.address;
+        if (locationInfo) locationInfo.classList.remove('hidden');
       } else {
-        locationInfo.classList.add('hidden');
+        if (locationInfo) locationInfo.classList.add('hidden');
       }
     }
 
@@ -1140,7 +1124,7 @@
 
     function updateStep2Button() {
       const btn = document.getElementById('btn-next-2');
-      if (selectedTime) {
+      if (btn && selectedTime) {
         btn.disabled = false;
         btn.classList.remove('bg-dark-card', 'text-dark-muted', 'cursor-not-allowed');
         btn.classList.add('btn-cream');
@@ -1148,17 +1132,22 @@
     }
 
     function updateConfirmation() {
-      document.getElementById('confirm-modality').textContent = selectedModality === 'virtual' ? 'Virtual' : 'Presencial';
-      const dateStr = selectedDate.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
-      document.getElementById('confirm-date').textContent = dateStr;
-      document.getElementById('confirm-time').textContent = selectedTime + ' hs';
-      const wrap = document.getElementById('confirm-location-wrap');
+      const confirmModality = document.getElementById('confirm-modality');
+      const confirmDate = document.getElementById('confirm-date');
+      const confirmTime = document.getElementById('confirm-time');
+      const confirmLocationWrap = document.getElementById('confirm-location-wrap');
+      const confirmLocation = document.getElementById('confirm-location');
+
+      if (confirmModality) confirmModality.textContent = selectedModality === 'virtual' ? 'Virtual' : 'Presencial';
+      if (confirmDate) confirmDate.textContent = selectedDate.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+      if (confirmTime) confirmTime.textContent = selectedTime + ' hs';
+      
       if (selectedModality === 'presencial') {
         const dayConfig = getDayConfig(selectedDate);
-        wrap.classList.remove('hidden');
-        document.getElementById('confirm-location').textContent = dayConfig.presencial.address || 'Consultorio';
+        if (confirmLocationWrap) confirmLocationWrap.classList.remove('hidden');
+        if (confirmLocation) confirmLocation.textContent = dayConfig.presencial.address || 'Consultorio';
       } else {
-        wrap.classList.add('hidden');
+        if (confirmLocationWrap) confirmLocationWrap.classList.add('hidden');
       }
     }
 
@@ -1180,7 +1169,6 @@
       btn.disabled = true;
       btn.innerHTML = 'Enviando... <i class="fas fa-spinner fa-spin ml-2"></i>';
 
-      const dayConfig = getDayConfig(selectedDate);
       const appointmentData = {
         full_name: document.getElementById('fullName').value.trim(),
         email: document.getElementById('email').value.trim(),
@@ -1194,15 +1182,8 @@
       };
 
       try {
-        // 1. Guardar en Supabase
         const { data, error } = await supabaseClient.from(TABLE_NAME).insert([appointmentData]);
         if (error) {
-          if (error.code === '42P01') {
-            alert('Error: Crear tabla "appointments_alberti" en Supabase');
-            btn.disabled = false;
-            btn.innerHTML = original;
-            return;
-          }
           if (error.code === '23505') {
             alert('Turno ya reservado. Seleccioná otro horario.');
             renderTimeSlots();
@@ -1214,7 +1195,6 @@
           return;
         }
 
-        // 2. Enviar email via EmailJS
         const emailParams = {
           patient_name: appointmentData.full_name,
           patient_email: appointmentData.email,
@@ -1245,8 +1225,10 @@
       selectedTime = null;
       currentStep = 1;
       currentDate = new Date();
+      
       document.getElementById('success').classList.add('hidden');
       document.getElementById('step1').classList.remove('hidden');
+      
       document.querySelectorAll('.step-dot').forEach((el, idx) => {
         el.className = 'step-dot w-8 h-8 rounded-full border flex items-center justify-center text-sm font-medium';
         if (idx === 0) {
@@ -1257,14 +1239,20 @@
           el.innerHTML = idx + 1;
         }
       });
-      document.querySelectorAll('.step-line').forEach(el => {
-        el.className = 'flex-1 h-px bg-dark-border mx-2';
-      });
-      document.getElementById('btn-next-1').disabled = true;
-      document.getElementById('btn-next-1').className = 'px-6 py-3 bg-dark-card text-dark-muted rounded-full font-medium cursor-not-allowed border border-dark-border transition-all duration-300';
+      
+      const btn1 = document.getElementById('btn-next-1');
+      if (btn1) {
+        btn1.disabled = true;
+        btn1.className = 'px-8 py-4 bg-dark-card text-dark-muted rounded-full font-medium cursor-not-allowed border border-dark-border transition-all duration-300';
+      }
+      
       document.querySelectorAll('.modality-card').forEach(btn => btn.classList.remove('selected'));
-      document.getElementById('bookingForm').reset();
-      document.getElementById('time-slots-container').innerHTML = '<p class="text-dark-muted text-base col-span-3 text-center py-4">Seleccioná una fecha primero</p>';
+      
+      const form = document.getElementById('bookingForm');
+      if (form) form.reset();
+      
+      const timeSlots = document.getElementById('time-slots-container');
+      if (timeSlots) timeSlots.innerHTML = '<p class="text-dark-muted text-base col-span-3 text-center py-4">Seleccioná una fecha primero</p>';
     }
 
     function toggleAdmin() {
@@ -1364,7 +1352,6 @@
         const hasVirtual = dayConfig.virtual.available && dayConfig.virtual.times.length > 0;
         const hasPresencial = dayConfig.presencial.available && dayConfig.presencial.times.length > 0;
         
-        // Verificar si este día es el seleccionado actualmente
         const isSelected = selectedConfigDate && 
                           selectedConfigDate.getDate() === day && 
                           selectedConfigDate.getMonth() === month && 
@@ -1373,30 +1360,24 @@
         let classes = 'aspect-square rounded-lg p-2 cursor-pointer transition-all flex flex-col items-center justify-center text-xs border ';
         let content = `<span class="font-semibold mb-0.5">${day}</span>`;
         
-        // Agregar clase de selección dorada si está seleccionado
         if (isSelected) {
           classes += 'admin-day-selected ';
         }
         
         if (hasVirtual && hasPresencial) {
-          // Mixta - Gradiente dorado y gris
           if (!isSelected) classes += 'admin-mixta ';
           content += `<span class="text-[9px] font-bold">Mix</span>`;
         } else if (hasPresencial) {
-          // Solo presencial - Dorado oscuro/bronce
           if (!isSelected) classes += 'admin-presencial ';
           content += `<span class="text-[9px] opacity-80">${dayConfig.presencial.times.length}h</span>`;
         } else if (hasVirtual) {
-          // Solo virtual - Gris azulado
           if (!isSelected) classes += 'admin-virtual ';
           content += `<span class="text-[9px] opacity-80">${dayConfig.virtual.times.length}h</span>`;
         } else {
-          // Sin configurar
           if (!isSelected) classes += 'bg-dark-bg border-dark-border text-dark-muted hover:border-dark-muted ';
           content += `<span class="text-[9px]">-</span>`;
         }
         
-        // Agregar data attribute para identificar el día
         html += `<div class="${classes}" data-day="${day}" onclick="selectAdminDay(${year}, ${month}, ${day}, this)">${content}</div>`;
       }
       document.getElementById('adminCalendar').innerHTML = html;
@@ -1404,39 +1385,31 @@
 
     function changeAdminMonth(delta) {
       adminCurrentDate.setMonth(adminCurrentDate.getMonth() + delta);
-      // Mantener el día seleccionado si es visible en el nuevo mes, si no limpiar
       renderAdminCalendar();
-      // Si cambiamos de mes, no limpiamos el panel ni la selección para permitir edición continua
     }
 
     function selectAdminDay(year, month, day, element) {
-      // Remover clase seleccionada del día anterior
       if (selectedAdminDayElement) {
         selectedAdminDayElement.classList.remove('admin-day-selected');
       }
       
-      // Agregar clase al nuevo día seleccionado
       if (element) {
         element.classList.add('admin-day-selected');
         selectedAdminDayElement = element;
       }
       
       selectedConfigDate = new Date(year, month, day);
-      const dateStr = selectedConfigDate.toISOString().split('T')[0'];
       const dayConfig = getDayConfig(selectedConfigDate);
       
       document.getElementById('selected-day-title').textContent = selectedConfigDate.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
       
-      // Cargar estado de checkboxes principales
       document.getElementById('virtual-available').checked = dayConfig.virtual.available;
       document.getElementById('presencial-available').checked = dayConfig.presencial.available;
       document.getElementById('presencial-address').value = dayConfig.presencial.address || '';
       
-      // Renderizar slots de tiempo con colores específicos
       renderTimeSlotsConfig('virtual', dayConfig.virtual.times);
       renderTimeSlotsConfig('presencial', dayConfig.presencial.times);
       
-      // Mostrar/ocultar secciones según disponibilidad
       toggleModalitySection('virtual');
       toggleModalitySection('presencial');
       
@@ -1445,7 +1418,6 @@
 
     function closeDayConfig() {
       document.getElementById('day-config-panel').classList.add('hidden');
-      // Remover selección visual
       if (selectedAdminDayElement) {
         selectedAdminDayElement.classList.remove('admin-day-selected');
         selectedAdminDayElement = null;
@@ -1467,7 +1439,6 @@
         const div = document.createElement('div');
         div.className = 'flex items-center justify-center';
         
-        // Clases específicas según modalidad y estado
         let labelClass = 'flex items-center gap-1 cursor-pointer w-full justify-center p-2 rounded-lg transition-all duration-200 ';
         if (isSelected) {
           if (modality === 'virtual') {
@@ -1492,7 +1463,7 @@
     function updateSlotVisual(checkbox, modality) {
       const label = checkbox.parentElement;
       if (checkbox.checked) {
-        if (modality === 'virtual') {
+        if (modalidad === 'virtual') {
           label.className = 'flex items-center gap-1 cursor-pointer w-full justify-center p-2 rounded-lg transition-all duration-200 slot-virtual-selected shadow-lg shadow-slate-900/50';
         } else {
           label.className = 'flex items-center gap-1 cursor-pointer w-full justify-center p-2 rounded-lg transition-all duration-200 slot-presencial-selected shadow-lg shadow-amber-900/50';
@@ -1523,23 +1494,19 @@
           presencial: { available: presencialAvailable, times: presencialTimes, address: presencialAddress },
           updated_at: new Date().toISOString()
         }, { onConflict: 'date' });
+        
         if (error) { 
-          if (error.code === '42P01') {
-            alert('Error: Crear tabla "availability_alberti" en Supabase');
-            return;
-          }
           alert('Error al guardar: ' + error.message); 
           return; 
         }
+        
         dayAvailability[dateStr] = { 
           virtual: { available: virtualAvailable, times: virtualTimes }, 
           presencial: { available: presencialAvailable, times: presencialTimes, address: presencialAddress }
         };
         
-        // Actualizar el calendario para reflejar cambios de color (virtual/presencial/mixta) pero mantener selección
         renderAdminCalendar();
         
-        // Re-aplicar selección al día guardado si sigue visible
         if (selectedConfigDate) {
           const day = selectedConfigDate.getDate();
           const dayElement = document.querySelector(`#adminCalendar div[data-day="${day}"]`);
@@ -1550,7 +1517,9 @@
         }
         
         alert('Guardado correctamente');
-      } catch (err) { alert('Error de conexión'); }
+      } catch (err) { 
+        alert('Error de conexión'); 
+      }
     }
 
     async function deleteDayConfig() {
@@ -1559,8 +1528,6 @@
       try {
         await supabaseClient.from(AVAILABILITY_TABLE).delete().eq('date', dateStr);
         delete dayAvailability[dateStr];
-        
-        // Actualizar calendario y mantener selección visual
         renderAdminCalendar();
         if (selectedConfigDate) {
           const day = selectedConfigDate.getDate();
@@ -1570,7 +1537,9 @@
             selectedAdminDayElement = dayElement;
           }
         }
-      } catch (err) { alert('Error al eliminar'); }
+      } catch (err) { 
+        alert('Error al eliminar'); 
+      }
     }
 
     async function openEditModal(appointmentId) {
@@ -1651,10 +1620,17 @@
       loadBookedSlots();
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
+    // Inicialización segura
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+    function init() {
       loadAvailability();
       loadBookedSlots();
-    });
+    }
   </script>
 </body>
 </html>
