@@ -370,7 +370,7 @@
         </h2>
       </div>
 
-      <!-- ENFOQUE PSICOANALÍTICO - RESTAURADO -->
+      <!-- ENFOQUE PSICOANALÍTICO -->
       <p class="text-xs uppercase tracking-[0.3em] text-dark-muted mb-10">
         Enfoque Psicoanalítico
       </p>
@@ -1191,9 +1191,11 @@
           return;
         }
 
+        // ACÁ ESTÁ LA MODIFICACIÓN - AGREGUÉ to_email
         const emailParams = {
-          patient_name: appointmentData.full_name,
+          to_email: 'lic.albertisalvador@gmail.com',
           patient_email: appointmentData.email,
+          patient_name: appointmentData.full_name,
           patient_phone: appointmentData.phone,
           modality: appointmentData.modality === 'virtual' ? 'Virtual' : 'Presencial',
           date: appointmentData.appointment_date,
