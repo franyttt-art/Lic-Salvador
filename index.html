@@ -106,7 +106,6 @@
       transition: all 0.4s ease;
     }
     
-    /* Modalidades - Formato nuevo pero oscuro */
     .modality-card {
       background-color: #242424;
       border: 2px solid #333333;
@@ -218,7 +217,7 @@
       color: #f5f5f5;
     }
     
-    .time-slot:hover:not(.disabled):not(.booked) {
+    .time-slot:hover:not(.disabled):not(.booked):not(.blocked) {
       border-color: #555555;
       background-color: #2a2a2a;
     }
@@ -234,6 +233,15 @@
       color: #444444;
       text-decoration: line-through;
       cursor: not-allowed;
+    }
+    
+    /* NUEVO: Estilo para horarios bloqueados por solapamiento */
+    .time-slot.blocked {
+      background-color: #2a2418;
+      border-color: #44403c;
+      color: #78716c;
+      cursor: not-allowed;
+      opacity: 0.7;
     }
     
     .step-dot {
@@ -290,7 +298,6 @@
       opacity: 0.5;
     }
 
-    /* Admin calendar colors */
     .admin-virtual {
       background-color: #1e293b;
       border-color: #334155;
@@ -315,7 +322,6 @@
       color: #ffffff;
     }
 
-    /* Marco dorado fino para día seleccionado en admin */
     .admin-day-selected {
       border: 1.5px solid #D69E2E !important;
       box-shadow: 0 0 0 2px rgba(214, 158, 46, 0.2);
@@ -334,6 +340,78 @@
       background-color: #B7791F !important;
       color: #ffffff !important;
       border-color: #D69E2E !important;
+    }
+
+    /* NUEVO: Estilos para configuración de duración en admin */
+    .time-slot-config {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      background: #1a1a1a;
+      border: 1px solid #333333;
+      border-radius: 0.5rem;
+      transition: all 0.2s;
+    }
+    .time-slot-config:hover {
+      border-color: #555555;
+      background-color: #242424;
+    }
+    .time-slot-config.blocked-by-other {
+      background-color: #292524;
+      border-color: #44403c;
+      opacity: 0.6;
+    }
+    .time-slot-config.selected-slot {
+      background-color: #1e293b;
+      border-color: #475569;
+      box-shadow: 0 0 0 2px rgba(71, 85, 105, 0.3);
+    }
+    .time-slot-config.selected-slot.presencial {
+      background-color: #451a03;
+      border-color: #92400e;
+      box-shadow: 0 0 0 2px rgba(146, 64, 14, 0.3);
+    }
+    .duration-input {
+      width: 50px;
+      padding: 0.25rem;
+      background: #242424;
+      border: 1px solid #444444;
+      border-radius: 0.375rem;
+      color: #f5f5f5;
+      font-size: 0.875rem;
+      text-align: center;
+    }
+    .duration-input:focus {
+      outline: none;
+      border-color: #d4d4d4;
+    }
+    .time-display {
+      font-family: monospace;
+      font-size: 0.875rem;
+      min-width: 40px;
+    }
+    .overlap-warning {
+      font-size: 0.75rem;
+      color: #fbbf24;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+    .conflict-alert {
+      background-color: rgba(220, 38, 38, 0.2);
+      border: 1px solid rgba(220, 38, 38, 0.5);
+      color: #fca5a5;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+    }
+    .slot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.5rem;
+      max-height: 300px;
+      overflow-y: auto;
     }
   </style>
 </head>
@@ -370,7 +448,6 @@
         </h2>
       </div>
 
-      <!-- ENFOQUE PSICOANALÍTICO -->
       <p class="text-xs uppercase tracking-[0.3em] text-dark-muted mb-10">
         Enfoque Psicoanalítico
       </p>
@@ -382,7 +459,6 @@
         <p class="text-dark-muted text-sm uppercase tracking-[0.2em]">Adolescentes y Adultos</p>
       </div>
 
-      <!-- FRASE TERAPÉUTICA -->
       <div class="max-w-xl mx-auto mb-12 px-6">
         <p class="font-serif text-2xl md:text-3xl text-dark-text leading-relaxed mb-6">
           Espacio terapéutico con compromiso y acompañamiento profesional
@@ -433,7 +509,6 @@
         <h4 class="font-serif text-3xl md:text-4xl text-dark-text mb-12 text-center">¿Cómo querés atenderte?</h4>
 
         <div class="grid gap-6 mb-10">
-          <!-- Virtual -->
           <button onclick="selectModality('virtual')" id="btn-virtual" class="modality-card group">
             <div class="modality-content">
               <div class="modality-icon-circle">
@@ -444,7 +519,6 @@
             </div>
           </button>
 
-          <!-- Presencial -->
           <button onclick="selectModality('presencial')" id="btn-presencial" class="modality-card group">
             <div class="modality-content">
               <div class="modality-icon-circle">
@@ -487,8 +561,8 @@
 
         <div class="mb-6">
           <h5 class="font-medium text-dark-text mb-4 text-lg">Horarios disponibles</h5>
-          <div id="time-slots-container" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
-            <p class="text-dark-muted text-base col-span-full text-center py-4">Seleccioná una fecha primero</p>
+          <div id="time-slots-container" class="grid grid-cols-1 gap-2">
+            <p class="text-dark-muted text-base text-center py-4">Seleccioná una fecha primero</p>
           </div>
         </div>
 
@@ -533,7 +607,12 @@
             </div>
           </div>
 
-          <div id="confirm-location-wrap" class="hidden">
+          <div class="mb-4 pt-4 border-t border-dark-border">
+            <p class="text-xs text-dark-muted uppercase tracking-wider mb-1">Duración</p>
+            <p class="font-medium text-dark-accent" id="confirm-duration"></p>
+          </div>
+
+          <div id="confirm-location-wrap" class="hidden pt-4 border-t border-dark-border">
             <p class="text-xs text-dark-muted uppercase tracking-wider mb-1">Dirección</p>
             <p class="font-medium text-dark-accent text-sm" id="confirm-location"></p>
           </div>
@@ -683,6 +762,11 @@
           </div>
 
           <div id="admin-tab-config" class="hidden">
+            <div class="bg-blue-900/20 border border-blue-800 rounded-lg p-4 mb-4 text-sm text-blue-200">
+              <i class="fas fa-info-circle mr-2"></i>
+              <strong>Sistema de solapamiento:</strong> Si configurás un turno de 40 minutos a las 9:00, el sistema bloqueará automáticamente el horario de las 9:30.
+            </div>
+
             <div class="mb-4">
               <div class="flex justify-between items-center mb-4">
                 <button onclick="changeAdminMonth(-1)" class="w-8 h-8 rounded-full bg-dark-card text-dark-muted hover:text-dark-text flex items-center justify-center">
@@ -722,6 +806,11 @@
                 </button>
               </div>
               
+              <div id="conflict-warning" class="conflict-alert hidden">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                <span id="conflict-text"></span>
+              </div>
+              
               <div class="space-y-4 mb-6">
                 <div class="flex items-center justify-between p-4 bg-dark-bg rounded-xl border border-dark-border hover:border-slate-600 transition-colors">
                   <div class="flex items-center gap-3">
@@ -733,7 +822,9 @@
                   <input type="checkbox" id="virtual-available" onchange="toggleModalitySection('virtual')" class="w-5 h-5 rounded border-dark-border bg-dark-bg text-slate-600 focus:ring-slate-600/20">
                 </div>
                 <div id="virtual-config-content" class="hidden pl-4">
-                  <div id="virtual-time-slots" class="grid grid-cols-5 sm:grid-cols-6 gap-2"></div>
+                  <p class="text-xs text-dark-muted mb-2">Seleccioná horarios y definí la duración (15-180 min). Los solapados se bloquean automáticamente.</p>
+                  <div id="virtual-time-slots" class="slot-grid"></div>
+                  <div id="virtual-overlaps" class="overlap-warning"></div>
                 </div>
 
                 <div class="flex items-center justify-between p-4 bg-dark-bg rounded-xl border border-dark-border hover:border-amber-700 transition-colors">
@@ -747,7 +838,9 @@
                 </div>
                 <div id="presencial-config-content" class="hidden pl-4 space-y-3">
                   <input type="text" id="presencial-address" class="input-dark w-full px-3 py-2 rounded-lg text-base" placeholder="Dirección del consultorio">
-                  <div id="presencial-time-slots" class="grid grid-cols-5 sm:grid-cols-6 gap-2"></div>
+                  <p class="text-xs text-dark-muted mb-2">Seleccioná horarios y definí la duración (15-180 min). Los solapados se bloquean automáticamente.</p>
+                  <div id="presencial-time-slots" class="slot-grid"></div>
+                  <div id="presencial-overlaps" class="overlap-warning"></div>
                 </div>
               </div>
 
@@ -802,6 +895,11 @@
               <option value="">Seleccionar...</option>
             </select>
           </div>
+
+          <div id="edit-duration-display" class="hidden bg-dark-card p-3 rounded-lg border border-dark-border">
+            <label class="block text-xs uppercase tracking-wider text-dark-muted mb-1">Duración del turno</label>
+            <p class="font-medium text-dark-accent" id="edit-duration-text"></p>
+          </div>
           
           <div class="flex gap-3 mt-6">
             <button onclick="closeEditModal()" class="flex-1 px-4 py-3 border border-dark-border text-dark-text rounded-xl hover:border-dark-accent text-base">
@@ -840,6 +938,7 @@
     const ADMIN_PASSWORD = "38303647Sa";
     const TABLE_NAME = 'appointments_alberti';
     const AVAILABILITY_TABLE = 'availability_alberti';
+    const DEFAULT_DURATION = 50;
 
     let supabaseClient;
     try {
@@ -852,6 +951,7 @@
     let selectedModality = null;
     let selectedDate = null;
     let selectedTime = null;
+    let selectedDuration = DEFAULT_DURATION;
     let currentDate = new Date();
     let adminCurrentDate = new Date();
     let bookedSlots = [];
@@ -860,7 +960,6 @@
     let dayAvailability = {};
     let selectedAdminDayElement = null;
 
-    // HORARIOS ACTUALIZADOS: 07:00 a 22:00 (intervalos de 30 min)
     const defaultTimeSlots = [
       "07:00", "07:30", "08:00", "08:30",
       "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
@@ -870,6 +969,91 @@
       "21:00", "21:30", "22:00"
     ];
 
+    // ==================== FUNCIONES DE TIEMPO Y SOLAPAMIENTO ====================
+
+    function timeToMinutes(timeStr) {
+      const [hours, minutes] = timeStr.split(':').map(Number);
+      return hours * 60 + minutes;
+    }
+
+    function minutesToTime(minutes) {
+      const hrs = Math.floor(minutes / 60);
+      const mins = minutes % 60;
+      return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
+    }
+
+    function rangesOverlap(start1, end1, start2, end2) {
+      return start1 < end2 && start2 < end1;
+    }
+
+    function calculateBlockedSlots(selectedSlots) {
+      const blocked = new Set();
+      const selectedTimes = new Set(selectedSlots.map(s => s.time));
+      
+      selectedSlots.forEach(slot => {
+        const slotStart = timeToMinutes(slot.time);
+        const slotEnd = slotStart + (parseInt(slot.duration) || DEFAULT_DURATION);
+        
+        defaultTimeSlots.forEach(otherTime => {
+          if (selectedTimes.has(otherTime)) return;
+          const otherStart = timeToMinutes(otherTime);
+          const otherEnd = otherStart + 30;
+          if (rangesOverlap(slotStart, slotEnd, otherStart, otherEnd)) {
+            blocked.add(otherTime);
+          }
+        });
+      });
+      
+      return blocked;
+    }
+
+    function findConflicts(slots) {
+      const conflicts = [];
+      for (let i = 0; i < slots.length; i++) {
+        for (let j = i + 1; j < slots.length; j++) {
+          const start1 = timeToMinutes(slots[i].time);
+          const end1 = start1 + (parseInt(slots[i].duration) || DEFAULT_DURATION);
+          const start2 = timeToMinutes(slots[j].time);
+          const end2 = start2 + (parseInt(slots[j].duration) || DEFAULT_DURATION);
+          
+          if (rangesOverlap(start1, end1, start2, end2)) {
+            conflicts.push(`${slots[i].time} y ${slots[j].time}`);
+          }
+        }
+      }
+      return conflicts;
+    }
+
+    // ==================== NORMALIZACIÓN Y DATOS ====================
+
+    function normalizeSlots(modalityData) {
+      if (!modalityData) return { available: false, slots: [] };
+      
+      if (modalityData.slots && Array.isArray(modalityData.slots)) {
+        return {
+          available: modalityData.available || false,
+          slots: modalityData.slots.map(slot => ({
+            time: slot.time || slot,
+            duration: slot.duration || DEFAULT_DURATION
+          })),
+          address: modalityData.address || ''
+        };
+      }
+      
+      if (modalityData.times && Array.isArray(modalityData.times)) {
+        return {
+          available: modalityData.available || false,
+          slots: modalityData.times.map(time => ({
+            time: time,
+            duration: DEFAULT_DURATION
+          })),
+          address: modalityData.address || ''
+        };
+      }
+      
+      return { available: false, slots: [], address: '' };
+    }
+
     async function loadAvailability() {
       if (!supabaseClient) return;
       try {
@@ -878,8 +1062,8 @@
         dayAvailability = {};
         data.forEach(day => {
           dayAvailability[day.date] = {
-            virtual: day.virtual || { available: false, times: [] },
-            presencial: day.presencial || { available: false, times: [], address: '' }
+            virtual: normalizeSlots(day.virtual),
+            presencial: normalizeSlots(day.presencial)
           };
         });
       } catch (err) {}
@@ -888,27 +1072,56 @@
     function getDayConfig(date) {
       const dateStr = typeof date === 'string' ? date : date.toISOString().split('T')[0];
       return dayAvailability[dateStr] || { 
-        virtual: { available: false, times: [] }, 
-        presencial: { available: false, times: [], address: '' }
+        virtual: { available: false, slots: [] }, 
+        presencial: { available: false, slots: [], address: '' }
       };
     }
 
-    function isSlotBooked(date, time, excludeId = null) {
-      const dateStr = typeof date === 'string' ? date : date.toISOString().split('T')[0];
-      return bookedSlots.some(slot => 
-        slot.appointment_date === dateStr && 
-        slot.appointment_time === time &&
-        slot.id !== excludeId
-      );
+    function getSlotDuration(date, time, modality) {
+      const config = getDayConfig(date);
+      const slot = config[modality]?.slots.find(s => s.time === time);
+      return slot ? slot.duration : DEFAULT_DURATION;
     }
 
     async function loadBookedSlots() {
       if (!supabaseClient) return;
       try {
-        const { data, error } = await supabaseClient.from(TABLE_NAME).select('appointment_date, appointment_time, modality, id');
+        const { data, error } = await supabaseClient.from(TABLE_NAME).select('appointment_date, appointment_time, modality, id, duration');
         if (!error) bookedSlots = data || [];
       } catch (err) {}
     }
+
+    // ==================== DISPONIBILIDAD CON DURACIÓN ====================
+
+    function isTimeAvailable(date, time, modality, excludeId = null) {
+      const dateStr = typeof date === 'string' ? date : date.toISOString().split('T')[0];
+      const config = getDayConfig(date);
+      const slots = config[modality]?.slots || [];
+      
+      const targetSlot = slots.find(s => s.time === time);
+      if (!targetSlot) return false;
+      
+      const targetStart = timeToMinutes(time);
+      const targetEnd = targetStart + (parseInt(targetSlot.duration) || DEFAULT_DURATION);
+      
+      for (const booked of bookedSlots) {
+        if (booked.appointment_date !== dateStr) continue;
+        if (booked.modality !== modality) continue;
+        if (booked.id === excludeId) continue;
+        
+        const bookedStart = timeToMinutes(booked.appointment_time);
+        const bookedDuration = booked.duration || DEFAULT_DURATION;
+        const bookedEnd = bookedStart + bookedDuration;
+        
+        if (rangesOverlap(targetStart, targetEnd, bookedStart, bookedEnd)) {
+          return false;
+        }
+      }
+      
+      return true;
+    }
+
+    // ==================== FLUJO PACIENTE ====================
 
     function selectModality(modality) {
       selectedModality = modality;
@@ -1019,21 +1232,21 @@
         const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
         
         const dayConfig = getDayConfig(date);
-        const hasVirtual = dayConfig.virtual.available && dayConfig.virtual.times.length > 0;
-        const hasPresencial = dayConfig.presencial.available && dayConfig.presencial.times.length > 0;
+        const hasVirtual = dayConfig.virtual.available && dayConfig.virtual.slots.length > 0;
+        const hasPresencial = dayConfig.presencial.available && dayConfig.presencial.slots.length > 0;
         
         let availableSlots = 0;
         let totalSlots = 0;
         
         if (selectedModality === 'virtual' && hasVirtual) {
-          totalSlots = dayConfig.virtual.times.length;
-          dayConfig.virtual.times.forEach(time => {
-            if (!isSlotBooked(dateStr, time)) availableSlots++;
+          totalSlots = dayConfig.virtual.slots.length;
+          dayConfig.virtual.slots.forEach(slot => {
+            if (isTimeAvailable(date, slot.time, 'virtual')) availableSlots++;
           });
         } else if (selectedModality === 'presencial' && hasPresencial) {
-          totalSlots = dayConfig.presencial.times.length;
-          dayConfig.presencial.times.forEach(time => {
-            if (!isSlotBooked(dateStr, time)) availableSlots++;
+          totalSlots = dayConfig.presencial.slots.length;
+          dayConfig.presencial.slots.forEach(slot => {
+            if (isTimeAvailable(date, slot.time, 'presencial')) availableSlots++;
           });
         }
 
@@ -1074,36 +1287,43 @@
       const container = document.getElementById('time-slots-container');
       const locationInfo = document.getElementById('location-info');
       if (!selectedDate) {
-        if (container) container.innerHTML = '<p class="text-dark-muted text-base col-span-full text-center py-4">Seleccioná una fecha primero</p>';
+        if (container) container.innerHTML = '<p class="text-dark-muted text-base text-center py-4">Seleccioná una fecha primero</p>';
         if (locationInfo) locationInfo.classList.add('hidden');
         return;
       }
 
       const dateStr = selectedDate.toISOString().split('T')[0];
       const dayConfig = getDayConfig(selectedDate);
-      const modalityConfig = selectedModality === 'virtual' ? dayConfig.virtual : dayConfig.presencial;
+      const modalityConfig = dayConfig[selectedModality];
       
-      if (!modalityConfig.available || modalityConfig.times.length === 0) {
-        if (container) container.innerHTML = `<p class="text-dark-muted text-base col-span-full text-center py-4">No hay horarios disponibles</p>`;
+      if (!modalityConfig.available || modalityConfig.slots.length === 0) {
+        if (container) container.innerHTML = `<p class="text-dark-muted text-base text-center py-4">No hay horarios disponibles</p>`;
         if (locationInfo) locationInfo.classList.add('hidden');
         return;
       }
 
       let html = '';
-      modalityConfig.times.forEach(time => {
-        const isSelected = selectedTime === time;
-        const isBooked = isSlotBooked(dateStr, time);
-        let classes = 'time-slot py-3 text-center text-base font-medium ';
+      const sortedSlots = [...modalityConfig.slots].sort((a, b) => 
+        timeToMinutes(a.time) - timeToMinutes(b.time)
+      );
+      
+      sortedSlots.forEach(slot => {
+        const isSelected = selectedTime === slot.time;
+        const isBooked = !isTimeAvailable(selectedDate, slot.time, selectedModality);
+        
+        let classes = 'time-slot py-3 px-4 text-left text-base font-medium flex justify-between items-center ';
         if (isBooked) {
           classes += 'booked';
-          html += `<div class="${classes}">${time}</div>`;
+          html += `<div class="${classes}"><span>${slot.time}</span><span class="text-xs bg-red-900/50 text-red-400 px-2 py-1 rounded">Reservado</span></div>`;
         } else if (isSelected) {
-          classes += 'selected';
-          html += `<button type="button" class="${classes}" onclick="selectTime('${time}')">${time}</button>`;
+          classes += 'selected cursor-pointer';
+          html += `<button type="button" class="${classes}" onclick="selectTime('${slot.time}', ${slot.duration})"><span>${slot.time}</span><span class="text-xs bg-dark-bg/50 px-2 py-1 rounded">${slot.duration} min</span></button>`;
         } else {
-          html += `<button type="button" class="${classes}" onclick="selectTime('${time}')">${time}</button>`;
+          classes += 'cursor-pointer';
+          html += `<button type="button" class="${classes}" onclick="selectTime('${slot.time}', ${slot.duration})"><span>${slot.time}</span><span class="text-xs text-dark-muted">${slot.duration} min</span></button>`;
         }
       });
+      
       if (container) container.innerHTML = html;
 
       if (selectedModality === 'presencial' && modalityConfig.address) {
@@ -1115,8 +1335,9 @@
       }
     }
 
-    function selectTime(time) {
+    function selectTime(time, duration) {
       selectedTime = time;
+      selectedDuration = duration || DEFAULT_DURATION;
       renderTimeSlots();
       updateStep2Button();
     }
@@ -1134,12 +1355,16 @@
       const confirmModality = document.getElementById('confirm-modality');
       const confirmDate = document.getElementById('confirm-date');
       const confirmTime = document.getElementById('confirm-time');
+      const confirmDuration = document.getElementById('confirm-duration');
       const confirmLocationWrap = document.getElementById('confirm-location-wrap');
       const confirmLocation = document.getElementById('confirm-location');
 
       if (confirmModality) confirmModality.textContent = selectedModality === 'virtual' ? 'Virtual' : 'Presencial';
       if (confirmDate) confirmDate.textContent = selectedDate.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
       if (confirmTime) confirmTime.textContent = selectedTime + ' hs';
+      
+      const duration = selectedDuration || getSlotDuration(selectedDate, selectedTime, selectedModality);
+      if (confirmDuration) confirmDuration.textContent = `${duration} minutos`;
       
       if (selectedModality === 'presencial') {
         const dayConfig = getDayConfig(selectedDate);
@@ -1157,8 +1382,10 @@
         return;
       }
 
-      if (isSlotBooked(selectedDate, selectedTime)) {
-        alert('Este turno ya fue reservado. Seleccioná otro horario.');
+      const slotDuration = getSlotDuration(selectedDate, selectedTime, selectedModality);
+      
+      if (!isTimeAvailable(selectedDate, selectedTime, selectedModality)) {
+        alert('Este turno ya fue reservado o se solapa con otro. Seleccioná otro horario.');
         renderTimeSlots();
         return;
       }
@@ -1176,6 +1403,7 @@
         modality: selectedModality,
         appointment_date: selectedDate.toISOString().split('T')[0],
         appointment_time: selectedTime,
+        duration: slotDuration,
         status: 'pending',
         created_at: new Date().toISOString()
       };
@@ -1194,7 +1422,6 @@
           return;
         }
 
-        // ACÁ ESTÁ LA MODIFICACIÓN - AGREGUÉ to_email
         const emailParams = {
           to_email: 'lic.albertisalvador@gmail.com',
           patient_email: appointmentData.email,
@@ -1203,6 +1430,7 @@
           modality: appointmentData.modality === 'virtual' ? 'Virtual' : 'Presencial',
           date: appointmentData.appointment_date,
           time: appointmentData.appointment_time,
+          duration: `${slotDuration} minutos`,
           reason: appointmentData.reason || 'No especificado'
         };
 
@@ -1224,6 +1452,7 @@
       selectedModality = null;
       selectedDate = null;
       selectedTime = null;
+      selectedDuration = DEFAULT_DURATION;
       currentStep = 1;
       currentDate = new Date();
       
@@ -1253,8 +1482,10 @@
       if (form) form.reset();
       
       const timeSlots = document.getElementById('time-slots-container');
-      if (timeSlots) timeSlots.innerHTML = '<p class="text-dark-muted text-base col-span-full text-center py-4">Seleccioná una fecha primero</p>';
+      if (timeSlots) timeSlots.innerHTML = '<p class="text-dark-muted text-base text-center py-4">Seleccioná una fecha primero</p>';
     }
+
+    // ==================== ADMINISTRACIÓN ====================
 
     function toggleAdmin() {
       const adminSection = document.getElementById('admin-section');
@@ -1307,12 +1538,17 @@
         data.forEach(apt => {
           const date = new Date(apt.appointment_date);
           const dateStr = date.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' });
+          const duration = apt.duration || DEFAULT_DURATION;
+          const endTime = minutesToTime(timeToMinutes(apt.appointment_time) + duration);
+          const durationBadge = `<span class="ml-2 px-2 py-0.5 rounded text-xs bg-dark-bg text-dark-muted border border-dark-border">${duration} min</span>`;
+          
           html += `
             <div class="bg-dark-bg rounded-xl p-4 flex justify-between items-center border border-dark-border">
               <div class="flex-1">
-                <div class="flex items-center gap-2 mb-1">
+                <div class="flex items-center gap-2 mb-1 flex-wrap">
                   <span class="font-semibold text-dark-text text-sm">${dateStr}</span>
-                  <span class="text-dark-muted text-xs">${apt.appointment_time}</span>
+                  <span class="text-dark-muted text-xs">${apt.appointment_time} - ${endTime}</span>
+                  ${durationBadge}
                   <span class="px-2 py-0.5 rounded text-xs ${apt.modality === 'virtual' ? 'badge-virtual' : 'badge-presencial'}">${apt.modality === 'virtual' ? 'Virtual' : 'Presencial'}</span>
                 </div>
                 <p class="text-sm text-dark-text font-semibold">${apt.full_name}</p>
@@ -1350,8 +1586,8 @@
         const date = new Date(year, month, day);
         const dateStr = date.toISOString().split('T')[0];
         const dayConfig = getDayConfig(date);
-        const hasVirtual = dayConfig.virtual.available && dayConfig.virtual.times.length > 0;
-        const hasPresencial = dayConfig.presencial.available && dayConfig.presencial.times.length > 0;
+        const hasVirtual = dayConfig.virtual.available && dayConfig.virtual.slots.length > 0;
+        const hasPresencial = dayConfig.presencial.available && dayConfig.presencial.slots.length > 0;
         
         const isSelected = selectedConfigDate && 
                           selectedConfigDate.getDate() === day && 
@@ -1370,10 +1606,10 @@
           content += `<span class="text-[9px] font-bold">Mix</span>`;
         } else if (hasPresencial) {
           if (!isSelected) classes += 'admin-presencial ';
-          content += `<span class="text-[9px] opacity-80">${dayConfig.presencial.times.length}h</span>`;
+          content += `<span class="text-[9px] opacity-80">${dayConfig.presencial.slots.length}h</span>`;
         } else if (hasVirtual) {
           if (!isSelected) classes += 'admin-virtual ';
-          content += `<span class="text-[9px] opacity-80">${dayConfig.virtual.times.length}h</span>`;
+          content += `<span class="text-[9px] opacity-80">${dayConfig.virtual.slots.length}h</span>`;
         } else {
           if (!isSelected) classes += 'bg-dark-bg border-dark-border text-dark-muted hover:border-dark-muted ';
           content += `<span class="text-[9px]">-</span>`;
@@ -1408,13 +1644,14 @@
       document.getElementById('presencial-available').checked = dayConfig.presencial.available;
       document.getElementById('presencial-address').value = dayConfig.presencial.address || '';
       
-      renderTimeSlotsConfig('virtual', dayConfig.virtual.times);
-      renderTimeSlotsConfig('presencial', dayConfig.presencial.times);
+      renderTimeSlotsConfig('virtual', dayConfig.virtual.slots);
+      renderTimeSlotsConfig('presencial', dayConfig.presencial.slots);
       
       toggleModalitySection('virtual');
       toggleModalitySection('presencial');
       
       document.getElementById('day-config-panel').classList.remove('hidden');
+      document.getElementById('conflict-warning').classList.add('hidden');
     }
 
     function closeDayConfig() {
@@ -1431,68 +1668,167 @@
       document.getElementById(`${modality}-config-content`).classList.toggle('hidden', !isAvailable);
     }
 
-    function renderTimeSlotsConfig(modality, selectedTimes = []) {
+    function renderTimeSlotsConfig(modality, selectedSlots = []) {
       const container = document.getElementById(`${modality}-time-slots`);
       container.innerHTML = '';
       
+      const selectedMap = {};
+      selectedSlots.forEach(slot => {
+        selectedMap[slot.time] = slot.duration || DEFAULT_DURATION;
+      });
+      
+      const activeSlots = Object.keys(selectedMap).map(time => ({
+        time,
+        duration: selectedMap[time]
+      }));
+      const blocked = calculateBlockedSlots(activeSlots);
+      
       defaultTimeSlots.forEach(time => {
-        const isSelected = selectedTimes.includes(time);
-        const div = document.createElement('div');
-        div.className = 'flex items-center justify-center';
+        const isSelected = selectedMap.hasOwnProperty(time);
+        const isBlocked = blocked.has(time);
+        const duration = selectedMap[time] || DEFAULT_DURATION;
         
-        let labelClass = 'flex items-center gap-1 cursor-pointer w-full justify-center p-2 rounded-lg transition-all duration-200 ';
+        const div = document.createElement('div');
+        
         if (isSelected) {
-          if (modality === 'virtual') {
-            labelClass += 'slot-virtual-selected shadow-lg shadow-slate-900/50';
-          } else {
-            labelClass += 'slot-presencial-selected shadow-lg shadow-amber-900/50';
-          }
+          div.className = `time-slot-config selected-slot ${modality === 'presencial' ? 'presencial' : ''}`;
+          div.innerHTML = `
+            <input type="checkbox" id="${modality}-time-${time}" value="${time}" checked 
+              class="w-4 h-4 rounded border-dark-border bg-dark-bg text-dark-accent focus:ring-dark-accent/20" 
+              onchange="updateAdminSlots('${modality}')">
+            <span class="time-display font-semibold">${time}</span>
+            <div class="flex items-center gap-1 ml-auto">
+              <input type="number" id="${modality}-duration-${time}" value="${duration}" min="15" max="180" step="5"
+                class="duration-input" title="Duración en minutos" 
+                onchange="validateDuration(this); updateAdminSlots('${modality}')">
+              <span class="text-xs text-dark-muted">min</span>
+            </div>
+          `;
+        } else if (isBlocked) {
+          div.className = 'time-slot-config blocked-by-other';
+          div.innerHTML = `
+            <input type="checkbox" disabled class="w-4 h-4 rounded opacity-30">
+            <span class="time-display opacity-40">${time}</span>
+            <span class="text-xs text-amber-600 ml-auto italic">
+              <i class="fas fa-lock mr-1"></i>Bloqueado
+            </span>
+          `;
         } else {
-          labelClass += 'bg-dark-bg text-dark-muted hover:bg-dark-hover border border-transparent hover:border-dark-border';
+          div.className = 'time-slot-config';
+          div.innerHTML = `
+            <input type="checkbox" id="${modality}-time-${time}" value="${time}" 
+              class="w-4 h-4 rounded border-dark-border bg-dark-bg text-dark-accent focus:ring-dark-accent/20" 
+              onchange="updateAdminSlots('${modality}')">
+            <span class="time-display">${time}</span>
+            <div class="flex items-center gap-1 ml-auto opacity-40 pointer-events-none" id="duration-wrapper-${modality}-${time}">
+              <input type="number" id="${modality}-duration-${time}" value="${DEFAULT_DURATION}" min="15" max="180" step="5"
+                class="duration-input" disabled>
+              <span class="text-xs text-dark-muted">min</span>
+            </div>
+          `;
         }
         
-        div.innerHTML = `
-          <label class="${labelClass}">
-            <input type="checkbox" id="${modality}-time-${time}" value="${time}" ${isSelected ? 'checked' : ''} class="hidden" onchange="updateSlotVisual(this, '${modality}')">
-            <span class="text-xs font-medium">${time}</span>
-          </label>
-        `;
         container.appendChild(div);
       });
+      
+      updateOverlapWarnings(modality, activeSlots, blocked);
     }
 
-    function updateSlotVisual(checkbox, modality) {
-      const label = checkbox.parentElement;
-      if (checkbox.checked) {
-        if (modality === 'virtual') {
-          label.className = 'flex items-center gap-1 cursor-pointer w-full justify-center p-2 rounded-lg transition-all duration-200 slot-virtual-selected shadow-lg shadow-slate-900/50';
-        } else {
-          label.className = 'flex items-center gap-1 cursor-pointer w-full justify-center p-2 rounded-lg transition-all duration-200 slot-presencial-selected shadow-lg shadow-amber-900/50';
+    function updateAdminSlots(modality) {
+      const selectedSlots = [];
+      defaultTimeSlots.forEach(time => {
+        const checkbox = document.getElementById(`${modality}-time-${time}`);
+        if (checkbox && checkbox.checked) {
+          const durationInput = document.getElementById(`${modality}-duration-${time}`);
+          selectedSlots.push({
+            time,
+            duration: parseInt(durationInput?.value) || DEFAULT_DURATION
+          });
         }
+      });
+      
+      const conflicts = findConflicts(selectedSlots);
+      
+      if (conflicts.length > 0) {
+        document.getElementById('conflict-warning').classList.remove('hidden');
+        document.getElementById('conflict-text').textContent = 
+          `¡Atención! Hay conflictos: ${conflicts.join(', ')}`;
       } else {
-        label.className = 'flex items-center gap-1 cursor-pointer w-full justify-center p-2 rounded-lg transition-all duration-200 bg-dark-bg text-dark-muted hover:bg-dark-hover border border-transparent hover:border-dark-border';
+        document.getElementById('conflict-warning').classList.add('hidden');
       }
+      
+      renderTimeSlotsConfig(modality, selectedSlots);
+    }
+
+    function updateOverlapWarnings(modality, activeSlots, blocked) {
+      const warningDiv = document.getElementById(`${modality}-overlaps`);
+      if (blocked.size > 0) {
+        const blockedList = Array.from(blocked).sort().join(', ');
+        warningDiv.innerHTML = `<i class="fas fa-info-circle mr-1"></i> Bloqueados por solapamiento: ${blockedList}`;
+      } else {
+        warningDiv.innerHTML = '';
+      }
+    }
+
+    function validateDuration(input) {
+      let value = parseInt(input.value);
+      if (isNaN(value) || value < 15) input.value = 15;
+      else if (value > 180) input.value = 180;
     }
 
     async function saveDayConfig() {
       if (!selectedConfigDate) return;
       const dateStr = selectedConfigDate.toISOString().split('T')[0];
+      
       const virtualAvailable = document.getElementById('virtual-available').checked;
-      const virtualTimes = virtualAvailable ? defaultTimeSlots.filter(time => document.getElementById(`virtual-time-${time}`)?.checked) : [];
+      const virtualSlots = [];
+      if (virtualAvailable) {
+        defaultTimeSlots.forEach(time => {
+          const checkbox = document.getElementById(`virtual-time-${time}`);
+          if (checkbox && checkbox.checked) {
+            const durationInput = document.getElementById(`virtual-duration-${time}`);
+            virtualSlots.push({
+              time: time,
+              duration: parseInt(durationInput.value) || DEFAULT_DURATION
+            });
+          }
+        });
+      }
+      
       const presencialAvailable = document.getElementById('presencial-available').checked;
       const presencialAddress = document.getElementById('presencial-address').value;
-      const presencialTimes = presencialAvailable ? defaultTimeSlots.filter(time => document.getElementById(`presencial-time-${time}`)?.checked) : [];
+      const presencialSlots = [];
+      if (presencialAvailable) {
+        defaultTimeSlots.forEach(time => {
+          const checkbox = document.getElementById(`presencial-time-${time}`);
+          if (checkbox && checkbox.checked) {
+            const durationInput = document.getElementById(`presencial-duration-${time}`);
+            presencialSlots.push({
+              time: time,
+              duration: parseInt(durationInput.value) || DEFAULT_DURATION
+            });
+          }
+        });
+      }
       
-      if (virtualAvailable && virtualTimes.length === 0) { alert('Seleccione horarios para virtual'); return; }
-      if (presencialAvailable && presencialTimes.length === 0) { alert('Seleccione horarios para presencial'); return; }
+      const virtualConflicts = virtualAvailable ? findConflicts(virtualSlots) : [];
+      const presencialConflicts = presencialAvailable ? findConflicts(presencialSlots) : [];
+      
+      if (virtualConflicts.length > 0 || presencialConflicts.length > 0) {
+        alert('No se puede guardar: hay horarios que se solapan. Ajustá las duraciones o deseleccioná horarios conflictivos.');
+        return;
+      }
+      
+      if (virtualAvailable && virtualSlots.length === 0) { alert('Seleccione horarios para virtual'); return; }
+      if (presencialAvailable && presencialSlots.length === 0) { alert('Seleccione horarios para presencial'); return; }
       if (presencialAvailable && !presencialAddress.trim()) { alert('Ingrese dirección'); return; }
       if (!virtualAvailable && !presencialAvailable) { await deleteDayConfig(); return; }
       
       try {
         const { error } = await supabaseClient.from(AVAILABILITY_TABLE).upsert({
           date: dateStr,
-          virtual: { available: virtualAvailable, times: virtualTimes },
-          presencial: { available: presencialAvailable, times: presencialTimes, address: presencialAddress },
+          virtual: { available: virtualAvailable, slots: virtualSlots },
+          presencial: { available: presencialAvailable, slots: presencialSlots, address: presencialAddress },
           updated_at: new Date().toISOString()
         }, { onConflict: 'date' });
         
@@ -1502,8 +1838,8 @@
         }
         
         dayAvailability[dateStr] = { 
-          virtual: { available: virtualAvailable, times: virtualTimes }, 
-          presencial: { available: presencialAvailable, times: presencialTimes, address: presencialAddress }
+          virtual: { available: virtualAvailable, slots: virtualSlots }, 
+          presencial: { available: presencialAvailable, slots: presencialSlots, address: presencialAddress }
         };
         
         renderAdminCalendar();
@@ -1551,6 +1887,17 @@
       document.getElementById('edit-modality').value = data.modality;
       document.getElementById('edit-date').value = data.appointment_date;
       await updateEditTimeSlots(data.appointment_date, data.modality, data.appointment_time);
+      
+      const durationDisplay = document.getElementById('edit-duration-display');
+      const durationText = document.getElementById('edit-duration-text');
+      if (data.duration) {
+        durationDisplay.classList.remove('hidden');
+        const endTime = minutesToTime(timeToMinutes(data.appointment_time) + data.duration);
+        durationText.textContent = `${data.duration} minutos (hasta ${endTime} hs)`;
+      } else {
+        durationDisplay.classList.add('hidden');
+      }
+      
       const modal = document.getElementById('edit-modal');
       modal.classList.remove('hidden');
       setTimeout(() => {
@@ -1576,26 +1923,52 @@
       const dayConfig = getDayConfig(date);
       const select = document.getElementById('edit-time');
       select.innerHTML = '<option value="">Seleccionar...</option>';
-      const slots = (dayConfig[modality]?.available && dayConfig[modality]?.times.length > 0) ? dayConfig[modality].times : defaultTimeSlots;
-      slots.forEach(time => {
-        const isBooked = isSlotBooked(dateStr, time, editingAppointment?.id);
+      
+      let slots = [];
+      if (dayConfig[modality]?.available && dayConfig[modality]?.slots.length > 0) {
+        slots = dayConfig[modality].slots;
+      } else {
+        slots = defaultTimeSlots.map(t => ({ time: t, duration: DEFAULT_DURATION }));
+      }
+      
+      slots.sort((a, b) => timeToMinutes(a.time) - timeToMinutes(b.time));
+      
+      for (const slot of slots) {
+        const isAvailable = isTimeAvailable(date, slot.time, modality, editingAppointment?.id);
+        const isCurrent = slot.time === currentTime;
+        
         const option = document.createElement('option');
-        option.value = time;
-        option.textContent = time + (isBooked ? ' (Ocupado)' : '') + (time === currentTime ? ' - Actual' : '');
-        if (isBooked && time !== currentTime) option.disabled = true;
-        if (time === currentTime) option.selected = true;
+        option.value = slot.time;
+        
+        const endTime = minutesToTime(timeToMinutes(slot.time) + slot.duration);
+        let text = `${slot.time} - ${endTime} (${slot.duration} min)`;
+        
+        if (!isAvailable && !isCurrent) {
+          text += ' [OCUPADO]';
+          option.disabled = true;
+          option.style.color = '#666';
+        } else if (isCurrent) {
+          text += ' [ACTUAL]';
+          option.selected = true;
+          option.style.fontWeight = 'bold';
+          option.style.color = '#d4d4d4';
+        }
+        
+        option.textContent = text;
         select.appendChild(option);
-      });
+      }
     }
 
     document.getElementById('edit-date')?.addEventListener('change', async function() {
       if (!editingAppointment) return;
-      await updateEditTimeSlots(this.value, document.getElementById('edit-modality').value, null);
+      const modality = document.getElementById('edit-modality').value;
+      await updateEditTimeSlots(this.value, modality, null);
     });
 
     document.getElementById('edit-modality')?.addEventListener('change', async function() {
       if (!editingAppointment) return;
-      await updateEditTimeSlots(document.getElementById('edit-date').value, this.value, null);
+      const date = document.getElementById('edit-date').value;
+      await updateEditTimeSlots(date, this.value, null);
     });
 
     async function saveEdit() {
@@ -1603,15 +1976,32 @@
       const newModality = document.getElementById('edit-modality').value;
       const newDate = document.getElementById('edit-date').value;
       const newTime = document.getElementById('edit-time').value;
+      
       if (!newDate || !newTime) return;
-      if (isSlotBooked(newDate, newTime, editingAppointment.id)) { alert('Horario ocupado'); return; }
+      
+      if (!isTimeAvailable(newDate, newTime, newModality, editingAppointment.id)) { 
+        alert('Ese horario ya está reservado o se solapa con otro turno'); 
+        return; 
+      }
+      
+      const newSlot = getDayConfig(newDate)[newModality]?.slots?.find(s => s.time === newTime);
+      const newDuration = newSlot ? newSlot.duration : DEFAULT_DURATION;
+      
       try {
-        await supabaseClient.from(TABLE_NAME).update({ modality: newModality, appointment_date: newDate, appointment_time: newTime }).eq('id', editingAppointment.id);
+        await supabaseClient.from(TABLE_NAME).update({ 
+          modality: newModality, 
+          appointment_date: newDate, 
+          appointment_time: newTime,
+          duration: newDuration
+        }).eq('id', editingAppointment.id);
+        
         closeEditModal();
         loadAppointments();
         loadBookedSlots();
         alert('Turno actualizado');
-      } catch (err) { alert('Error de conexión'); }
+      } catch (err) { 
+        alert('Error de conexión'); 
+      }
     }
 
     async function deleteAppointment(id) {
@@ -1621,7 +2011,6 @@
       loadBookedSlots();
     }
 
-    // Inicialización segura
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', init);
     } else {
