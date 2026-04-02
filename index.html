@@ -235,7 +235,6 @@
       cursor: not-allowed;
     }
     
-    /* NUEVO: Estilo para horarios bloqueados por solapamiento */
     .time-slot.blocked {
       background-color: #2a2418;
       border-color: #44403c;
@@ -342,7 +341,6 @@
       border-color: #D69E2E !important;
     }
 
-    /* NUEVO: Estilos para configuración de duración en admin */
     .time-slot-config {
       display: flex;
       align-items: center;
@@ -412,6 +410,101 @@
       gap: 0.5rem;
       max-height: 300px;
       overflow-y: auto;
+    }
+
+    /* NUEVO: Estilos para horarios personalizados */
+    .custom-slot-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 0.75rem;
+      background: #1a1a1a;
+      border: 1px solid #444444;
+      border-radius: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .custom-slot-item:hover {
+      border-color: #555555;
+      background-color: #242424;
+    }
+    .custom-slot-time {
+      font-family: monospace;
+      font-weight: 600;
+      color: #f5f5f5;
+    }
+    .custom-slot-duration {
+      font-size: 0.75rem;
+      color: #a0a0a0;
+    }
+    .btn-remove-custom {
+      background: none;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      padding: 0.25rem;
+      transition: color 0.2s;
+    }
+    .btn-remove-custom:hover {
+      color: #f87171;
+    }
+    .custom-slots-section {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #333333;
+    }
+    .custom-slot-input-group {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .custom-slot-input-group input[type="time"] {
+      background: #242424;
+      border: 1px solid #444444;
+      color: #f5f5f5;
+      padding: 0.5rem;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+    }
+    .custom-slot-input-group input[type="number"] {
+      width: 70px;
+      background: #242424;
+      border: 1px solid #444444;
+      color: #f5f5f5;
+      padding: 0.5rem;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      text-align: center;
+    }
+    .btn-add-custom {
+      background: #2a2a2a;
+      border: 1px solid #444444;
+      color: #d4d4d4;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      cursor: pointer;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+    }
+    .btn-add-custom:hover {
+      background: #333333;
+      border-color: #555555;
+    }
+    .custom-slots-list {
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    .no-custom-slots {
+      text-align: center;
+      color: #666;
+      font-size: 0.875rem;
+      padding: 1rem;
+      font-style: italic;
+    }
+    .custom-slot-end-time {
+      font-size: 0.75rem;
+      color: #888;
+      margin-left: 0.5rem;
     }
   </style>
 </head>
@@ -764,7 +857,7 @@
           <div id="admin-tab-config" class="hidden">
             <div class="bg-blue-900/20 border border-blue-800 rounded-lg p-4 mb-4 text-sm text-blue-200">
               <i class="fas fa-info-circle mr-2"></i>
-              <strong>Sistema de solapamiento:</strong> Si configurás un turno de 40 minutos a las 9:00, el sistema bloqueará automáticamente el horario de las 9:30.
+              <strong>Sistema de solapamiento:</strong> Si configurás un turno de 40 minutos a las 9:00, el sistema bloqueará automáticamente los horarios que se solapen.
             </div>
 
             <div class="mb-4">
@@ -812,6 +905,7 @@
               </div>
               
               <div class="space-y-4 mb-6">
+                <!-- VIRTUAL -->
                 <div class="flex items-center justify-between p-4 bg-dark-bg rounded-xl border border-dark-border hover:border-slate-600 transition-colors">
                   <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-300">
@@ -825,8 +919,25 @@
                   <p class="text-xs text-dark-muted mb-2">Seleccioná horarios y definí la duración (15-180 min). Los solapados se bloquean automáticamente.</p>
                   <div id="virtual-time-slots" class="slot-grid"></div>
                   <div id="virtual-overlaps" class="overlap-warning"></div>
+                  
+                  <!-- Custom Slots Virtual -->
+                  <div class="custom-slots-section">
+                    <p class="text-xs text-dark-muted mb-2 font-medium">Horarios personalizados (fuera de la grilla)</p>
+                    <div class="custom-slot-input-group">
+                      <input type="time" id="virtual-custom-time" step="60">
+                      <input type="number" id="virtual-custom-duration" value="50" min="15" max="180" step="5" placeholder="Min">
+                      <span class="text-xs text-dark-muted">min</span>
+                      <button onclick="addCustomSlot('virtual')" class="btn-add-custom">
+                        <i class="fas fa-plus mr-1"></i> Agregar
+                      </button>
+                    </div>
+                    <div id="virtual-custom-slots-list" class="custom-slots-list">
+                      <p class="no-custom-slots">No hay horarios personalizados</p>
+                    </div>
+                  </div>
                 </div>
 
+                <!-- PRESENCIAL -->
                 <div class="flex items-center justify-between p-4 bg-dark-bg rounded-xl border border-dark-border hover:border-amber-700 transition-colors">
                   <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-full bg-amber-900 flex items-center justify-center text-amber-200">
@@ -841,6 +952,22 @@
                   <p class="text-xs text-dark-muted mb-2">Seleccioná horarios y definí la duración (15-180 min). Los solapados se bloquean automáticamente.</p>
                   <div id="presencial-time-slots" class="slot-grid"></div>
                   <div id="presencial-overlaps" class="overlap-warning"></div>
+                  
+                  <!-- Custom Slots Presencial -->
+                  <div class="custom-slots-section">
+                    <p class="text-xs text-dark-muted mb-2 font-medium">Horarios personalizados (fuera de la grilla)</p>
+                    <div class="custom-slot-input-group">
+                      <input type="time" id="presencial-custom-time" step="60">
+                      <input type="number" id="presencial-custom-duration" value="50" min="15" max="180" step="5" placeholder="Min">
+                      <span class="text-xs text-dark-muted">min</span>
+                      <button onclick="addCustomSlot('presencial')" class="btn-add-custom">
+                        <i class="fas fa-plus mr-1"></i> Agregar
+                      </button>
+                    </div>
+                    <div id="presencial-custom-slots-list" class="custom-slots-list">
+                      <p class="no-custom-slots">No hay horarios personalizados</p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -959,15 +1086,41 @@
     let selectedConfigDate = null;
     let dayAvailability = {};
     let selectedAdminDayElement = null;
+    
+    // NUEVO: Horarios personalizados por día
+    let customSlots = { virtual: [], presencial: [] };
 
-    const defaultTimeSlots = [
-      "07:00", "07:30", "08:00", "08:30",
-      "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-      "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
-      "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
-      "18:00", "18:30", "19:00", "19:30", "20:00", "20:30",
-      "21:00", "21:30", "22:00"
-    ];
+    // ACTUALIZADO: Horarios compatibles - antiguos (cada 30min desde 07:00) + nuevos (cada 10min desde 09:00)
+    // Esto asegura que los turnos ya agendados sigan funcionando correctamente
+    const defaultTimeSlots = (function() {
+      const slots = new Set();
+      
+      // Horarios antiguos (para compatibilidad con turnos existentes)
+      const legacySlots = [
+        "07:00", "07:30", "08:00", "08:30", "09:00", "09:30",
+        "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
+        "13:00", "13:30", "14:00", "14:30", "15:00", "15:30",
+        "16:00", "16:30", "17:00", "17:30", "18:00", "18:30",
+        "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00"
+      ];
+      legacySlots.forEach(s => slots.add(s));
+      
+      // Nuevos horarios cada 10 minutos desde 09:00 hasta 20:50
+      for (let hour = 9; hour <= 20; hour++) {
+        for (let min = 0; min < 60; min += 10) {
+          if (hour === 20 && min > 50) break;
+          const time = `${hour.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}`;
+          slots.add(time);
+        }
+      }
+      
+      // Convertir a array y ordenar
+      return Array.from(slots).sort((a, b) => {
+        const [ha, ma] = a.split(':').map(Number);
+        const [hb, mb] = b.split(':').map(Number);
+        return (ha * 60 + ma) - (hb * 60 + mb);
+      });
+    })();
 
     // ==================== FUNCIONES DE TIEMPO Y SOLAPAMIENTO ====================
 
@@ -994,13 +1147,26 @@
         const slotStart = timeToMinutes(slot.time);
         const slotEnd = slotStart + (parseInt(slot.duration) || DEFAULT_DURATION);
         
+        // Verificar contra todos los horarios de la grilla predeterminada
         defaultTimeSlots.forEach(otherTime => {
           if (selectedTimes.has(otherTime)) return;
           const otherStart = timeToMinutes(otherTime);
-          const otherEnd = otherStart + 30;
+          const otherEnd = otherStart + 10; // Cada slot de la grilla dura 10 min base
           if (rangesOverlap(slotStart, slotEnd, otherStart, otherEnd)) {
             blocked.add(otherTime);
           }
+        });
+        
+        // Verificar contra horarios personalizados
+        Object.values(customSlots).forEach(modalityCustom => {
+          modalityCustom.forEach(customSlot => {
+            if (selectedTimes.has(customSlot.time)) return;
+            const customStart = timeToMinutes(customSlot.time);
+            const customEnd = customStart + (parseInt(customSlot.duration) || DEFAULT_DURATION);
+            if (rangesOverlap(slotStart, slotEnd, customStart, customEnd)) {
+              // Los personalizados no se agregan a 'blocked' de la grilla
+            }
+          });
         });
       });
       
@@ -1024,34 +1190,59 @@
       return conflicts;
     }
 
+    // NUEVO: Función para encontrar conflictos incluyendo horarios personalizados
+    function findAllConflicts(slots, customSlotsList = []) {
+      const allSlots = [...slots, ...customSlotsList];
+      return findConflicts(allSlots);
+    }
+
+    function updateOverlapWarnings(modality, activeSlots, blocked) {
+      const warningDiv = document.getElementById(`${modality}-overlaps`);
+      if (blocked.size > 0) {
+        const blockedList = Array.from(blocked).sort().join(', ');
+        warningDiv.innerHTML = `<i class="fas fa-info-circle mr-1"></i> Bloqueados por solapamiento: ${blockedList}`;
+      } else {
+        warningDiv.innerHTML = '';
+      }
+    }
+
     // ==================== NORMALIZACIÓN Y DATOS ====================
 
     function normalizeSlots(modalityData) {
-      if (!modalityData) return { available: false, slots: [] };
+      if (!modalityData) return { available: false, slots: [], customSlots: [] };
       
+      const result = {
+        available: modalityData.available || false,
+        slots: [],
+        customSlots: [],
+        address: modalityData.address || ''
+      };
+      
+      // Normalizar slots regulares
       if (modalityData.slots && Array.isArray(modalityData.slots)) {
-        return {
-          available: modalityData.available || false,
-          slots: modalityData.slots.map(slot => ({
-            time: slot.time || slot,
-            duration: slot.duration || DEFAULT_DURATION
-          })),
-          address: modalityData.address || ''
-        };
+        result.slots = modalityData.slots.map(slot => ({
+          time: slot.time || slot,
+          duration: slot.duration || DEFAULT_DURATION
+        }));
       }
       
+      // Normalizar slots personalizados
+      if (modalityData.customSlots && Array.isArray(modalityData.customSlots)) {
+        result.customSlots = modalityData.customSlots.map(slot => ({
+          time: slot.time || slot,
+          duration: slot.duration || DEFAULT_DURATION
+        }));
+      }
+      
+      // Compatibilidad hacia atrás: si hay times
       if (modalityData.times && Array.isArray(modalityData.times)) {
-        return {
-          available: modalityData.available || false,
-          slots: modalityData.times.map(time => ({
-            time: time,
-            duration: DEFAULT_DURATION
-          })),
-          address: modalityData.address || ''
-        };
+        result.slots = modalityData.times.map(time => ({
+          time: time,
+          duration: DEFAULT_DURATION
+        }));
       }
       
-      return { available: false, slots: [], address: '' };
+      return result;
     }
 
     async function loadAvailability() {
@@ -1072,15 +1263,20 @@
     function getDayConfig(date) {
       const dateStr = typeof date === 'string' ? date : date.toISOString().split('T')[0];
       return dayAvailability[dateStr] || { 
-        virtual: { available: false, slots: [] }, 
-        presencial: { available: false, slots: [], address: '' }
+        virtual: { available: false, slots: [], customSlots: [] }, 
+        presencial: { available: false, slots: [], customSlots: [], address: '' }
       };
     }
 
     function getSlotDuration(date, time, modality) {
       const config = getDayConfig(date);
+      // Buscar en slots regulares
       const slot = config[modality]?.slots.find(s => s.time === time);
-      return slot ? slot.duration : DEFAULT_DURATION;
+      if (slot) return slot.duration;
+      // Buscar en slots personalizados
+      const customSlot = config[modality]?.customSlots?.find(s => s.time === time);
+      if (customSlot) return customSlot.duration;
+      return DEFAULT_DURATION;
     }
 
     async function loadBookedSlots() {
@@ -1096,9 +1292,13 @@
     function isTimeAvailable(date, time, modality, excludeId = null) {
       const dateStr = typeof date === 'string' ? date : date.toISOString().split('T')[0];
       const config = getDayConfig(date);
-      const slots = config[modality]?.slots || [];
       
-      const targetSlot = slots.find(s => s.time === time);
+      // Buscar en slots regulares
+      let targetSlot = config[modality]?.slots.find(s => s.time === time);
+      // Si no está en regulares, buscar en personalizados
+      if (!targetSlot) {
+        targetSlot = config[modality]?.customSlots?.find(s => s.time === time);
+      }
       if (!targetSlot) return false;
       
       const targetStart = timeToMinutes(time);
@@ -1119,6 +1319,87 @@
       }
       
       return true;
+    }
+
+    // NUEVO: Verificar si un día tiene disponibilidad (incluyendo customSlots)
+    function isDayAvailable(date, modality) {
+      const config = getDayConfig(date);
+      const modalityConfig = config[modality];
+      if (!modalityConfig.available) return false;
+      const hasRegularSlots = modalityConfig.slots && modalityConfig.slots.length > 0;
+      const hasCustomSlots = modalityConfig.customSlots && modalityConfig.customSlots.length > 0;
+      return hasRegularSlots || hasCustomSlots;
+    }
+
+    // ==================== HORARIOS PERSONALIZADOS ====================
+
+    // NUEVO: Agregar horario personalizado
+    function addCustomSlot(modality) {
+      const timeInput = document.getElementById(`${modality}-custom-time`);
+      const durationInput = document.getElementById(`${modality}-custom-duration`);
+      
+      const time = timeInput.value;
+      const duration = parseInt(durationInput.value) || DEFAULT_DURATION;
+      
+      if (!time) {
+        alert('Seleccioná un horario');
+        return;
+      }
+      
+      // Validar que no exista ya
+      const exists = customSlots[modality].some(s => s.time === time);
+      if (exists) {
+        alert('Este horario ya existe');
+        return;
+      }
+      
+      // Validar que no esté en la grilla predeterminada
+      if (defaultTimeSlots.includes(time)) {
+        alert('Este horario ya está en la grilla. Seleccionalo desde allí.');
+        return;
+      }
+      
+      customSlots[modality].push({ time, duration });
+      customSlots[modality].sort((a, b) => timeToMinutes(a.time) - timeToMinutes(b.time));
+      
+      renderCustomSlotsList(modality);
+      
+      // Limpiar inputs
+      timeInput.value = '';
+      durationInput.value = DEFAULT_DURATION;
+    }
+
+    // NUEVO: Eliminar horario personalizado
+    function removeCustomSlot(modality, time) {
+      customSlots[modality] = customSlots[modality].filter(s => s.time !== time);
+      renderCustomSlotsList(modality);
+    }
+
+    // NUEVO: Renderizar lista de horarios personalizados
+    function renderCustomSlotsList(modality) {
+      const container = document.getElementById(`${modality}-custom-slots-list`);
+      const slots = customSlots[modality];
+      
+      if (slots.length === 0) {
+        container.innerHTML = '<p class="no-custom-slots">No hay horarios personalizados</p>';
+        return;
+      }
+      
+      container.innerHTML = slots.map(slot => {
+        const endTime = minutesToTime(timeToMinutes(slot.time) + slot.duration);
+        return `
+          <div class="custom-slot-item">
+            <div>
+              <span class="custom-slot-time">${slot.time}</span>
+              <span class="custom-slot-end-time">→ ${endTime}</span>
+              <span class="custom-slot-duration">(${slot.duration} min)</span>
+            </div>
+            <button onclick="removeCustomSlot('${modality}', '${slot.time}')" class="btn-remove-custom" title="Eliminar">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </div>
+        `;
+      }).join('');
     }
 
     // ==================== FLUJO PACIENTE ====================
@@ -1232,20 +1513,22 @@
         const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
         
         const dayConfig = getDayConfig(date);
-        const hasVirtual = dayConfig.virtual.available && dayConfig.virtual.slots.length > 0;
-        const hasPresencial = dayConfig.presencial.available && dayConfig.presencial.slots.length > 0;
+        const hasVirtual = isDayAvailable(date, 'virtual');
+        const hasPresencial = isDayAvailable(date, 'presencial');
         
         let availableSlots = 0;
         let totalSlots = 0;
         
         if (selectedModality === 'virtual' && hasVirtual) {
-          totalSlots = dayConfig.virtual.slots.length;
-          dayConfig.virtual.slots.forEach(slot => {
+          const allSlots = [...dayConfig.virtual.slots, ...(dayConfig.virtual.customSlots || [])];
+          totalSlots = allSlots.length;
+          allSlots.forEach(slot => {
             if (isTimeAvailable(date, slot.time, 'virtual')) availableSlots++;
           });
         } else if (selectedModality === 'presencial' && hasPresencial) {
-          totalSlots = dayConfig.presencial.slots.length;
-          dayConfig.presencial.slots.forEach(slot => {
+          const allSlots = [...dayConfig.presencial.slots, ...(dayConfig.presencial.customSlots || [])];
+          totalSlots = allSlots.length;
+          allSlots.forEach(slot => {
             if (isTimeAvailable(date, slot.time, 'presencial')) availableSlots++;
           });
         }
@@ -1296,31 +1579,39 @@
       const dayConfig = getDayConfig(selectedDate);
       const modalityConfig = dayConfig[selectedModality];
       
-      if (!modalityConfig.available || modalityConfig.slots.length === 0) {
+      // Combinar slots regulares y personalizados
+      const allSlots = [...(modalityConfig.slots || [])];
+      if (modalityConfig.customSlots) {
+        allSlots.push(...modalityConfig.customSlots);
+      }
+      
+      if (!modalityConfig.available || allSlots.length === 0) {
         if (container) container.innerHTML = `<p class="text-dark-muted text-base text-center py-4">No hay horarios disponibles</p>`;
         if (locationInfo) locationInfo.classList.add('hidden');
         return;
       }
 
       let html = '';
-      const sortedSlots = [...modalityConfig.slots].sort((a, b) => 
+      const sortedSlots = [...allSlots].sort((a, b) => 
         timeToMinutes(a.time) - timeToMinutes(b.time)
       );
       
       sortedSlots.forEach(slot => {
         const isSelected = selectedTime === slot.time;
         const isBooked = !isTimeAvailable(selectedDate, slot.time, selectedModality);
+        const isCustom = modalityConfig.customSlots?.some(s => s.time === slot.time);
+        const endTime = minutesToTime(timeToMinutes(slot.time) + slot.duration);
         
         let classes = 'time-slot py-3 px-4 text-left text-base font-medium flex justify-between items-center ';
         if (isBooked) {
           classes += 'booked';
-          html += `<div class="${classes}"><span>${slot.time}</span><span class="text-xs bg-red-900/50 text-red-400 px-2 py-1 rounded">Reservado</span></div>`;
+          html += `<div class="${classes}"><span>${slot.time} ${isCustom ? '<span class="text-xs">(P)</span>' : ''}</span><span class="text-xs bg-red-900/50 text-red-400 px-2 py-1 rounded">Reservado</span></div>`;
         } else if (isSelected) {
           classes += 'selected cursor-pointer';
-          html += `<button type="button" class="${classes}" onclick="selectTime('${slot.time}', ${slot.duration})"><span>${slot.time}</span><span class="text-xs bg-dark-bg/50 px-2 py-1 rounded">${slot.duration} min</span></button>`;
+          html += `<button type="button" class="${classes}" onclick="selectTime('${slot.time}', ${slot.duration})"><span>${slot.time} ${isCustom ? '<span class="text-xs">(P)</span>' : ''}</span><span class="text-xs bg-dark-bg/50 px-2 py-1 rounded">${slot.duration} min</span></button>`;
         } else {
           classes += 'cursor-pointer';
-          html += `<button type="button" class="${classes}" onclick="selectTime('${slot.time}', ${slot.duration})"><span>${slot.time}</span><span class="text-xs text-dark-muted">${slot.duration} min</span></button>`;
+          html += `<button type="button" class="${classes}" onclick="selectTime('${slot.time}', ${slot.duration})"><span>${slot.time} ${isCustom ? '<span class="text-xs">(P)</span>' : ''}</span><span class="text-xs text-dark-muted">${slot.duration} min</span></button>`;
         }
       });
       
@@ -1364,7 +1655,8 @@
       if (confirmTime) confirmTime.textContent = selectedTime + ' hs';
       
       const duration = selectedDuration || getSlotDuration(selectedDate, selectedTime, selectedModality);
-      if (confirmDuration) confirmDuration.textContent = `${duration} minutos`;
+      const endTime = minutesToTime(timeToMinutes(selectedTime) + duration);
+      if (confirmDuration) confirmDuration.textContent = `${duration} minutos (hasta ${endTime} hs)`;
       
       if (selectedModality === 'presencial') {
         const dayConfig = getDayConfig(selectedDate);
@@ -1586,8 +1878,8 @@
         const date = new Date(year, month, day);
         const dateStr = date.toISOString().split('T')[0];
         const dayConfig = getDayConfig(date);
-        const hasVirtual = dayConfig.virtual.available && dayConfig.virtual.slots.length > 0;
-        const hasPresencial = dayConfig.presencial.available && dayConfig.presencial.slots.length > 0;
+        const hasVirtual = isDayAvailable(date, 'virtual');
+        const hasPresencial = isDayAvailable(date, 'presencial');
         
         const isSelected = selectedConfigDate && 
                           selectedConfigDate.getDate() === day && 
@@ -1606,10 +1898,12 @@
           content += `<span class="text-[9px] font-bold">Mix</span>`;
         } else if (hasPresencial) {
           if (!isSelected) classes += 'admin-presencial ';
-          content += `<span class="text-[9px] opacity-80">${dayConfig.presencial.slots.length}h</span>`;
+          const slotCount = (dayConfig.presencial.slots?.length || 0) + (dayConfig.presencial.customSlots?.length || 0);
+          content += `<span class="text-[9px] opacity-80">${slotCount}h</span>`;
         } else if (hasVirtual) {
           if (!isSelected) classes += 'admin-virtual ';
-          content += `<span class="text-[9px] opacity-80">${dayConfig.virtual.slots.length}h</span>`;
+          const slotCount = (dayConfig.virtual.slots?.length || 0) + (dayConfig.virtual.customSlots?.length || 0);
+          content += `<span class="text-[9px] opacity-80">${slotCount}h</span>`;
         } else {
           if (!isSelected) classes += 'bg-dark-bg border-dark-border text-dark-muted hover:border-dark-muted ';
           content += `<span class="text-[9px]">-</span>`;
@@ -1644,8 +1938,14 @@
       document.getElementById('presencial-available').checked = dayConfig.presencial.available;
       document.getElementById('presencial-address').value = dayConfig.presencial.address || '';
       
+      // Cargar horarios personalizados
+      customSlots.virtual = dayConfig.virtual.customSlots ? [...dayConfig.virtual.customSlots] : [];
+      customSlots.presencial = dayConfig.presencial.customSlots ? [...dayConfig.presencial.customSlots] : [];
+      
       renderTimeSlotsConfig('virtual', dayConfig.virtual.slots);
       renderTimeSlotsConfig('presencial', dayConfig.presencial.slots);
+      renderCustomSlotsList('virtual');
+      renderCustomSlotsList('presencial');
       
       toggleModalitySection('virtual');
       toggleModalitySection('presencial');
@@ -1661,6 +1961,8 @@
         selectedAdminDayElement = null;
       }
       selectedConfigDate = null;
+      // Limpiar horarios personalizados
+      customSlots = { virtual: [], presencial: [] };
     }
 
     function toggleModalitySection(modality) {
@@ -1681,7 +1983,10 @@
         time,
         duration: selectedMap[time]
       }));
-      const blocked = calculateBlockedSlots(activeSlots);
+      
+      // Incluir horarios personalizados en el cálculo de bloqueos
+      const allActiveSlots = [...activeSlots, ...customSlots[modality]];
+      const blocked = calculateBlockedSlots(allActiveSlots);
       
       defaultTimeSlots.forEach(time => {
         const isSelected = selectedMap.hasOwnProperty(time);
@@ -1731,7 +2036,7 @@
         container.appendChild(div);
       });
       
-      updateOverlapWarnings(modality, activeSlots, blocked);
+      updateOverlapWarnings(modality, allActiveSlots, blocked);
     }
 
     function updateAdminSlots(modality) {
@@ -1747,7 +2052,8 @@
         }
       });
       
-      const conflicts = findConflicts(selectedSlots);
+      // Verificar conflictos incluyendo horarios personalizados
+      const conflicts = findAllConflicts(selectedSlots, customSlots[modality]);
       
       if (conflicts.length > 0) {
         document.getElementById('conflict-warning').classList.remove('hidden');
@@ -1758,16 +2064,6 @@
       }
       
       renderTimeSlotsConfig(modality, selectedSlots);
-    }
-
-    function updateOverlapWarnings(modality, activeSlots, blocked) {
-      const warningDiv = document.getElementById(`${modality}-overlaps`);
-      if (blocked.size > 0) {
-        const blockedList = Array.from(blocked).sort().join(', ');
-        warningDiv.innerHTML = `<i class="fas fa-info-circle mr-1"></i> Bloqueados por solapamiento: ${blockedList}`;
-      } else {
-        warningDiv.innerHTML = '';
-      }
     }
 
     function validateDuration(input) {
@@ -1811,24 +2107,46 @@
         });
       }
       
-      const virtualConflicts = virtualAvailable ? findConflicts(virtualSlots) : [];
-      const presencialConflicts = presencialAvailable ? findConflicts(presencialSlots) : [];
+      // Verificar conflictos incluyendo horarios personalizados
+      const virtualConflicts = virtualAvailable ? findAllConflicts(virtualSlots, customSlots.virtual) : [];
+      const presencialConflicts = presencialAvailable ? findAllConflicts(presencialSlots, customSlots.presencial) : [];
       
       if (virtualConflicts.length > 0 || presencialConflicts.length > 0) {
         alert('No se puede guardar: hay horarios que se solapan. Ajustá las duraciones o deseleccioná horarios conflictivos.');
         return;
       }
       
-      if (virtualAvailable && virtualSlots.length === 0) { alert('Seleccione horarios para virtual'); return; }
-      if (presencialAvailable && presencialSlots.length === 0) { alert('Seleccione horarios para presencial'); return; }
-      if (presencialAvailable && !presencialAddress.trim()) { alert('Ingrese dirección'); return; }
-      if (!virtualAvailable && !presencialAvailable) { await deleteDayConfig(); return; }
+      if (virtualAvailable && virtualSlots.length === 0 && customSlots.virtual.length === 0) { 
+        alert('Seleccione horarios para virtual'); 
+        return; 
+      }
+      if (presencialAvailable && presencialSlots.length === 0 && customSlots.presencial.length === 0) { 
+        alert('Seleccione horarios para presencial'); 
+        return; 
+      }
+      if (presencialAvailable && !presencialAddress.trim()) { 
+        alert('Ingrese dirección'); 
+        return; 
+      }
+      if (!virtualAvailable && !presencialAvailable) { 
+        await deleteDayConfig(); 
+        return; 
+      }
       
       try {
         const { error } = await supabaseClient.from(AVAILABILITY_TABLE).upsert({
           date: dateStr,
-          virtual: { available: virtualAvailable, slots: virtualSlots },
-          presencial: { available: presencialAvailable, slots: presencialSlots, address: presencialAddress },
+          virtual: { 
+            available: virtualAvailable, 
+            slots: virtualSlots,
+            customSlots: customSlots.virtual
+          },
+          presencial: { 
+            available: presencialAvailable, 
+            slots: presencialSlots, 
+            address: presencialAddress,
+            customSlots: customSlots.presencial
+          },
           updated_at: new Date().toISOString()
         }, { onConflict: 'date' });
         
@@ -1838,8 +2156,17 @@
         }
         
         dayAvailability[dateStr] = { 
-          virtual: { available: virtualAvailable, slots: virtualSlots }, 
-          presencial: { available: presencialAvailable, slots: presencialSlots, address: presencialAddress }
+          virtual: { 
+            available: virtualAvailable, 
+            slots: virtualSlots,
+            customSlots: customSlots.virtual
+          }, 
+          presencial: { 
+            available: presencialAvailable, 
+            slots: presencialSlots, 
+            address: presencialAddress,
+            customSlots: customSlots.presencial
+          }
         };
         
         renderAdminCalendar();
@@ -1925,9 +2252,15 @@
       select.innerHTML = '<option value="">Seleccionar...</option>';
       
       let slots = [];
-      if (dayConfig[modality]?.available && dayConfig[modality]?.slots.length > 0) {
-        slots = dayConfig[modality].slots;
-      } else {
+      if (dayConfig[modality]?.available) {
+        // Combinar slots regulares y personalizados
+        slots = [...(dayConfig[modality].slots || [])];
+        if (dayConfig[modality].customSlots) {
+          slots.push(...dayConfig[modality].customSlots);
+        }
+      }
+      
+      if (slots.length === 0) {
         slots = defaultTimeSlots.map(t => ({ time: t, duration: DEFAULT_DURATION }));
       }
       
@@ -1936,12 +2269,13 @@
       for (const slot of slots) {
         const isAvailable = isTimeAvailable(date, slot.time, modality, editingAppointment?.id);
         const isCurrent = slot.time === currentTime;
+        const isCustom = dayConfig[modality]?.customSlots?.some(s => s.time === slot.time);
         
         const option = document.createElement('option');
         option.value = slot.time;
         
         const endTime = minutesToTime(timeToMinutes(slot.time) + slot.duration);
-        let text = `${slot.time} - ${endTime} (${slot.duration} min)`;
+        let text = `${slot.time}${isCustom ? ' (P)' : ''} - ${endTime} (${slot.duration} min)`;
         
         if (!isAvailable && !isCurrent) {
           text += ' [OCUPADO]';
@@ -1985,7 +2319,8 @@
       }
       
       const newSlot = getDayConfig(newDate)[newModality]?.slots?.find(s => s.time === newTime);
-      const newDuration = newSlot ? newSlot.duration : DEFAULT_DURATION;
+      const newCustomSlot = getDayConfig(newDate)[newModality]?.customSlots?.find(s => s.time === newTime);
+      const newDuration = newSlot?.duration || newCustomSlot?.duration || DEFAULT_DURATION;
       
       try {
         await supabaseClient.from(TABLE_NAME).update({ 
